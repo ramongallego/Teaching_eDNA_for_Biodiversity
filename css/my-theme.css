@@ -140,23 +140,30 @@ th, td { padding: 5px; }
  * Coloured content boxes
  ****************/
 .content-box { 
-    box-sizing: border-box;
+    box-sizing: content-box;
     background-color: #e2e2e2;
 }
-.content-box-blue,
+.content-box-purple{
+  box-sizing: content-box;
+  border-radius: 5px;
+  margin: 0 0 5px;
+  overflow: hidden;
+  padding: 0px 20px 0px 10px;
+  width: max-content;
+}
 .content-box-white,
 .content-box-gray,
 .content-box-grey,
 .content-box-army,
 .content-box-green,
-.content-box-purple,
+.content-box-blue,
 .content-box-red,
 .content-box-yellow {
-  box-sizing: border-box;
+  box-sizing: content-box;
   border-radius: 5px;
   margin: 0 0 5px;
   overflow: hidden;
-  padding: 0px 20px 0px 0px;
+  padding: 0px 20px 0px 10px;
   width: 100%;
 }
 .content-box-blue { background-color: #F0F8FF; }
@@ -167,7 +174,7 @@ th, td { padding: 5px; }
 .content-box-purple { background-color: #e2e2f9; }
 .content-box-red { background-color: #ffcccc; }
 .content-box-yellow { background-color: #fef5c4; }
-.content-box-white { background-color: #FFFFFF; }
+.content-box-white { background-color: #FFFFFF; color: #0c1a3d;}
 .content-box-blue .remark-inline-code,
 .content-box-white .remark-inline-code,
 .content-box-gray .remark-inline-code,

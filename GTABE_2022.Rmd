@@ -1,6 +1,6 @@
 ---
 title: "ADN ambiental (eDNA)"
-subtitle: "y sus aplicaciones en ecosistemas marinos (y más allá)"
+subtitle: "y sus aplicaciones en estudios de Biodiversidad"
 author: "Ramón Gallego"
 institute: "NWFSC"
 date: "2021/08/17"
@@ -26,7 +26,7 @@ background-size: cover
 
 # .huge[*ADN ambiental (eDNA)*]
 
-## *y sus aplicaciones en ecosistemas marinos*
+## *y sus aplicaciones en estudios de Biodiversidad*
 
 ## *(y más alla)*
 
@@ -106,7 +106,7 @@ background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 
 
 .content-box-purple[
 
- * .huge[.nord1[.bold[eDNA]]]
+ ### .huge[.nord1[.bold[eDNA]]]
 
 ]
 
@@ -141,6 +141,58 @@ background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 
 
 ]
 
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Deteccion de especies de interes]]]
+
+]
+
+---
+
+.content-box-yellow[
+.center[##.nord1[.center[Menú del día ]]]]
+</br>
+
+
+.content-box-purple[
+
+ ### .huge[.nord1[.bold[Ancient DNA]]]
+
+]
+
+--
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Movimientos migratorios]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Perfiles de comunidad]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Patogenos a lo largo de la historia]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Sediment cores y paleoecologia]]]
+
+]
+
 
 
 ---
@@ -155,20 +207,49 @@ class: center, middle
 
 
 ---
+
+name: modos de obtenerla
+class: nord-dark
+### .fancy[*environmental DNA*]
+
+
+.content-box-purple[
+.nord1[
+## Single-species assays
+
+  -   ### *qPCR*
+  -   ### *ddPCR*
+  -   ### *CRISPR-Cas9*
+]]
+
+---
 name: tipos de informacion
 class: nord-dark
 ### .fancy[*environmental DNA*]
 
-.content-box-yellow[
-.center[##.nord1[Cuantificación ]]]
+.content-box-purple[
+.center[##.nord1[Cuantificación ]]
+</br>
+<img src="images/pone.0122763.g003.png" alt="sst" width="500" />
+
+
+]
+
+---
+name: tipos de informacion
+class: nord-dark
+### .fancy[*environmental DNA*]
 
 .content-box-purple[
-```{r,echo=F, out.width='70%',out.height='70%', fig.align='center'}
-knitr::include_graphics("images/pone.0122763.g003.png")
-```
+.center[##.nord1[Cuantificación ]]
+</br>
+<img src="images/pone.0122763.g003.png" alt="sst" width="500" />
+
 
 ]
 ---
+
+
 name: tipos de informacion
 class: nord-dark
 ### .fancy[*environmental DNA*]
@@ -225,7 +306,8 @@ class: nord-dark
 ## Single-species assays
 
   -   ### *qPCR*
-  -   ### *ddPCR* 
+  -   ### *ddPCR*
+  -   ### *CRISPR-Cas9*
 ]]
 
 --
@@ -336,8 +418,19 @@ knitr::include_graphics("images/air.eDNA.png")
 ```
 
 ]
+---
 
+name: Esponjas
 
+.center[ # Animales]
+
+.content-box-purple[
+```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
+knitr::include_graphics("images/Sponges.png")
+knitr::include_graphics("images/honey.png")
+```
+
+]
 ---
 
 name: Intro to OA_eDNA
@@ -468,6 +561,33 @@ leaflet(data = read_csv(here("Data","site.info.csv"))) %>%
 ]
 
 
+]
+
+---
+class: nord-dark
+name: Process1
+.center[
+<img src="images/eDNA_16x9.jpg" alt="PCRbias" />
+]
+
+---
+class: nord-dark
+name: Process2
+.pull-left[
+<img src="images/Ana.jpg" alt="PCRbias" />
+]
+
+--
+.pull-right[
+<img src="images/Filtering_in_the_car.jpg" alt="inthecar" />
+]
+
+---
+
+class: nord-dark
+name: Process1
+.center[
+<img src="images/eDNA_16x9.jpg" alt="PCRbias" />
 ]
 
 ---
@@ -1457,6 +1577,51 @@ Zoo Puffn's diet a healthy mixture of:
 
 .huge[** Forward and Reverse from the same sequence**]
 ]
+
+---
+
+name: Intro to aDNA
+class: inverse, center, middle
+layout: false
+
+# .nord4[aDNA ]
+## .nord4[una ventana al pasado]
+
+---
+
+class: center, middle
+
+### .fancy[*ancient DNA*]
+
+
+.huge[  *Ultrashort and degraded DNA fragments that are preserved in subfossil material, including hard tissues, such as bones, teeth and shells, and soft tissues, such as mummified skin and hair, as well as sediments.*, Orlando et al. 2021]
+
+---
+name: aDNA - caracteristicas
+class: nord-dark
+### .fancy[*ancient DNA*]
+
+.content-box-yellow[
+.center[##.nord1[Caracteristicas ]]]
+
+* Fragmentación del ADN
+
+* Substitución de bases
+
+.content-box-purple[
+
+.bold[.huge[Ambas aumentan con el tiempo y en funcion del medio]]
+
+.bold[.huge[Son una barrera para la interpretación de los resultados]]
+
+.bold[.huge[Pero ayudan a distinguir aDNA del resto de DNA en la muestra]]
+
+]
+---
+background-image: url(images/aDNA_damages.png)
+background-size: contain
+---
+
 
 ---
 layout: false
