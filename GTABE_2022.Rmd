@@ -32,7 +32,7 @@ background-size: cover
 
 ```{css, echo=F}
 .small { font-size: 70% }
-.huge  { font-size: 120% }
+.huge  { font-size: 150% }
 ```
 
 
@@ -222,18 +222,6 @@ class: nord-dark
   -   ### *CRISPR-Cas9*
 ]]
 
----
-name: tipos de informacion
-class: nord-dark
-### .fancy[*environmental DNA*]
-
-.content-box-purple[
-.center[##.nord1[Cuantificación ]]
-</br>
-<img src="images/pone.0122763.g003.png" alt="sst" width="500" />
-
-
-]
 
 ---
 name: tipos de informacion
@@ -345,23 +333,23 @@ name: Soil
 
 .center[ # Suelo]
 
-.content-box-purple[
+
 ```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
 knitr::include_graphics("images/Tiara_TNC.jpg")
 ```
 
-]
+
 
 ---
 
 .center[ # Suelo]
 
-.content-box-purple[
+
 ```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
 knitr::include_graphics("images/Tiara_UCLA.jpg")
 ```
 
-]
+
 
 ---
 
@@ -369,12 +357,12 @@ name: Freshwater
 
 .center[ # Rios]
 
-.content-box-purple[
+
 ```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
 knitr::include_graphics("images/Freshwater.jpeg")
 ```
 
-]
+
 
 ---
 
@@ -382,13 +370,13 @@ name: Freshwater
 
 .center[ # Aguas Costeras]
 
-.content-box-purple[
+
 ```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
 knitr::include_graphics("images/eDNA_16x9.jpg")
 knitr::include_graphics("images/procB2.png")
 ```
 
-]
+
 
 ---
 
@@ -396,41 +384,163 @@ name: Freshwater
 
 .center[ ## Aguas Abiertas]
 
-.content-box-purple[
+
 ```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
 knitr::include_graphics("images/CTD.jpg")
 knitr::include_graphics("images/ProcB_hake.png")
 
 ```
 
-]
+
 
 ---
 
 name: Freshwater
 
-.center[ # Aire]
+.center[ # Aire!]
 
-.content-box-purple[
+
 ```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
 knitr::include_graphics("images/eDNA_air.jpg")
 knitr::include_graphics("images/air.eDNA.png")
 ```
 
-]
+
 ---
 
 name: Esponjas
 
-.center[ # Animales]
+.center[ # Animales!]
 
-.content-box-purple[
+
 ```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
 knitr::include_graphics("images/Sponges.png")
-knitr::include_graphics("images/honey.png")
+
 ```
 
-]
+
+---
+
+name: Miel
+
+.center[ # Animales!]
+
+```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
+knitr::include_graphics("images/honey.png")
+
+```
+
+
+---
+name: Intro to qPCR assays
+class: inverse, center, middle
+layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+
+# .nord4[Quantitative assays: qPCR]
+
+---
+name: qPCR_template
+class: nord-light, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-size: cover
+layout: true
+
+### .center.nord9.bold[Quantitative assays: qPCR]
+
+---
+name: qPCR_1
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+  -   ### * $$Fluorescence  \sim [DNA]$$* 
+  
+
+  ]]
+  
+---
+name: qPCR_Fluor
+background-image:  url(images/qpcr_curves-1.jpg)
+background-size: 90% 90%
+background-position: 50% 90%
+---
+name: qPCR_2
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+.huge[
+
+$$Fluorescencia  \sim [DNA]$$
+
+
+$$Fluorescencia_{ st} -> [DNA]_{st}$$ 
+ 
+    
+$$Fluorescencia _{ muestra} -> [DNA]_{muestra}$$ 
+  ]
+]]
+---
+name: qPCR_Fluor
+background-image:  url(images/standards.qpcr.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: qPCR_Fluor
+background-image:  url(images/Standardandlinear.PNG)
+background-size: 90% 90%
+background-position: 50% 90%
+
+  
+---
+name: qPCR_2
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+$$Fluorescencia  \sim [DNA]$$
+
+
+$$Fluorescencia_{ st} -> [DNA]_{st}$$ 
+
+
+  -   #### *Un proceso muy utilizado, pero con procesos aleatorios y con variación*
+]]
+
+---
+name: qPCR_Fluor
+background-image:  url(images/Long_qPCR_Process.PNG)
+background-size: 90% 90%
+background-position: 50% 90%
+
+
+---
+name: qPCR_1
+
+</br>
+.content-box-purple[
+.nord1[
+
+##  ¿Cuándo usarlo?
+
+  -   ### *Cuando añade precisión*
+
+  -   ### *Cuando reduce costes*
+
+  -   ### *Cuando la biología de la especie hace*
+      ### *muy difícil otros métodos*
+
+  -   ### *Cuando añade información*
+
+]]
 ---
 
 name: Intro to OA_eDNA
