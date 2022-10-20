@@ -523,6 +523,36 @@ background-position: 50% 90%
 
 
 ---
+name: design
+
+.content-box-purple[
+.nord1[
+
+### ¿Cómo diseñar un experimento qPCR?
+
+]]
+
+
+---
+name: qPCrdesign
+background-image:  url(images/qPCR_design.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: qPCrdesign
+background-image:  url(images/qPCR_design_with_probe.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: qPCrdesign
+background-image:  url(images/qPCR_design_with_2probes.png)
+background-size: 90% 90%
+background-position: 50% 90%
+---
+
+
 name: qPCR_1
 
 </br>
@@ -541,16 +571,247 @@ name: qPCR_1
   -   ### *Cuando añade información*
 
 ]]
+
 ---
 
-name: Intro to OA_eDNA
+name: qPCR_4
+
+</br>
+.content-box-purple[
+.nord1[
+
+##  ¿Cómo usarlo?
+
+  -   ### *Curva estándar y estimación puntual* 
+
+  -   ### *Occupancy modelling*
+
+  -   ### *Integrar todos los procesos y *
+      ### *Estimar parámetros con Bayesian models*
+
+]]
+---
+
+name: Intro to metabarcoding
 class: inverse, center, middle
 layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
 
-# .nord4[Cambios en comunidades costeras con calentamiento y acidificación de los océanos]
+
+
+# .nord4[Estudios cualitativos: metabarcoding]
+
+---
+name: metabarcoding template
+class: nord-light, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-size: cover
+layout: true
+
+### .center.nord9.bold[Identity assays: metabarcoding]
+
+
+---
+name: metabarcoding_1
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+  -   ### Secuenciación masiva y en paralelo
+  
+  
+
+  ]]
+  
+---
+name: parallel seq
+background-image:  url(images/Seqbysyn2.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: parallel seq
+background-image:  url(images/Seqbysyn.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: metabarcoding_2
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+  -    *Secuenciación masiva y en paralelo*
+  
+  - ###  De un fragmento homólogo
+  
+    - ### Universalidad
+    - ### Especificidad
+    - ### Tamaño
+  
+  
+
+  ]]
+---
+name: primer_design1
+background-image:  url(images/aligned.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: primerloc
+background-image:  url(images/primerloc.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: primer_candidates
+background-image:  url(images/thermus_16s_2ndry.jpeg)
+background-size: contain
+background-position: 50% 90%
+
+---
+name: primer_candidates
+background-image:  url(images/coi.png)
+background-size: contain
+background-position: 50% 90%
+---
+name: right sized
+background-image:  url(images/amplified.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: useful
+background-image:  url(images/identify.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+.center[
+##  ¿Cómo diseñar un experimento
+##  de metabarcoding?
+]
+
+  
+  
+
+  ]]
+
+---
+name: qPCR_Fluor
+background-image:  url(images/Long_qPCR_Process.PNG)
+background-size: 90% 90%
+background-position: 50% 90%
+---
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+
+.center[
+##  ¿Cómo diseñar un experimento
+##  de metabarcoding?
+]
+
+  -   ### Variación en el ambiente
+  
+  
+
+  ]]
+
 
 ---
 
+
+name: qPCR_Fluor
+background-image:  url(images/Biol.rep.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+
+.center[
+##  ¿Cómo diseñar un experimento
+##  de metabarcoding?
+]
+
+  -   ### Variación en el ambiente
+  
+  -  ### Variación en la PCR
+  
+  
+
+  ]]
+
+
+---
+name: metabarcode
+background-image:  url(images/visual.anova.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+
+.center[
+##  ¿Cúando usar metabarcoding?
+
+  
+]
+
+ - Información sobre una comunidad
+  
+  - Cambios en relación al cambio ambiental
+  
+  - Monitoreo continuo
+  
+  
+
+  ]] 
+---  
+
+
+---
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+
+##  ¿Cómo usar metabarcoding?
+
+  
+  
+
+  ]]
+  
+---
+
+name: Intro to OA
+class: inverse, center, middle
+layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+
+
+
+# .nord4[eDNA for Ocean Acidification and warming]  
+  
+---
 name: template_OA
 class: nord-light, typo-selection
 background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
