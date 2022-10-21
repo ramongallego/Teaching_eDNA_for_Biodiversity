@@ -113,14 +113,6 @@ background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 
 --
 .content-box-purple[
 
- * .huge[.nord1[.bold[Cambios ambientales, en las comunidades y eDNA]]]
-
-]
-
---
-
-.content-box-purple[
-
  * .huge[.nord1[.bold[eDNA como medida cuantitativa]]]
 
 ]
@@ -129,7 +121,7 @@ background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 
 
 .content-box-purple[
 
- * .huge[.nord1[.bold[Mitogenomas como barcodes]]]
+ * .huge[.nord1[.bold[Cambios ambientales, en las comunidades y eDNA]]]
 
 ]
 
@@ -146,6 +138,14 @@ background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 
 .content-box-purple[
 
  * .huge[.nord1[.bold[Deteccion de especies de interes]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Mitogenomas como barcodes]]]
 
 ]
 
@@ -937,30 +937,129 @@ leaflet(data = read_csv(here("Data","site.info.csv"))) %>%
 ---
 class: nord-dark
 name: Process1
-.center[
-<img src="images/eDNA_16x9.jpg" alt="PCRbias" />
-]
+
+background-image:  url(images/eDNA_16x9.jpg)
+background-size: contain
+background-position: 50% 50%
+
 
 ---
 class: nord-dark
 name: Process2
-.pull-left[
-<img src="images/Ana.jpg" alt="PCRbias" />
-]
+background-image:  url(images/Ana.jpg)
+background-size: contain
+background-position: 50% 50%
 
---
-.pull-right[
-<img src="images/Filtering_in_the_car.jpg" alt="inthecar" />
-]
+
 
 ---
 
 class: nord-dark
-name: Process1
-.center[
-<img src="images/eDNA_16x9.jpg" alt="PCRbias" />
+name: Filter 2
+background-image:  url(images/Filtering_in_the_car.jpg)
+background-size: contain
+background-position: 50% 50%
+
+
+
+
+---
+
+class: nord-dark
+name: PCR and seq
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[ocho estaciones]]]
+
 ]
 
+---
+class: nord-dark
+
+</br>
+
+```{r, message = F, echo = F, out.width= '90%'}
+
+
+
+leaflet(data = read_csv(here("Data","site.info.csv"))) %>% 
+  addTiles() %>% 
+  setView(lat = 48, lng = -122.5, zoom = 8) %>% 
+  addMarkers(label = ~Site, 
+             labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
+  permanent = FALSE, className = "", direction = "auto",
+  offset = c(1, 1), opacity = 1, textsize = "20px",
+  textOnly = FALSE, style = NULL, 
+  sticky = TRUE)
+  )
+```
+
+---
+class: nord-dark
+name: PCR and seq
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[ocho estaciones]]]
+
+]
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[muestreadas cada mes durante 1.5 años]]]
+
+]
+
+--
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Cada sitio*mes : 3 biol.reps]]]
+
+]
+
+---
+
+background-image:  url(images/Biol.rep.png)
+background-size: contain
+background-position: 50% 50%
+
+
+
+
+---
+.content-box-purple[
+
+ * .huge[.nord1[.bold[ocho estaciones]]]
+
+]
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[muestreadas cada mes durante 1.5 años]]]
+
+]
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Cada sitio*mes : 3 biol.reps]]]
+
+]
+--
+.content-box-purple[
+
+ * .huge[.nord1[.bold[cada muestra 3 tech reps]]]
+
+]
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Amplificadas COI]]]
+
+]
 ---
 
 
@@ -1261,104 +1360,384 @@ Taking advantage from recently published models for the inner sea
 
 <img src="images/Dinophyceaerastertitle.png" alt="PCRbias" width="850">
 
+
+
+
+
 ---
 
-
-name: Intro to mitoge
+name: Intro to puffin
 class: inverse, center, middle
 layout: false
 
-# .nord4[Mitogenomas a la carta]
-
-
----
-layout: false
-name: concept
-class: nord-light, center
-
-# *Diseño de primers *
-
-###.bold[Dos secciones del genoma compartida  ]
-
-
-<img src="images/aligned.png" alt="pipeline" width="550" />
-
+# .nord4[Diet composition in the Tufted Puffin]
 
 ---
-class: nord-light, center
 
-# *Diseño de primers *
-
-###.bold[Dos secciones del genoma compartida  ]
-
-
-<img src="images/primerloc.png" alt="pipeline" width="550" />
-
+layout: true
+class: nord-light,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+###  .center.nord9.bold[*Diet composition in the Tufted Puffin*]
 ---
-class: nord-light, center
 
-# *Diseño de primers *
+## .huge[.nord5[.center[.huge[*Bonus track*]]]]
 
-###.bold[Dos secciones del genoma compartida  ]
-###.bold[Incluyendo una zona altamente diferenciada  ]
+.center[
+.content-box-blue[
 
-<img src="images/amplified.png" alt="pipeline" width="550" />
-
----
-class: nord-light, center
-
-# *Diseño de primers *
-
-
-
-
-### Dos grandes grupos de zonas candidatas
-
-.pull-left[
-.bold[ribosomal RNA]
- 
- 1. Los puentes estan conservados
- 2. Los loops mutan libremente
- 3. Ejemplos 16SrRNA, 18SrRNA 
- 
-<img src="images/thermus_16s_2ndry.jpeg" alt="16S" width="300" />
-
+.huge[.nord1[*Diet composition in the Tufted Puffin*]]  
 ]
-.pull-right[
-.bold[Genes de proteinas transmembrana]
-
-   1. El AA tiene que ser hidrofobo
-   2. La tercera base puede cambiar
-   2. Mejor si son mitocondriales  (Hay muchas)
-   3. Ejemplos: COI, Cytb
-
-<img src="images/COI.png" alt="16S"  />
-
 ]
-
-
----
-class: nord-light
-
-# Diseño de primers 
-
-# *Secuenciacion Masiva*
-
-</br>
 
 .left-column[
-1. .huge[*Sequencing by Synthesis*]
+.content-box-yellow[
+
+- Using longer reads
+- Adaptive sampling vs blocker
+- Useful when non-target >>> target
+]
+]
+
+.right-column[
+<img src="images/Puffin_Eating.jpeg" alt="puffin" width="800" >
+
+.footnote[ .nord5[.bold[Credit: @USFWSAlaska ]]]
+]
+
+---
+
+--- 
+
+## .nord5[.center[*Why should we care*]]
+
+.center[
+.content-box-blue[
+
+.huge[.nord1[*Target DNA outweighted by host DNA*]]  
+]]
+
+
+.left-column[
+.content-box-yellow[
+
+- Microbiome
+- Infection
+- Taxomical proximity
+- Mitochondrial vs bacteria
+]
+
+--
 
 ]
- 
+
 .right-column[
-```{r, out.width='75%', echo=F }
-knitr::include_graphics("images/Seqbysyn2.png")
-```
-] 
+
+.content-box-white[<img src="images/blocker_puffin.png" alt="puffin" width="800" >]
+
+
+]
 
 
 ---
+
+## .nord5[.center[*Standard operation*]]
+
+.pull-left[
+.content-box-yellow[
+  - Using fecal and soil samples from nests (and zoo)
+  - Short fragment targets:
+      - Vertebrates
+      - Invertebrates
+      - Crustaceans
+  - PCR with a Puffin specific blocker
+  - Sequence on Illumina
+]
+
+]
+
+--
+
+.pull-right[
+.content-box-yellow[
+
+- Pooling information from three overlapping primers
+- Effect of Puffin blocker on other similar species
+  
+]
+]
+
+---
+
+
+layout: false
+class: nord-light,  typo-selection
+background-image: url(images/Zoo_samples.png)
+background-size: contain
+
+
+
+
+---
+
+
+
+background-image: url(images/Field_samples.png)
+background-size: contain
+
+
+---
+
+
+layout: true
+class: nord-light,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+###  .center.nord9.bold[*Diet composition in the Tufted Puffin*]
+---
+
+## .nord5[.center[*Nanopore Approach*]]
+
+.pull-left[
+.content-box-yellow[
+  - Using fecal samples the zoo
+  - PCR 12S - 16S ~ 2000 bp
+  - Sequence on Nanopore
+  - Blocking Puffin sequences 
+  - Adaptive Sampling on a Mk1b + MinIT
+]
+<img src="images/mk1c_twitter.jpg" alt="adaptive"  >
+]
+
+.pull-right[
+
+<img src="images/home_lab.jpeg" alt="adaptive"  >
+
+]
+---
+## .nord5[.center[*Nanopore Approach*]]
+
+.pull-left[
+.content-box-yellow[
+  - Using fecal samples from the zoo
+  - PCR 12S - 16S ~ 2000 bp
+  - Sequence on Nanopore
+  - Blocking Puffin sequences 
+  - Adaptive Sampling on a Mk1b + MinIT
+]
+
+]
+
+
+
+.pull-right[
+
+<img src="images/adaptive_sampling.jpg" alt="adaptive"  >
+
+.content-box-purple[
+
+- Run for ~ 4 hours
+- Flowcell 10
+- \> 150k reads
+- Run `decona` with Medaka + Racon
+]
+]
+
+---
+## .nord5[.center[*Preliminary results*]]
+.left-column[
+.content-box-yellow[
+
+Zoo Puffn's diet a healthy mixture of:
+- Capelin
+- squid
+- krill
+- herring
+- Silverside
+
+]
+
+]
+
+--
+
+.right-column[
+
+.content-box-purple[
+
+.huge[`decona` found 4 contigs that we could match to:]
+- 97.67% `pident` with *Mallotus villosus* (Capelin) (~2k bp)
+- 99.90% `pident` with *Menidia menidia* (Atlantic Silverside)(~ 2k bp)
+- 96% `pident` with *Fratercula arctica* (Atlantic Puffin) (~1.3k bp)
+- 96% `pident` with *Pinguinus impennis* (Great Auk, extinct) (~1.3k bp)
+]
+
+]
+---
+
+## .nord5[.center[*Preliminary results*]]
+
+.left-column[
+.content-box-yellow[
+
+Zoo Puffn's diet a healthy mixture of:
+- Capelin
+- squid
+- krill
+- herring
+- Silverside
+
+]
+
+]
+
+
+
+.right-column[
+
+.content-box-purple[
+
+.huge[`decona` found 4 contigs that we could match to:]
+- 97.67% `pident` with *Mallotus villosus* (Capelin) (~2k bp)
+- 99.90% `pident` with *Menidia menidia* (Atlantic Silverside)(~ 2k bp)
+ .content-box-red[ 
+ 
+- 96% `pident` with *Fratercula arctica* (Atlantic Puffin) (~1.3k bp)
+- 96% `pident` with *Pinguinus impennis* (Great Auk, extinct) (~1.3k bp)
+
+]]
+
+]
+
+---
+
+.content-box-purple[
+.huge[**Both *short* sequences are...**]
+
+<img src="images/Puffin.png" alt="alignment"  >
+
+.huge[** Forward and Reverse from the same sequence**]
+]
+---
+
+
+name: Intro to deteccion
+class: inverse, center, middle
+layout: false
+
+# .nord4[Detección de especies de interés]
+
+---
+
+layout: true
+class: nord-light,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+
+###  .center.nord9.bold[*Detección de especies con eDNA*]
+
+---
+name: species 
+
+.content-box-purple[
+.nord1[
+
+## Casos posibles
+
+  -   ### Detección de especies objetivo
+  
+  
+
+  ]]
+--
+.content-box-purple[
+.nord1[
+
+.huge[ - Diseñar primers que amplifiquen y distingan]
+
+
+]]
+
+--
+.content-box-purple[
+.nord1[
+
+.huge[ - Secuenciar]
+
+
+]]
+---
+name: metabarcode
+background-image:  url(images/detecting_fish1.png)
+background-size: contain
+background-position: 50% 50%
+
+---
+name: metabarcode
+background-image:  url(images/detecting_fish2.png)
+background-size: contain
+background-position: 50% 50%
+
+---
+name: metabarcode
+background-image:  url(images/detecting_fish3.png)
+background-size: contain
+background-position: 50% 50%
+
+---
+name: species 
+
+.content-box-purple[
+.nord1[
+
+## Casos posibles
+
+  -   ### Detección de especies objetivo
+  
+  
+
+  ]]
+--
+.content-box-purple[
+.nord1[
+
+.huge[ - Diseñar qPCR assay]
+
+
+]]
+
+--
+.content-box-purple[
+.nord1[
+
+.huge[ - Interpretar]
+
+
+]]
+
+---
+name: metabarcode
+background-image:  url(images/greencrab.png)
+background-size: contain
+background-position: 50% 50%
+
+---
+name: species 
+
+.content-box-purple[
+.nord1[
+
+## Ambiciones
+
+  -   ### Secuencia ahora, pregunta luego
+  
+  
+
+  ]]
+---
+name: Intro to mitoge
+
+
 
 layout:false
 class: nord-light,  middle, typo-selection
@@ -1367,12 +1746,15 @@ background-size: cover
 ### .huge[.nord5[.center[ .bold[Building mitochondrial references ]]]]
 ### .nord5[.center[ .bold[for species identification ]]]
 
+
 ---
 
 layout: true
 class: nord-light,  typo-selection
 background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
 background-size: cover
+###  .center.nord9.bold[*Mitogenomas: go big or go home*]
+
 
 ---
 ### .huge[.nord5[.center[ .bold[Building mitochondrial reference databases ]]]]
@@ -1441,16 +1823,8 @@ name: Myctophids
 background-image: url(images/All.coveragev2.png)
 background-size: contain
 
+
 # .bold[Myctophids]
-
----
-
-
-
-layout: true
-class: nord-light,  typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
 
 ---
 
@@ -1693,262 +2067,6 @@ background-size: contain
 --
 
 ![](images/first_traslocation_fades.gif)
-
-
-
----
-
-name: Intro to cuant
-class: inverse, center, middle
-layout: false
-
-# .nord4[Diet composition in the Tufted Puffin]
-
----
-
-layout: true
-class: nord-light,  typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
----
-
-## .huge[.nord5[.center[.huge[*Bonus track*]]]]
-
-.center[
-.content-box-blue[
-
-.huge[.nord1[*Diet composition in the Tufted Puffin*]]  
-]
-]
-
-.left-column[
-.content-box-yellow[
-
-- Using longer reads
-- Adaptive sampling vs blocker
-- Useful when non-target >>> target
-]
-]
-
-.right-column[
-<img src="images/Puffin_Eating.jpeg" alt="puffin" width="800" >
-
-.footnote[ .nord5[.bold[Credit: @USFWSAlaska ]]]
-]
-
----
-
---- 
-
-## .nord5[.center[*Why should we care*]]
-
-.center[
-.content-box-blue[
-
-.huge[.nord1[*Target DNA outweighted by host DNA*]]  
-]]
-
-
-.left-column[
-.content-box-yellow[
-
-- Microbiome
-- Infection
-- Taxomical proximity
-- Mitochondrial vs bacteria
-]
-
---
-
-]
-
-.right-column[
-
-.content-box-white[<img src="images/blocker_puffin.png" alt="puffin" width="800" >]
-
-
-]
-
-
----
-
-## .nord5[.center[*Standard operation*]]
-
-.pull-left[
-.content-box-yellow[
-  - Using fecal and soil samples from nests (and zoo)
-  - Short fragment targets:
-      - Vertebrates
-      - Invertebrates
-      - Crustaceans
-  - PCR with a Puffin specific blocker
-  - Sequence on Illumina
-]
-
-]
-
---
-
-.pull-right[
-.content-box-purple[
-
-- Pooling information from three overlapping primers
-- Effect of Puffin blocker on other similar species
-  
-]
-]
-
----
-
-
-layout: false
-class: nord-light,  typo-selection
-background-image: url(images/Zoo_samples.png)
-background-size: contain
-
-
-
-
----
-
-
-
-background-image: url(images/Field_samples.png)
-background-size: contain
-
-
----
-
-
-layout: true
-class: nord-light,  typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
----
-
-## .nord5[.center[*Nanopore Approach*]]
-
-.pull-left[
-.content-box-yellow[
-  - Using fecal samples the zoo
-  - PCR 12S - 16S ~ 2000 bp
-  - Sequence on Nanopore
-  - Blocking Puffin sequences 
-  - Adaptive Sampling on a Mk1b + MinIT
-]
-<img src="images/mk1c_twitter.jpg" alt="adaptive"  >
-]
-
-.pull-right[
-
-<img src="images/home_lab.jpeg" alt="adaptive"  >
-
-]
----
-## .nord5[.center[*Nanopore Approach*]]
-
-.pull-left[
-.content-box-yellow[
-  - Using fecal samples from the zoo
-  - PCR 12S - 16S ~ 2000 bp
-  - Sequence on Nanopore
-  - Blocking Puffin sequences 
-  - Adaptive Sampling on a Mk1b + MinIT
-]
-
-]
-
-
-
-.pull-right[
-
-<img src="images/adaptive_sampling.jpg" alt="adaptive"  >
-
-.content-box-purple[
-
-- Run for ~ 4 hours
-- Flowcell 10
-- \> 150k reads
-- Run `decona` with Medaka + Racon
-]
-]
-
----
-## .nord5[.center[*Preliminary results*]]
-.left-column[
-.content-box-yellow[
-
-Zoo Puffn's diet a healthy mixture of:
-- Capelin
-- squid
-- krill
-- herring
-- Silverside
-
-]
-
-]
-
---
-
-.right-column[
-
-.content-box-purple[
-
-.huge[`decona` found 4 contigs that we could match to:]
-- 97.67% `pident` with *Mallotus villosus* (Capelin) (~2k bp)
-- 99.90% `pident` with *Menidia menidia* (Atlantic Silverside)(~ 2k bp)
-- 96% `pident` with *Fratercula arctica* (Atlantic Puffin) (~1.3k bp)
-- 96% `pident` with *Pinguinus impennis* (Great Auk, extinct) (~1.3k bp)
-]
-
-]
----
-
-## .nord5[.center[*Preliminary results*]]
-
-.left-column[
-.content-box-yellow[
-
-Zoo Puffn's diet a healthy mixture of:
-- Capelin
-- squid
-- krill
-- herring
-- Silverside
-
-]
-
-]
-
-
-
-.right-column[
-
-.content-box-purple[
-
-.huge[`decona` found 4 contigs that we could match to:]
-- 97.67% `pident` with *Mallotus villosus* (Capelin) (~2k bp)
-- 99.90% `pident` with *Menidia menidia* (Atlantic Silverside)(~ 2k bp)
- .content-box-red[ 
- 
-- 96% `pident` with *Fratercula arctica* (Atlantic Puffin) (~1.3k bp)
-- 96% `pident` with *Pinguinus impennis* (Great Auk, extinct) (~1.3k bp)
-
-]]
-
-]
-
----
-
-.content-box-purple[
-.huge[**Both *short* sequences are...**]
-
-<img src="images/Puffin.png" alt="alignment"  >
-
-.huge[** Forward and Reverse from the same sequence**]
-]
-
 ---
 
 name: Intro to aDNA
@@ -1957,6 +2075,15 @@ layout: false
 
 # .nord4[aDNA ]
 ## .nord4[una ventana al pasado]
+
+---
+name: qPCR_template
+class: nord-light, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-size: cover
+layout: true
+
+### .center.nord9.bold[ancientDNA]
 
 ---
 
@@ -1979,7 +2106,7 @@ class: nord-dark
 
 * Substitución de bases
 
-.content-box-purple[
+.content-box-yellow[
 
 .bold[.huge[Ambas aumentan con el tiempo y en funcion del medio]]
 
