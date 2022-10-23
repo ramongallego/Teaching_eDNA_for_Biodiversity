@@ -47,10 +47,10 @@ background-size: cover
 
 ```{r setup, include=FALSE, message=F, echo=FALSE}
 options(htmltools.dir.version = FALSE)
-library (leaflet)
+# library (leaflet)
 library(tidyverse)
 library(here)
-library(kableExtra)
+# library(kableExtra)
 library(DT)
 ```
 
@@ -173,7 +173,7 @@ background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 
 
 .content-box-purple[
 
- * .huge[.nord1[.bold[Perfiles de comunidad]]]
+ * .huge[.nord1[.bold[Evolución / Conectividad]]]
 
 ]
 
@@ -181,7 +181,7 @@ background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 
 
 .content-box-purple[
 
- * .huge[.nord1[.bold[Patogenos a lo largo de la historia]]]
+ * .huge[.nord1[.bold[Patógenos a lo largo de la historia]]]
 
 ]
 
@@ -269,16 +269,17 @@ read_csv(here("Data", "ASV_table_all_together.csv")) %>%
     pivot_wider(id_cols = label, names_from = sample, values_from = nReads, values_fill = list (nReads = 0), values_fn = list(nReads= sum)) %>% 
     rename (Taxa = label) -> data
   data %>% 
-    select(1:7) %>% 
-    kable() %>% 
-    kable_styling(full_width = T, 
-                  bootstrap_options = "hover") %>% 
-       column_spec(1, italic  = T) %>% 
-       column_spec(2:6, width = '1in') -> nice.table
+    select(1:7) -> nice.table # %>% 
+    # kable() %>% 
+    # kable_styling(full_width = T, 
+    #               bootstrap_options = "hover") %>% 
+    #    column_spec(1, italic  = T) %>% 
+    #    column_spec(2:6, width = '1in') 
+  
    
-
-nice.table %>% 
- scroll_box( height = "600px")
+nice.table
+# nice.table %>% 
+#  scroll_box( height = "600px")
 ```
 
 ]
@@ -307,6 +308,14 @@ class: nord-dark
 ## Multi-species assays
 
   - ###*metabarcoding*
+]]
+
+--
+.content-box-purple[
+.nord1[
+
+
+  - ###*metagenomics*
 ]]
 
 
@@ -602,6 +611,71 @@ background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%
 # .nord4[Estudios cualitativos: metabarcoding]
 
 ---
+
+
+name: What for
+class: nord-dark, center, middle
+layout: false
+
+
+## .nord4[**eDNA and marine ecology**]
+
+
+
+---
+
+name: Template
+layout: true
+class: inverse, center, middle
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-size: cover
+
+---
+name: Gaining popularity
+.center[ ## eDNA is gaining popularity]
+
+<img src="images/eDNA_popularity.jpg" alt="pop" width="700" />
+
+---
+
+name: Types of publications I
+
+     ### It works!                    
+
+
+
+<img src="images/It_works.1.png" alt="pop" width="600" />
+</br>
+<img src="images/It_works.2.png" alt="pop" width="600" />
+
+---
+
+name: Types of publications II
+ 
+### Different views
+
+
+<img src="images/Different_things_1.png" alt="pop" width="600" />
+</br>
+<img src="images/Different_things_2.png" alt="pop" width="600" />
+
+---
+
+name: Types of publications III
+
+### Ecological research
+
+
+
+<img src="images/Ecological_inference_1.png" alt="pop" width="600" />
+</br>
+<img src="images/Ecological_inference_2.png" alt="pop" width="600" />
+
+
+
+
+
+---
 name: metabarcoding template
 class: nord-light, typo-selection
 background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
@@ -676,9 +750,9 @@ background-position: 50% 90%
 
 ---
 name: primer_candidates
-background-image:  url(images/coi.png)
+background-image:  url(images/COI.png)
 background-size: contain
-background-position: 50% 90%
+background-position: 50% 50%
 ---
 name: right sized
 background-image:  url(images/amplified.png)
@@ -760,7 +834,7 @@ name: metabarcoding_3
 ---
 name: metabarcode
 background-image:  url(images/visual.anova.png)
-background-size: 90% 90%
+background-size: 80% 90%
 background-position: 50% 90%
 
 ---
@@ -775,11 +849,13 @@ name: metabarcoding_3
   
 ]
 
- - Información sobre una comunidad
+ - ### Información sobre una comunidad
   
   - Cambios en relación al cambio ambiental
   
   - Monitoreo continuo
+  
+  - Censo  de especies presentes
   
   
 
@@ -903,16 +979,16 @@ name: Research plan
 
 
 
-leaflet(data = read_csv(here("Data","site.info.csv"))) %>% 
-  addTiles() %>% 
-  setView(lat = 47.5, lng = -122.5, zoom = 7) %>% 
-  addMarkers(label = ~Site, 
-             labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
-  permanent = FALSE, className = "", direction = "auto",
-  offset = c(1, 1), opacity = 1, textsize = "20px",
-  textOnly = FALSE, style = NULL, 
-  sticky = TRUE)
-  )
+# leaflet(data = read_csv(here("Data","site.info.csv"))) %>% 
+#   addTiles() %>% 
+#   setView(lat = 47.5, lng = -122.5, zoom = 7) %>% 
+#   addMarkers(label = ~Site, 
+#              labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
+#   permanent = FALSE, className = "", direction = "auto",
+#   offset = c(1, 1), opacity = 1, textsize = "20px",
+#   textOnly = FALSE, style = NULL, 
+#   sticky = TRUE)
+#   )
 ```
 ]
 
@@ -984,16 +1060,16 @@ class: nord-dark
 
 
 
-leaflet(data = read_csv(here("Data","site.info.csv"))) %>% 
-  addTiles() %>% 
-  setView(lat = 48, lng = -122.5, zoom = 8) %>% 
-  addMarkers(label = ~Site, 
-             labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
-  permanent = FALSE, className = "", direction = "auto",
-  offset = c(1, 1), opacity = 1, textsize = "20px",
-  textOnly = FALSE, style = NULL, 
-  sticky = TRUE)
-  )
+# leaflet(data = read_csv(here("Data","site.info.csv"))) %>% 
+#   addTiles() %>% 
+#   setView(lat = 48, lng = -122.5, zoom = 8) %>% 
+#   addMarkers(label = ~Site, 
+#              labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
+#   permanent = FALSE, className = "", direction = "auto",
+#   offset = c(1, 1), opacity = 1, textsize = "20px",
+#   textOnly = FALSE, style = NULL, 
+#   sticky = TRUE)
+#   )
 ```
 
 ---
@@ -1124,11 +1200,12 @@ read_csv(here("Data", "ASV_table_all_together.csv")) %>%
     arrange(sample) %>% 
     pivot_wider(id_cols = label, names_from = sample, values_from = nReads, values_fill = list (nReads = 0), values_fn = list(nReads= sum)) %>% 
     rename (Taxa = label) %>%
-    select(1:7) %>% 
-    kable() %>% 
-    kable_styling(full_width = T) %>% 
-       column_spec(1, italic  = T) %>% 
-       column_spec(2:6, width = '1in') -> nice.table
+    select(1:7)  -> nice.table#%>% 
+    # kable() %>% 
+    # kable_styling(full_width = T) %>% 
+    #    column_spec(1, italic  = T) %>% 
+    #    column_spec(2:6, width = '1in') 
+  
    
 
 nice.table
@@ -1139,9 +1216,9 @@ nice.table
 
 .content-box-blue[
 ```{r, echo = F, warning=FALSE ,message=FALSE, out.height='70%', out.width='70%'}
-nice.table %>% 
-  column_spec(2, width = '1in', background = "yellow") %>% 
-  row_spec(1,background = "yellow") 
+nice.table #%>% 
+  # column_spec(2, width = '1in', background = "yellow") #%>% 
+  # row_spec(1,background = "yellow") 
 ```
 
 ]
@@ -1272,13 +1349,13 @@ t(data[,2:11]) %>%
   as.matrix()-> dist.table
 dist.table[upper.tri(dist.table)] <- ""
 dist.table %>% 
-  as.data.frame() %>% 
-  kable() %>% 
-    kable_paper(full_width = T) %>% 
-  kable_styling(bootstrap_options = "striped") %>% 
-       column_spec(1, italic  = T) %>% 
-       column_spec(2:6, width = '1in') %>% 
-  column_spec(2, width = '1in', background = "yellow") 
+  as.data.frame()# %>% 
+  # kable() %>% 
+  #   kable_paper(full_width = T) %>% 
+  # kable_styling(bootstrap_options = "striped") %>% 
+  #      column_spec(1, italic  = T) %>% 
+  #      column_spec(2:6, width = '1in') %>% 
+  # column_spec(2, width = '1in', background = "yellow") 
 ```
 
 ---
@@ -1338,6 +1415,8 @@ name: Projections to 2095
 .right-column[
 <img src="images/Future_scenario.png" alt="PCRbias">]
 
+
+
 ???
 
 Taking advantage from recently published models for the inner sea
@@ -1376,7 +1455,7 @@ layout: false
 
 layout: true
 class: nord-light,  typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/Puffin_Eating.jpeg)
 background-size: cover
 ###  .center.nord9.bold[*Diet composition in the Tufted Puffin*]
 ---
@@ -1469,7 +1548,6 @@ background-size: cover
 
 ---
 
-
 layout: false
 class: nord-light,  typo-selection
 background-image: url(images/Zoo_samples.png)
@@ -1491,12 +1569,12 @@ background-size: contain
 
 layout: true
 class: nord-light,  typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/Puffin_Eating.jpeg)
 background-size: cover
 ###  .center.nord9.bold[*Diet composition in the Tufted Puffin*]
 ---
 
-## .nord5[.center[*Nanopore Approach*]]
+### .nord5[.center[*Nanopore Approach*]]
 
 .pull-left[
 .content-box-yellow[
@@ -1515,7 +1593,8 @@ background-size: cover
 
 ]
 ---
-## .nord5[.center[*Nanopore Approach*]]
+
+### .nord5[.center[*Nanopore Approach*]]
 
 .pull-left[
 .content-box-yellow[
@@ -1544,7 +1623,8 @@ background-size: cover
 ]
 
 ---
-## .nord5[.center[*Preliminary results*]]
+
+### .nord5[.center[*Preliminary results*]]
 .left-column[
 .content-box-yellow[
 
@@ -2072,14 +2152,15 @@ background-size: contain
 name: Intro to aDNA
 class: inverse, center, middle
 layout: false
-
-# .nord4[aDNA ]
-## .nord4[una ventana al pasado]
+background-image: url(images/moa-bones-news.jpg)
+background-size: cover
+# .nord6[aDNA ]
+## .nord5[una ventana al pasado]
 
 ---
-name: qPCR_template
-class: nord-light, typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+name: aDNA_template
+class: nord-dark, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/moa-bones-news.jpg)
 background-size: cover
 layout: true
 
@@ -2087,71 +2168,232 @@ layout: true
 
 ---
 
+.content-box-yellow[
+.center[##.nord1[.center[Menú del día ]]]]
+</br>
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Movimientos migratorios]]]
+
+]
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Evolución / Conectividad]]]
+
+]
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Patógenos a lo largo de la historia]]]
+
+]
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Sediment cores y paleoecologia]]]
+
+]
+
+
+---
 class: center, middle
 
-### .fancy[*ancient DNA*]
 
 
-.huge[  *Ultrashort and degraded DNA fragments that are preserved in subfossil material, including hard tissues, such as bones, teeth and shells, and soft tissues, such as mummified skin and hair, as well as sediments.*, Orlando et al. 2021]
+
+.huge[.nord6[  *Ultrashort and degraded DNA fragments that are preserved in subfossil material, including hard tissues, such as bones, teeth and shells, and soft tissues, such as mummified skin and hair, as well as sediments.*, Orlando et al. 2021]]
 
 ---
 name: aDNA - caracteristicas
-class: nord-dark
-### .fancy[*ancient DNA*]
+
+
 
 .content-box-yellow[
-.center[##.nord1[Caracteristicas ]]]
+.center[##.nord1[Características ]]]
 
-* Fragmentación del ADN
+  * .bold[.huge[Fragmentación del ADN]]
 
-* Substitución de bases
-
-.content-box-yellow[
-
-.bold[.huge[Ambas aumentan con el tiempo y en funcion del medio]]
-
-.bold[.huge[Son una barrera para la interpretación de los resultados]]
-
-.bold[.huge[Pero ayudan a distinguir aDNA del resto de DNA en la muestra]]
-
-]
+  * .bold[.huge[Substitución de bases]]
 ---
 background-image: url(images/aDNA_damages.png)
 background-size: contain
+
 ---
 
 
+
+.content-box-yellow[
+.center[##.nord1[Características ]]]
+
+* .bold[.huge[Fragmentación del ADN]]
+
+* .bold[.huge[Substitución de bases]]
+
+
+.bold[.huge[Ambas aumentan con el tiempo y en función del medio]]
+
+--
+
+.bold[.huge[Son una barrera para la interpretación de los resultados]]
+
+--
+
+.bold[.huge[Pero ayudan a distinguir aDNA del resto de DNA en la muestra]]
+
+
+
 ---
+name: Where is it
+
+
+.content-box-yellow[
+.center[##.nord1[¿Dónde encontrarlo? ]]]
+
+ - .bold[.huge[Especímenes en museos]]
+
+--
+
+ - .bold[.huge[Animales en permafrost]]
+ 
+--
+ 
+ - .bold[.huge[Yacimientos arquelógicos]]
+ 
+--
+
+ - .bold[.huge[Sediment cores]]
+ 
+--
+
+ - .bold[.huge[Placa dental, conchas]]
+
+---
+name: Evolution
+
+.content-box-yellow[
+.center[##.nord1[¿Cómo son los fragmentos? ¿Edad?]]]
+
+.huge[Empezó con fragmentos de < 300 bp]
+
+De un animal en un museo desde hace 150 años
+
+--
+
+.huge[Genomas completos de hace más de 0.5M años]
+
+--
+
+.huge[Identificación de parásitos, flora microbiana, patógenos]
+
+
+---
+
+name: What to study
+
+.content-box-yellow[
+.center[##.nord1[¿Cúando usarlo?]]]
+
+- .huge[Evolutionary questions: Neandertal - Sapiens]
+
+--
+
+- .huge[Ecological questions:]
+
+      - Response to Climate Change
+
+      - Previous Genetic Diversity
+
+--
+
+- .huge[Antropology ]
+
+--
+
+
+---
+
+name: How to study
+
+.content-box-yellow[
+.center[##.nord1[¿Cómo usarlo?]]]
+
+ .huge[Extracción de aDNA: Medidas para no contaminar]
+
+--
+
+-   .bold[Presión de aire positiva]
+
+-   .bold[UV]
+
+-   .bold[Separación física del resto del proceso ]
+
+      - ACAD en Australia - un edificio independiente
+
+      - Puede bastar con habitación independiente con ventilación propia
+
+--
+
+.huge[.bold[Extracción implica destrucción del espécimen ]]
+
+---
+name: How to study
+
+.content-box-yellow[
+.center[##.nord1[¿Cómo usarlo?]]]
+
+- .huge[Secuenciación aDNA]
+
+--
+-   .bold[Remediacion de las C -> U] - método .bold[USER] 
+
+--
+-   .bold[Ligación de adaptadores y sequenciación] - muy caro
+
+--
+-   .bold[Captura de sequencias con miles de sondas] - varios métodos, específicas 
+
+         .bold[hyRad, myBATES]
+
+--
+-   .bold[Amplificación de fragmentos cortos] - recuperación de comunidades
+
+???
+
+ Método USER es opcional, y sólo funciona si no hay metilación: se puede estiamr la metilación premortem
+
+Secuenciar sin selección es muy pooco efectivo, porque hay más ADN moderno que no antigua
+
+Sondas: seleccionar es sesgar. Se puede comprar sondas comerciales para especies modelo, o generarlas con secuencias obtenidas en especies presentes y cercanas 
+
+Tomás Marques Bonet - 
+Carles Lalezuela
+
+---
+name: secuenciacion slide
+---
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+class: middle, nord-dark
 layout: false
-class: middle, nord-dark
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
-
-## .center.bold[Agradecimientos]
-</br>
-.content-box-gray[.nord1[
-- ###  **collaboradores**: Krista Nichols, Ana Laca, Tiara Moore, Linda Park, Ole Shelton, Ryan Kelly
-- ### **Tripulacion y cientificos del RV Shimada **
-
-- ### **Compañeros de UW, NOAA y UAM**
-- ### Los **dineros**: NOAA, UW, Packard Foundation, Ana Laca
-- ### **Ana, Julieta y Damián**
-]]
-
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
----
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
-class: middle, nord-dark
-
 
 # .huge[**Thanks!**]
 
 
 
 
-.footnote[Slides available at .nord8.bold[ramongallego.github.io/Presentation2022/Majorca2022.html]]
+.footnote[Slides available at .nord8.bold[ramongallego.github.io/Presentation2022/Majorca2022.html]
 
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).]
 
 ---
 name: Intro to OA_eDNA
