@@ -47,10 +47,10 @@ background-size: cover
 
 ```{r setup, include=FALSE, message=F, echo=FALSE}
 options(htmltools.dir.version = FALSE)
-# library (leaflet)
+ library (leaflet)
 library(tidyverse)
 library(here)
-# library(kableExtra)
+ library(kableExtra)
 library(DT)
 ```
 
@@ -268,18 +268,17 @@ read_csv(here("Data", "ASV_table_all_together.csv")) %>%
     arrange(sample) %>% 
     pivot_wider(id_cols = label, names_from = sample, values_from = nReads, values_fill = list (nReads = 0), values_fn = list(nReads= sum)) %>% 
     rename (Taxa = label) -> data
-  data %>% 
-    select(1:7) -> nice.table # %>% 
-    # kable() %>% 
-    # kable_styling(full_width = T, 
-    #               bootstrap_options = "hover") %>% 
-    #    column_spec(1, italic  = T) %>% 
-    #    column_spec(2:6, width = '1in') 
   
-   
-nice.table
-# nice.table %>% 
-#  scroll_box( height = "600px")
+  data %>% 
+    select(1:7) -> nice.table 
+  
+  nice.table %>% 
+    kable() %>%
+    kable_styling(full_width = T,
+                  bootstrap_options = "hover") %>%
+       column_spec(1, italic  = T) %>%
+       column_spec(2:6, width = '1in') %>%
+ scroll_box( height = "600px")
 ```
 
 ]
@@ -979,16 +978,16 @@ name: Research plan
 
 
 
-# leaflet(data = read_csv(here("Data","site.info.csv"))) %>% 
-#   addTiles() %>% 
-#   setView(lat = 47.5, lng = -122.5, zoom = 7) %>% 
-#   addMarkers(label = ~Site, 
-#              labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
-#   permanent = FALSE, className = "", direction = "auto",
-#   offset = c(1, 1), opacity = 1, textsize = "20px",
-#   textOnly = FALSE, style = NULL, 
-#   sticky = TRUE)
-#   )
+leaflet(data = read_csv(here("Data","site.info.csv"))) %>%
+  addTiles() %>%
+  setView(lat = 47.5, lng = -122.5, zoom = 7) %>%
+  addMarkers(label = ~Site,
+             labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
+  permanent = FALSE, className = "", direction = "auto",
+  offset = c(1, 1), opacity = 1, textsize = "20px",
+  textOnly = FALSE, style = NULL,
+  sticky = TRUE)
+  )
 ```
 ]
 
@@ -1060,16 +1059,16 @@ class: nord-dark
 
 
 
-# leaflet(data = read_csv(here("Data","site.info.csv"))) %>% 
-#   addTiles() %>% 
-#   setView(lat = 48, lng = -122.5, zoom = 8) %>% 
-#   addMarkers(label = ~Site, 
-#              labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
-#   permanent = FALSE, className = "", direction = "auto",
-#   offset = c(1, 1), opacity = 1, textsize = "20px",
-#   textOnly = FALSE, style = NULL, 
-#   sticky = TRUE)
-#   )
+leaflet(data = read_csv(here("Data","site.info.csv"))) %>%
+  addTiles() %>%
+  setView(lat = 48, lng = -122.5, zoom = 8) %>%
+  addMarkers(label = ~Site,
+             labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
+  permanent = FALSE, className = "", direction = "auto",
+  offset = c(1, 1), opacity = 1, textsize = "20px",
+  textOnly = FALSE, style = NULL,
+  sticky = TRUE)
+  )
 ```
 
 ---
@@ -1200,15 +1199,15 @@ read_csv(here("Data", "ASV_table_all_together.csv")) %>%
     arrange(sample) %>% 
     pivot_wider(id_cols = label, names_from = sample, values_from = nReads, values_fill = list (nReads = 0), values_fn = list(nReads= sum)) %>% 
     rename (Taxa = label) %>%
-    select(1:7)  -> nice.table#%>% 
-    # kable() %>% 
-    # kable_styling(full_width = T) %>% 
-    #    column_spec(1, italic  = T) %>% 
-    #    column_spec(2:6, width = '1in') 
-  
+    select(1:7)  %>%
+    kable() %>%
+    kable_styling(full_width = T) %>%
+       column_spec(1, italic  = T) %>%
+       column_spec(2:6, width = '1in') -> nice.table 
+
    
 
-nice.table
+
 ```
 ]
 ---
@@ -1216,9 +1215,9 @@ nice.table
 
 .content-box-blue[
 ```{r, echo = F, warning=FALSE ,message=FALSE, out.height='70%', out.width='70%'}
-nice.table #%>% 
-  # column_spec(2, width = '1in', background = "yellow") #%>% 
-  # row_spec(1,background = "yellow") 
+nice.table %>% 
+  column_spec(2, width = '1in', background = "yellow") %>%
+  row_spec(1,background = "yellow")
 ```
 
 ]
@@ -1349,13 +1348,13 @@ t(data[,2:11]) %>%
   as.matrix()-> dist.table
 dist.table[upper.tri(dist.table)] <- ""
 dist.table %>% 
-  as.data.frame()# %>% 
-  # kable() %>% 
-  #   kable_paper(full_width = T) %>% 
-  # kable_styling(bootstrap_options = "striped") %>% 
-  #      column_spec(1, italic  = T) %>% 
-  #      column_spec(2:6, width = '1in') %>% 
-  # column_spec(2, width = '1in', background = "yellow") 
+  as.data.frame() %>% 
+  kable() %>%
+    kable_paper(full_width = T) %>%
+  kable_styling(bootstrap_options = "striped") %>%
+       column_spec(1, italic  = T) %>%
+       column_spec(2:6, width = '1in') %>%
+  column_spec(2, width = '1in', background = "yellow")
 ```
 
 ---
@@ -2792,14 +2791,14 @@ By.taxa.dataset %>%
              `#samples found` = n_distinct(eDNA.sample)) %>%
   arrange((taxa)) %>% 
   separate(taxa, into = c("Family", NA, "Species"), sep = "%")  %>% 
-DT::datatable(class = "compact", rownames = F, 
-             # extensions = "Buttons",
-             options = list(dom = 'fpt',
-                            pagelenght = 8)) 
-# kable(align = "c", format = "html") %>%
-# kable_styling(full_width = F) %>%
-# column_spec(1, bold = T) %>%
-# collapse_rows(columns = 1, valign = "top")
+# DT::datatable(class = "compact", rownames = F, 
+#              # extensions = "Buttons",
+#              options = list(dom = 'fpt',
+#                             pagelenght = 8)) %>% 
+kable(align = "c", format = "html") %>%
+kable_styling(full_width = F) %>%
+column_spec(1, bold = T) %>%
+collapse_rows(columns = 1, valign = "top")
 ```
 
 
