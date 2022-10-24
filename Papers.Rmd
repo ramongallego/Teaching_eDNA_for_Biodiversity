@@ -92,16 +92,15 @@ class: nord-light
 
 
 </br>
-.left-column[
+
 .content-box-yellow[
 .center[##.nord1[qPCR ]]]
-]
 
-.right-column[
+
 ```{r, echo = F}
 knitr::include_graphics("paper/eDNA-Hake.png")
 ```
-]
+
 
 ---
 
@@ -113,16 +112,15 @@ class: nord-light
 
 
 </br>
-.left-column[
+
 .content-box-yellow[
 .center[##.nord1[qPCR ]]]
-]
 
-.right-column[
+
 ```{r, echo = F}
 knitr::include_graphics("paper/eDNA-CRISPR.png")
 ```
-]
+
 
 ---
 
@@ -145,6 +143,12 @@ knitr::include_graphics("paper/eDNA-Djurhuus.png")
 ```
 
 ---
+layout:true 
+background-size: cover
+class: nord-dark
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 90%),rgba(46, 52, 64, 50%),rgba(46, 52, 64, 10%)), url(images/moa-bones-news.jpg)
+## .center[aDNA]
+---
 
 name: Intro 
 class: nord-light
@@ -156,10 +160,31 @@ class: nord-light
 </br>
 
 .content-box-yellow[
-.center[##.nord1[metabarcoding ]]]
+.center[##.nord1[Genoma Neandertal ]]]
 
 
 
 ```{r, echo = F}
-knitr::include_graphics("paper/eDNA-Djurhuus.png")
+knitr::include_graphics("paper/aDNA-Neandertal.png")
 ```
+
+---
+
+name: Intro 
+class: nord-light
+
+
+
+
+
+</br>
+
+.content-box-yellow[
+.center[##.nord1[Permafrost & aeDNA ]]]
+
+
+
+```{r, echo = F}
+knitr::include_graphics("paper/aDNA-permafrost.png")
+```
+
