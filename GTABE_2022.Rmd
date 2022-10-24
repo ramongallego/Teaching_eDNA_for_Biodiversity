@@ -93,6 +93,65 @@ knitr::include_graphics("images/RGS.JPG")
 ]
 
 ---
+layout: false
+class: middle, nord-dark
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 60%),rgba(46, 52, 64, 60%),rgba(46, 52, 64, 60%),rgba(46, 52, 64, 20%)),  url("images/Madridmequema.jpg") 
+background-position: center
+background-size: cover
+
+
+## .center[Ramón Gallego Simón]
+
+.leftmost-column[
+
+```{r, echo = F, out.height='25%'}
+knitr::include_graphics("images/Cabo_De_Gata.jpg")
+```
+*BSc and MSc in Madrid, Spain*
+
+```{r, echo = F, out.height='25%'}
+knitr::include_graphics("images/UAM.white.png")
+#TODO: Text box
+```
+
+
+]
+
+--
+
+.center-column[
+.center[
+```{r, echo = F, out.height='25%'}
+knitr::include_graphics("images/Auckland.jpg")
+
+```
+
+*PhD in Auckland, Aotearoa New Zealand*
+
+```{r,  echo = F,out.height='25%',out.extra='style="background-color: #9ecff7; padding:5px; display: inline-block;.Nord-dark-damp-img"'}
+knitr::include_graphics("images/uoa-logo-2015-reverse.png")
+#knitr::include_graphics("images/NIWA_Logo2018.png")
+#TODO: Text box
+```
+]
+]
+--
+.rightmost-column[
+
+```{r, echo = F}
+knitr::include_graphics("images/PNW.jpg")
+```
+*To a Postdoc in Seattle, WA*
+
+```{r,  echo = F, out.extra='style="background-color: #9ecff7; padding:5px; display: inline-block;"'}
+knitr::include_graphics("images/UW_trans.png")
+knitr::include_graphics("images/NOAA-fisheries-logo.jpg")
+
+```
+
+]
+
+---
 layout:true 
 background-size: cover
 class: nord-dark
@@ -2361,7 +2420,7 @@ name: How to study
 --
 -   .bold[Captura de sequencias con miles de sondas] - varios métodos, específicas 
 
-         .bold[hyRad, myBATES]
+   - .bold[hyRad, myBATES]
 
 --
 -   .bold[Amplificación de fragmentos cortos] - recuperación de comunidades
@@ -2390,11 +2449,91 @@ layout: false
 
 
 
-.footnote[Slides available at .nord8.bold[ramongallego.github.io/Presentation2022/Majorca2022.html]
+.footnote[Slides available at .nord8.bold[https://ramongallego.github.io/Teaching_eDNA_for_Biodiversity/GTABE_2022.html]
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).]
 
 ---
+name: Jobs to do
+
+class: nord-dark, center
+
+
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 90%),rgba(46, 52, 64, 50%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+
+background-size: cover
+
+.content-box-yellow[
+.center[##.nord1[.center[Jobs to do]]]]
+</br>
+
+.pull-left[
+.content-box-green[
+
+ #### .huge[.nord1[.bold[Field Biologist]]]
+
+]]
+
+.pull-right[
+
+.content-box-green[
+
+* #### .nord1[.bold[ Detail planning ]]
+
+* #### .nord1[.bold[ Experimental design ]]
+
+* #### .nord1[.bold[ Contamination awareness ]]
+]
+]
+</br>
+
+--
+
+.pull-left[
+.content-box-green[
+
+ #### .huge[.nord1[.bold[Wet-lab Biologist]]]
+
+]]
+
+.pull-right[
+
+.content-box-green[
+
+* #### .nord1[.bold[ Technology understanding ]]
+
+* #### .nord1[.bold[ Automation ]]
+
+* #### .nord1[.bold[ Contamination awareness ]]
+]
+]
+
+--
+
+.pull-left[
+.content-box-green[
+
+ #### .huge[.nord1[.bold[Bioinformatics]]]
+
+]]
+
+.pull-right[
+
+.content-box-green[
+
+* #### .nord1[.bold[ Entender el proceso ]]
+
+* #### .nord1[.bold[ Reproducibilidad ]]
+
+* #### .nord1[.bold[ Contamination awareness ]]
+]
+]
+
+
+
+
+---
+
 name: Intro to OA_eDNA
 class: inverse, center, middle
 layout: false
