@@ -638,8 +638,8 @@ name: qPCR_1
   -   ### *Cuando añade información*
 
 ]]
-
 ---
+
 
 name: qPCR_4
 
@@ -657,6 +657,53 @@ name: qPCR_4
       ### *Estimar parámetros con Bayesian models*
 
 ]]
+---
+name: Cmaenas1
+background-image:  url(images/GreenCRAB_pic.png)
+background-size: 50% 50%
+background-position: right
+
+</br>
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
+.pull-left[
+.nord1[
+
+
+  -   ### Gran potencial como invasora
+
+  -   ### Amenaza para pesquerías 
+  
+  -   ### Establecida en partes de la costa Oeste de EEUU
+
+]]
+---
+name: Cmaenas2
+background-image:  url(images/invasive-crab-range-map-and-key.png)
+background-size: contain
+
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
+---
+name: Cmaenas3
+background-image:  url(images/invasion_front.png)
+background-size: 60% 
+background-position: bottom
+
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
+
+---
+name: Cmaenas3
+background-image:  url(images/model_performance.png)
+background-size: 90% 
+
+
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
+---
+name: Cmaenas4
+background-image:  url(images/eDNA_benefit.png)
+background-size: 90% 
+
+
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
 ---
 
 name: Intro to metabarcoding
