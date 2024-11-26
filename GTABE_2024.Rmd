@@ -211,17 +211,11 @@ background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 
 ---
 
 .content-box-yellow[
-.center[##.nord1[.center[Menú del día ]]]]
+.center[##.nord1[.center[Ancient DNA ]]]]
 </br>
 
 
-.content-box-purple[
 
- ### .huge[.nord1[.bold[Ancient DNA]]]
-
-]
-
---
 .content-box-purple[
 
  * .huge[.nord1[.bold[Movimientos migratorios]]]
@@ -335,6 +329,11 @@ background-size: cover
 class: nord-dark
 background-image:  url(images/peces.jpg)
 ---
+.content-box-purple[
+.nord1[
+## Multiple species assays
+
+]]
 ---
 
 
