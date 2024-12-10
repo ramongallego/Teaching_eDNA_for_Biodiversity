@@ -1,0 +1,82 @@
+---
+title: "Combinando todos los datos"
+author: "Ramón Gallego"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = F)
+```
+
+Ya creo que hemos hecho todo lo necesario, no?
+
+```{r, warning=F, message=F}
+library(tidyverse)
+library(here)
+
+```
+
+```{r}
+cluster_members <- read_tsv(here("Data", "blast_2024_12_09", "clusters_0.85.uc"),
+                            col_names = c("Type", "ClusterID", "Length", "PctID", 
+                                  "Strand", "Blank1", "Blank2", "Blank3", 
+                                  "Centroid", "SequenceID"),
+                    comment = "#") 
+
+cluster_hits <- cluster_members %>%
+  filter(Type == "H") %>%
+  select(ClusterID, Centroid = 10, SequenceID = 9)
+
+```
+Ahora unimos la informacion que tenemos del demultiplexado. Este es uno de los primeros outputs que vamos a analizar.
+
+```{r}
+read_csv(here("Data", "blast_2024_12_09","demult_info.csv")) |> 
+  rename(SequenceID = 2) |> 
+  inner_join(cluster_hits) |> 
+  group_by(barcode, Centroid) |> 
+  summarise(nReads = n()) -> centroid_table
+
+centroid_table |>
+  write_csv(here("Data", "blast_2024_12_09", "centroid_table.csv"))
+```
+
+Y ahora unimos la informacion de taxonomia. Esta es la parte del análisis que puede mejorar probando diferentes métodos de asignación taxonómica.
+```{r}
+read_csv(here("Data", "blast_2024_12_09", "ids_97.csv")) |> 
+  rename(Centroid = qseqid) |> 
+  right_join(centroid_table) -> all_together # we dont have taxonomical info from 2k otus
+```
+Hay muchos clusters de los que no sabemos nada
+
+```{r}
+all_together |> 
+  filter (consensus == "NA%NA%NA%NA%NA%NA%NA" | is.na(consensus)) -> unknown_data
+
+unknown_data |> 
+   write_csv(here("Data", "blast_2024_12_09", "unknown_taxa.csv"))
+```
+
+
+```{r}
+all_together |> 
+  filter (consensus != "NA%NA%NA%NA%NA%NA%NA") |> 
+  group_by(barcode, consensus) |> 
+  tally(wt = nReads,name = "nReads") -> taxa_table
+
+taxa_table |> 
+   write_csv(here("Data", "blast_2024_12_09", "taxa_table.csv"))
+```
+
+Traigamos la informacion de los metadatos
+
+```{r}
+metadata <- read_csv(here("metadata_GTABE.csv")) |> 
+  select(Site, barcode = Barcode, everything())
+```
+
+```{r, include=F, eval=F}
+separate(consensus, into = c("kingdom", "phylum", "class", "order", "family", "genus", "species"), sep = "%") |> 
+```
+

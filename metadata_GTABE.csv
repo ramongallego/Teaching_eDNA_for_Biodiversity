@@ -1,0 +1,25 @@
+Sample,Site,biolrep,pcr_rep,Barcode
+Site_01_a_rep1,Bustarviejo,a,rep1,A6
+Site_01_a_rep2,Bustarviejo,a,rep2,B6
+Site_01_a_rep3,Bustarviejo,a,rep3,C6
+Site_01_b_rep1,Bustarviejo,b,rep1,D6
+Site_01_b_rep2,Bustarviejo,b,rep2,E6
+Site_01_b_rep3,Bustarviejo,b,rep3,F6
+Site_02_a_rep1,Cantera_Cerceda,a,rep1,G6
+Site_02_a_rep2,Cantera_Cerceda,a,rep2,H6
+Site_02_a_rep3,Cantera_Cerceda,a,rep3,A7
+Site_02_b_rep1,Cantera_Cerceda,b,rep1,B7
+Site_02_b_rep2,Cantera_Cerceda,b,rep2,C7
+Site_02_b_rep3,Cantera_Cerceda,b,rep3,D7
+Site_03_a_rep1,Pilon Manzanares,a,rep1,E7
+Site_03_a_rep2,Pilon Manzanares,a,rep2,F7
+Site_03_a_rep3,Pilon Manzanares,a,rep3,G7
+Site_03_b_rep1,Pilon Manzanares,b,rep1,H5
+Site_03_b_rep2,Pilon Manzanares,b,rep2,A8
+Site_03_b_rep3,Pilon Manzanares,b,rep3,B8
+Site_04_a_rep1,Fuente de las Ermitas,a,rep1,C8
+Site_04_a_rep2,Fuente de las Ermitas,a,rep2,D8
+Site_04_a_rep3,Fuente de las Ermitas,a,rep3,E8
+Site_04_b_rep1,Fuente de las Ermitas,b,rep1,F8
+Site_04_b_rep2,Fuente de las Ermitas,b,rep2,G8
+Site_04_b_rep3,Fuente de las Ermitas,b,rep3,H4

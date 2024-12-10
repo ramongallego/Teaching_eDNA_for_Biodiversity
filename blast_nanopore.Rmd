@@ -1,0 +1,229 @@
+---
+title: "BLAST Nanopore"
+author: "Ramón Gallego"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = F)
+```
+
+
+
+## Identidad de las secuencias
+
+Esto está muy bien, pero en realidad nos interesa la composición de las muestras: qué especies aparecen en cada muestra.
+
+El marcador que hemos utilizado, parte del 18S rRNA de los eucariotas, nos ofrece la posibilidad de usar varios métodos de identificacion
+
+ * BLAST: podemos crear un archivo FASTA con todas las secuencias de interés y usarlo en NCBI. El output nos devuelve bastantes secuencias a las que se alinea cada una de nuestras secuencias problema y tenemos que usar un algoritmo para procesar estos resultados de un modo consistente. 
+ 
+ * Programas de asignación taxonómica: Hay varios programas que nos ayudan a clasificar las secuencias. Podemos usar `insect`para obtener esta ID. `Insect`necesita un árbol de clasificación y la tabla de conexiones taxonomicas
+
+
+`BLAST`es la herramienta que vamos a usar hoy. Usa muchos recursos computacionales, pero podemos restringir la búsqueda de dos modos: 
+ - si sólo nos interesa la similitud con un cierto organismo (especie, genero, familia, filo...)
+ - si podemos una base de datos que solo incluye secuencias del marcador que hemos usado.
+ 
+ En nuestro caso, vamos a usar ambos, ya que la base de datos que vamos a usar es la de la subunidad pequeña del ARNr, y sólo de eucariotas. 
+ 
+```{blast}
+
+blastn \
+      -query input.fasta \
+      -db SSU_eukaryote_rRNA \ 
+      -num_threads $cores \
+      -perc_identity 75 \
+      -word_size 11 \
+      -evalue 1e-23 \
+      -max_target_seqs 50 \
+      -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore staxids qlen" \
+      -out output.txt  
+
+```
+ 
+Esto solo imprime los 50 resultados que tengan al menos una similitud del 75%, y una probabilidad baja de que la similitud observada se deba a la baja calidad de la base de referencia y a la corta longitud de las secuencias problema. Ninguno de estos problemas parecen graves.
+
+El archivo resultante tiene 650K alineamientos para las secuencias problema, y para llegar a una identifiación útil tenemos que elegir un modo de encontrar un modo de colapsar esta información correcta.
+
+# Parsing BLAST results
+
+```{r, eval=T, message=F, warning=F}
+library(insect)
+library(tidyverse)
+library(here)
+library(eDNAfuns) # install with remotes::install_github("https://github.com/ramongallego/eDNA_functions")
+
+```
+
+
+```{r}
+blast_output <- here("Data", "blast_2024_12_09", "output.txt")
+
+BLAST_results <- read_table(blast_output, col_names = c("qseqid", "sseqid",  "pident", "length" ,"mismatch", "gapopen" ,"qstart","qend", "sstart", "send" ,"evalue" ,"bitscore", "staxid", "qlen"))
+
+input <- fasta_reader(here("Data", "blast_2024_12_09", "unwrapped.fasta"))
+
+```
+
+Como veis, hay muchisimos matches por cada secuencia problema, aunque no todas las secuencias problemas tienen matches.
+
+
+El archivo de matches contiene el campo staxid, que informa del taxon que origino la secuencia que encontramos en la base de datos. Con la base de datos de NCBI y un poco de mover datos con el tidyverse, conseguimos una tabla con la filogenia de cada secuecnia de la base de datos que ha aparecido en nuestra busqueda.
+
+Este codigo lleva mucho calculo detras, lo hemos hecho en un cluster para poder acabarlo a tiempo. 
+
+```{r}
+
+BLAST_results %>%
+distinct(staxid) -> ALL.TAXIDS
+
+ALL.TAXIDS %>%
+  rename(taxID = 1) %>%
+  mutate(taxID = as.numeric(taxID)) |> 
+  mutate(lineage = map(taxID, insect::get_lineage, taxonomy.now)) -> all_lineages
+
+all_lineages |>
+    write_rds(file.path(output_folder, "lineages.rds"))
+```
+
+vamos a reformatear esos datos para que sean una tabla facil de manipular
+
+```{r}
+all_lineages |>
+  filter (map_lgl(lineage,~!is.logical(.x))) |>
+  mutate(lineage= map(lineage, ~enframe(.x, name="rank") |> 
+  filter (rank %in% c("kingdom", "phylum","class","order","family","genus","species")) )) |>
+  unnest(lineage) |>
+  pivot_wider(names_from = rank, values_from = value) -> all_lineages_tibble
+```
+
+este es el aspecto que tiene 
+
+```{r, eval=T}
+read_csv(here("Data", "blast_2024_12_09", "all_lineages_tibble.csv"), n_max = 200) |> 
+  kableExtra::kable() |> 
+  kableExtra::kable_styling(bootstrap_options = "striped") 
+
+```
+Ya sabemos a que taxon pertenece cada uno de los matches que hemos encontrado - ahora hay que llegar a una conclusion para cada secuencia.
+
+  Por un lado, debemos asegurarnos de que las similitudes lo son en una distancia razonable. Dada la distribucion de longitudes de nuestras secuencias, un alineamiento de menos de 200 bp no ofrece suficiente confianza. Por otro lado, si el taxon que ha producido la secuencia no estaba bien identificado (en Genebank hay informacion taxonomica del estilo de 'environmental sample' o 'uncultured zooplankton'), esa similitud no nos aporta nada. Si tiene nombre de especie pero no de genero o de familia, es muy posible que se trate de una especie sin describir de momento, y si no es un acierto al 100% casi seguro que nos va a producir una identificacion no satisfactoria.
+  
+```{r}
+BLAST_results |>
+  filter (length > 200) |>
+  select (qseqid, pident, taxID=staxid) |>
+  inner_join(all_lineages_tibble) |> 
+  filter (!str_detect(species, "environmental")) |> 
+  filter (!str_detect(species, "uncultured")) |> 
+  filter (!is.na(genus) | !is.na(family)) -> ready_to_roll
+```
+  
+Ahora creamos una funcion en R que procese estos resultados  
+  
+```{r, eval =T}
+custom.lca <- function (df, cutoff = 90) {
+  df %>%  
+    group_by(qseqid) %>%
+    select( pident, kingdom, phylum, class, order, family, genus, species) %>%
+  nest() %>% # for each query, calculate the agreed taxonomy
+  # ungroup %>% slice (1:10) %>%
+  mutate(consensus = purrr::map(data,  function(.x) {
+    # If there are 100% matches - keep those and calculate the LCA
+   
+    if (max(.x$pident == 100 )){
+       .x %>%
+        filter(pident == 100) %>%
+        select(-pident) %>%
+        condenseTaxa() %>% # agreement in Phylogeny
+      paste(., collapse = "%")
+      
+    }else{
+       # If there are no 100% matches, then keep things better than our cutoff
+    if(max(.x$pident > cutoff )){
+
+      .x %>%
+        filter(pident > cutoff) %>%
+        select(-pident) %>%
+        condenseTaxa() %>% # agreement in Phylogeny
+      paste(., collapse = "%")
+
+       
+
+    }else{
+      # If there are no matches, better than the cutoff, then keep everything
+      
+    .x %>%
+        select(-pident) %>%
+    condenseTaxa() %>%
+       paste(., collapse = "%")
+      }
+  }
+  }
+  
+  # Collapse all the taxa data separatated by %, como queda feo para leer en excel lo modificamos con # PERO es un lio dejarlo sin el % porq deja la table separada sin heads asi que mejor dejarlo como esta y luego en R separar las columnas por % y asignarles nombres
+  
+  )) %>%
+  select(qseqid, consensus) %>%
+  unnest(consensus)}
+```
+
+
+Ahora aplicamos esta funcion con diferentes niveles de restriccion
+```{r}
+thresholds <- list('100' = 100,'97'= 97, '95' = 95, '90'= 90)
+
+map(thresholds, ~custom.lca( ready_to_roll, .x)) -> ids_thresholds
+
+write_rds(ids_thresholds, file.path(output_folder, "ids_thresholds.rds"))
+```
+
+Y podemos ver cual es la resolucion taxonomica de nuestro experimento
+
+```{r}
+output.summary <- function(tibble){
+  
+  tibble %>% 
+    rename(Hash =1) %>% 
+    group_by(Hash) |> 
+    separate(consensus, into = c("kingdom", "phylum", "class", "order", "family", "genus", "species"), sep = "%") %>% 
+    # pivot_longer(-Hash, names_to = "rank", values_to = "name") %>% 
+    transmute (final_rank = case_when(species != "NA" ~ "species",
+                                   genus != "NA" ~ "genus",
+                                   family != "NA" ~ "family",
+                                   TRUE          ~ "Worse")) 
+   
+}
+
+map(ids_thresholds, output.summary) |>
+  bind_rows(.id="Threshold") |> 
+  pivot_wider(names_from = "Threshold", values_from = "final_rank")-> performance_id
+```
+
+Vamos a explorarla
+
+```{r}
+performance_id <- read_rds(here("Data", "blast_2024_12_09", "performance.rds"))
+
+performance_id |> 
+  pivot_longer(-Hash, names_to = "threshold", values_to = "precision") |> 
+  group_by(threshold, precision) |> 
+  tally_wide(rows = precision, cols = threshold)
+```
+
+Seems like 95 is the most sensible approach
+
+```{r}
+IDs <- read_rds(here("Data", "blast_2024_12_09", "ids_thresholds.rds"))
+
+IDs$`95` |> 
+   
+  write_csv(here("Data", "blast_2024_12_09", "ids_97.csv"))
+
+
+```
+
+
+

@@ -34,7 +34,9 @@ Por otra parte, lo que nos interesa no es las OTUs (Operational Taxonomical Unit
 
 
 ![clas](images/Classiffication2.png)
-Empecemos por el formato de los datos en bruto o raw.
+Empecemos por el formato de los datos en bruto o raw. Estos se generan de modo distinto en Secuenciadores de Illumina y en Nanopore. Veamos primero la estructura de los amplicones para Illumina y cómo se secuencian.
+
+# Secuencias Illumina
 
 Lo que normalmente recibimos es una pareja de archivos por cada experimento de secuencición. Estos archivos (R1 y R2) corresponden a las secuencias estimadas desde el cada uno de sus extremos del las secuencias
 
@@ -53,7 +55,7 @@ En este ejemplo, ya lo hemos hecho.
 Vamos a ver qué archivos tenemos con el comando `list.files()`, mirando en el directorio en el que tenemos los datos (`/data`)
 
 ```{r files}
-list.files(path = "data")
+list.files(path = "Data")
 ```
 
 Podemos refinar la búsqueda con el argumento `pattern=` y buscar fastq files
@@ -70,8 +72,8 @@ A partir de ahora, vamos a realizar la misma operación en cada pareja de archiv
 Empecemos por comparar nuestro archivo de metadatos (que nos da información de las muestras) y el listado de archivos fastq
 
 ```{r}
-Fwd <- list.files(path = "Data/fastq", pattern = "*R1.fastq*")
-Rev <- list.files(path = "data", pattern = "*R2.fastq*")
+Fwd <- list.files(path = "Data/fastq", pattern = "*1.fastq.gz")
+Rev <- list.files(path = "Data/fastq", pattern = "*2.fastq.gz")
 
 samples <- tibble (R1 = Fwd, R2 = Rev)
 
@@ -108,9 +110,15 @@ REV_primer <- "TANACYTCNGGRTGNCCRAARAAYCA"
 
 El mejor medio para quitar los primers es un programa llamado `cutadapt`, que se usa desde la línea de comandos o Terminal, y que no vamos a hacer aquí. El resultado de esta operación es una segunda pareja de archivos fastq. Aquí dejamos el comando que ejecutamos cuando realizamos el proyecto
 
-```{r, include=F, echo=TRUE}
+```{bash, include=F, echo=TRUE}
 
-cutadapt -g FWD=GGWACWGGWTGAACWGTWTAYCCYCC;min_overlap=18 -G REV=TANACYTCNGGRTGNCCRAARAAYCA;min_overlap=18 --discard-untrimmed -e 0.1 -o noprimers/read1_R1.fastq -p noprimers/read1_R2.fastq rawdata/read1.fastq rawdata/read2.fastq
+cutadapt -g FWD=GGWACWGGWTGAACWGTWTAYCCYCC;min_overlap=18 \ 
+         -G REV=TANACYTCNGGRTGNCCRAARAAYCA;min_overlap=18 \ 
+         --discard-untrimmed \
+         -e 0.1 \
+         -o noprimers/read1_R1.fastq \
+         -p noprimers/read1_R2.fastq \
+         rawdata/read1.fastq rawdata/read2.fastq
 
 ```
 
@@ -119,12 +127,12 @@ Aqui lo hemos hecho para UNA pareja de archivos: si quisierais hacerlo para toda
 Vamos a rehacer nuestro metadata, apuntando a los archivos sin primers
 
 ```{r}
-Fwd <- list.files(path = "Data/nsdna", pattern = "*1.fastq*", full.names = T)
-Rev <- list.files(path = "Data/nsdna", pattern = "*2.fastq*", full.names = T)
+Fwd <- list.files(path = "Data/Run1", pattern = "*R1_001.fastq*", full.names = T)
+Rev <- list.files(path = "Data/Run1", pattern = "*R2_001.fastq*", full.names = T)
 
 samples <- tibble (R1 = Fwd, R2 = Rev)|> 
   mutate(sample_name = basename(R1)) |> 
-  separate (sample_name, into = c("sample_name"), sep = "_FWD", remove = F) 
+  separate (sample_name, into = c("sample_name"), sep = "_L001", remove = F) 
 ```
 
 
@@ -365,4 +373,6 @@ download.file("https://www.dropbox.com/s/dvnrhnfmo727774/classifier.rds?dl=1",
 classifier <- readRDS("classifier.rds")
 ```
  
+
+## Nanopore
 

@@ -1,0 +1,57 @@
+---
+title: "Clustering analysis"
+author: "Your name here"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = F)
+```
+
+## Clustering
+
+La formaci'on de clusters o grupos de secuencias similares en estudios de metabarcoding consiste en agrupar varias secuencias con cierto grado de similitud, con un origen biologico com'un, en un solo grupo, que estar'a representado por una unica secuencia consenso. 
+
+Este agrupamiento tiene varias ventajas:
+
+ - Por un lado, del mismo modo que las tecnicas de multiplexado permiten aprovechar los recursos y secuenciar varias muestras a la vez, las t'ecnicas de clusterizacion o agrupamiento nos permiten aprovechar mejor los recursos computacionales, al realizar comparaciones con bases de datos de referencia o calculos de similitud entre muestras.
+ - Por otro, se corrigen de este modo diferencias entre secuencias individuales que se producen al amplificar o secuenciar fragmentos de ADN.
+ - Por último, es posible establecer similitudes entre muestras aunque no sepamos la identidad de esa OTU al no existir secuencias suficientemente similares en las bases de datos.
+ 
+Esta operación tiene ciertos riesgos,  independientemente del algoritmo que calcula los clusters, siendo el principal la inclusión de secuencias de distinto origen y que pertenecen a realidades biológicas distintas en el mismo cluster.
+
+```{r load packages, echo = FALSE, message=F, error=FALSE ,eval=T}
+
+library(here)
+library(tidyverse)
+library(dada2)
+
+
+```
+
+## Distintos algoritmos
+
+
+Vamos a utilizar `vsearch` un programa para realizar muchas operaciones bioinformaticas con secuencias de ADN, y que tiene un programa de formacion de clusters. Como la mayoría de las herramientas que tenemos a nuestra disposición, fueron diseñadas y probadas con secuencias de Illumina, que al ser de menor longitud y mayor calidad, ofrecen menos problemas que las secuencias nanopore. 
+
+`vsearch --cluster_fast` no es el modo más sensible de hacer los clusters, pero hemos optado por este método porque lo que queremos es reducir el número de búsquedas, y luego dejar que las similitudes taxonomicas hagan el método definitivo de clusterización.
+
+
+```{bash}
+vsearch --cluster_fast /home/meg/rgallego/GTABE/all.fa \  
+        --id 0.85 \ 
+        --centroids centroids_0.85.fasta \
+        --uc clusters_0.85.uc \
+        --threads 60 
+```
+
+Hemos optado con un 85% de similitud para incluir secuencias similares en el mismo cluster. Es un metodo que tiene el potencial de incluir secuencias de distinto origen en el mismo cluster, pero la tasa de error de Nanopore haría practicamente inútil un limite mas restrictivo. La otra cosa que notamos aqui es que estamos usando un archivo de origen combinado, de forma que todas las secuencias producidas pueden formar clusters entre ellas. Esto tiene sus pros y cons, pero es lo más adecuado en este momento. 
+
+Este comando produce dos outputs:
+ - el archivo `centroids_0.85.fasta` que contiene una secuencia representativa de cada cluster, y que usaremos para identificar el origen de las secuencias en el Rmd `identifying_with_blast.Rmd`.
+ 
+ - el archivo `clusters_0.85.uc`, que usaremos para saber qué secuencias forman cada cluster y tener la posibilidad de saber cuántas secuencias de cada cluster aparecieron en cada muestra.
+
+
