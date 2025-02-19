@@ -251,7 +251,7 @@ class: nord-light
 
 ]
 
-<iframe src="images_AZTI/plotly_dna.html" width="100%" height="500px"></iframe>
+<iframe src="https://ramongallego.github.io/Teaching_eDNA_for_Biodiversity/images_AZTI/plotly_dna.html" width="100%" height="500px"></iframe>
 
 
 ---
