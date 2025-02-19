@@ -31,7 +31,7 @@ background-size: cover
 
 ```{css, echo=F}
 .small { font-size: 70% }
-.huge  { font-size: 150% }
+.huge  { font-size: 130% }
 ```
 
 
@@ -51,8 +51,8 @@ library(tidyverse)
 library(here)
  library(kableExtra)
 library(DT)
-htmltools::tags$script(src = "https://cdn.plot.ly/plotly-latest.min.js")
-library(plotly)
+# htmltools::tags$script(src = "https://cdn.plot.ly/plotly-latest.min.js")
+# library(plotly)
 ```
 
 ```{css echo=FALSE}
@@ -281,7 +281,7 @@ knitr::include_graphics("images_AZTI/Sponge-grounds-1.jpg")
 ---
 
 name: The Deep Sea Benthos
-background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/deep_sea.jpg)
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/deep_sea.jpg)
 background-position: top
 background-size: cover
 class: nord-light
@@ -291,7 +291,6 @@ class: nord-light
 
 </br>
 
-.pull-left[
 .content-box-purple[
 
  * .huge[.nord1[.bold[60% of the Earth surface]]]
@@ -313,24 +312,36 @@ class: nord-light
 
 ]
 
- ]
+ 
 --
 
-.pull-right[
+.nested-box[
+.content-box-green[
 
-.content-box-purple[
 
- * .huge[.nord1[.bold[ Increasing human pressure ]]]]
- 
-.content-box-purple[ * .huge[.nord1[.bold[Global Warming]]]
+
+  * .huge[.nord1[.bold[ Increasing human pressure ]]]
+  
 
 ]
+]
 
+--
+ 
+ .nested-box[
+.content-box-green[
+
+
+
+  * .huge[.nord1[.bold[ Global Warming ]]]
+  
+
+]
 ]
 
 ---
 name: Type of Benthic habitats
-background-image:  url(images/deep_sea.jpg)
+background-image:  url(images_AZTI/deep_sea.jpg)
 background-position: top
 background-size: cover
 class: nord-light
@@ -343,7 +354,7 @@ class: nord-light
 
 ---
 name: Type of Benthic habitats
-background-image:  url(images/othercosystems.png)
+background-image:  url(images_AZTI/othercosystems.png)
 background-position: top
 background-size: cover
 class: nord-light
@@ -356,7 +367,7 @@ class: nord-light
 
 ---
 name: Sponge Grounds
-background-image:  url(images/SpGround_full.png)
+background-image:  url(images_AZTI/SpGround_full.png)
 background-position: center
 background-size: contain
 class: nord-dark
@@ -365,7 +376,7 @@ class: nord-dark
 
 ---
 name: Sponge Grounds
-background-image:  url(images/sponge_ground.png)
+background-image:  url(images_AZTI/sponge_ground.png)
 background-position: bottom
 background-size: contain
 class: nord-dark
@@ -381,7 +392,7 @@ class: nord-dark
 ]
 ---
 name: Sponge Ground distribution
-background-image:  url(images/Slide10.png)
+background-image:  url(images_AZTI/Slide10.png)
 background-position: bottom
 background-size: contain
 class: nord-dark
@@ -390,7 +401,7 @@ class: nord-dark
 
 ---
 name: Sponge Grounds
-background-image:  url(images/sponge_ground_transparent.png)
+background-image:  url(images_AZTI/sponge_ground_transparent.png)
 background-position: bottom
 background-size: contain
 class: nord-dark
@@ -403,7 +414,7 @@ class: nord-dark
 
 .content-box-purple[
 
- * .nord1[Broad distribution]
+* .huge[.nord1[Broad distribution]]
  
  * .huge[.nord1[.bold[Enriched Habitat]]]
 
@@ -413,12 +424,12 @@ class: nord-dark
 </br>
 
 .center[
-<img src="images/carnivoras.png" alt="PCRbias" width="800" >
+<img src="images_AZTI/carnivoras.png" alt="PCRbias" width="800" >
 ]
 
 ---
 name: Sponge Grounds
-background-image:  url(images/sponge_ground.png)
+background-image:  url(images_AZTI/sponge_ground.png)
 background-position: bottom
 background-size: contain
 class: nord-dark
@@ -428,9 +439,9 @@ class: nord-dark
 
 .content-box-purple[
 
- * .nord1[Broad distribution]
+ * .huge[.nord1[Broad distribution]]
  
- * .nord1[Enriched Habitat]
+ * .huge[.nord1[Enriched Habitat]]
  
  * .huge[.nord1[.bold[Threatened]]]
 
@@ -438,7 +449,7 @@ class: nord-dark
 
 ---
 name: How to investigate
-background-image:  url(images/Slide11.png)
+background-image:  url(images_AZTI/Slide11.png)
 background-position: bottom
 background-size: contain
 class: nord-dark
@@ -453,7 +464,7 @@ class: nord-dark
 
 ---
 name: Can we use eDNA
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/eDNA_concept.png)
 background-position: bottom
 background-size: contain
 class: nord-dark
@@ -481,7 +492,7 @@ class: nord-dark
 
 ---
 name: Can we use nsDNA
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/eDNA_concept.png)
 background-position: bottom
 background-size: contain
 class: nord-dark
@@ -496,14 +507,12 @@ class: nord-dark
 
 <video width=1200 height=800 controls>
 
-<source src="images/transition1.mp4" type="video/mp4">
+<source src="images_AZTI/transition1.mp4" type="video/mp4">
 </video>
 
 ---
 name: Can we use nsDNA
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_icon.png)
-background-position: 10%
-background-size: 300px 300px
+
 class: nord-dark
 
 
@@ -512,9 +521,15 @@ class: nord-dark
 </br>
 </br>
 
-.pull-right[
+.left-column[
+<img src="images_AZTI/sponge_icon.png" alt="PCRbias" width="800" >
 
-.content-box-purple[
+]
+
+
+.right-column[
+
+.content-box-green[
 
 * .huge[.nord1[.bold[.center[DNA extraction from sponge tissue]]]]
 
@@ -532,7 +547,7 @@ class: nord-dark
 
 ---
 name: It works on Fish
-background-image: url(images/Slide12.png)
+background-image: url(images_AZTI/Slide12.png)
 background-position: top
 background-size: contain
 class: nord-dark
@@ -551,12 +566,12 @@ class: nord-dark
 .huge[.nord1[.bold[.center[Using Fish-specific primers ]]]]
 ]
 .center[
-<img src="images/WroksonFish.png" alt="PCRbias" width="800" >
+<img src="images_AZTI/WroksonFish.png" alt="PCRbias" width="800" >
 ]
 ---
 
 name: Can it work community-wide
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/sponge_ground_transparent.png)
 background-position: left
 background-size: contain
 class: nord-dark
@@ -569,16 +584,16 @@ class: nord-dark
 .huge[.nord1[.bold[.center[Can it work  whole communities? ]]]]
 ]
 
-<img src="images/metazoan.png" alt="PCRbias" width="800" >
+<img src="images_AZTI/metazoan.png" alt="PCRbias" width="800" >
 ---
 name: Our Paper
 background-size: cover
 class: nord-dark
-background-image: url(images/Slide13.png)
+background-image: url(images_AZTI/Slide13.png)
 
 ---
 
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/sponge_ground_transparent.png)
 background-position: left
 background-size: contain
 class: nord-dark
@@ -611,19 +626,19 @@ tableready |>
 ```
 ]
 ---
-background-image: url(images/mapa1.png)
+background-image: url(images_AZTI/mapa1.png)
 background-position: center
 background-size: contain
 class: nord-dark
 
 ---
-background-image: url(images/mapa2.png)
+background-image: url(images_AZTI/mapa2.png)
 background-position: center
 background-size: contain
 class: nord-dark
 
 ---
-background-image: url(images/mapa3.png)
+background-image: url(images_AZTI/mapa3.png)
 background-position: center
 background-size: contain
 class: nord-dark
@@ -654,7 +669,7 @@ class: nord-dark
 
 ---
 
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/sponge_ground_transparent.png)
 background-size: cover
 class: nord-dark
 name: Research plan
@@ -702,7 +717,7 @@ name: Research plan
 ]
 
 ---
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/sponge_ground_transparent.png)
 background-size: cover
 class: nord-dark
 name: results
@@ -719,7 +734,7 @@ name: results
 </br>
 .content-box-purple[
 
-.huge[.nord1[.bold[.center[After QC, ~ 9M reads from 11,198 ASVs ]]]]
+.huge[.nord1[.bold[.center[After QC, ~ 9M reads from 11,198 OTUs ]]]]
 ]
 
 --
@@ -727,17 +742,17 @@ name: results
 </br>
 .content-box-purple[
 
-.huge[.nord1[.bold[.center[Assigned taxonomy: 7.6M reads, 2155 ASVs  ]]]]
+.huge[.nord1[.bold[.center[Assigned taxonomy: 7.6M reads, 2155 OTUs  ]]]]
 ]
 --
 .content-box-nord-light[
-<img src="images/host_dna.png" alt="PCRbias" width="800" >
+<img src="images_AZTI/host_dna.png" alt="Host" width="1000" >
 ]
 
 
 
 ---
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/sponge_ground_transparent.png)
 background-size: cover
 class: nord-dark
 name: results
@@ -750,7 +765,7 @@ name: results
 ]
 
 --
-.content-box-purple[
+.content-box-green[
 
 .huge[.nord1[.bold[.center[Leray primers target Metazoa, most reads and species belong to: Chordata, Cnidaria, Echinodermata and Porifera   ]]]]
 ]
@@ -770,66 +785,70 @@ kbl(summary_CISA, align = "c") %>%
 ]
 ---
 
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
-background-size: cover
-class: nord-dark
-name: results
-
-##.center[.fancy[.title[Echinoderms ]]]
-
-.content-box-purple[
-
-.huge[.nord1[.bold[.center[78 ASVs, 43 species, 117k reads]]]]
-]
-
-<img src="images/echinodermata.png" alt="PCRbias" width="800" >
-
----
-
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
-background-size: cover
-class: nord-dark
-name: results
-
-##.center[.fancy[.title[Cnidarians ]]]
-
-.content-box-purple[
-
-.huge[.nord1[.bold[.center[166 ASVs, 86 species, 83k reads]]]]
-]
-
-<img src="images/Cnidarians.png" alt="PCRbias" width="800" >
-
----
-
-background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
-background-size: cover
-class: nord-dark
-name: results
-
-##.center[.fancy[.title[Porifera (no host) ]]]
-
-.content-box-purple[
-
-.huge[.nord1[.bold[.center[189 ASVs, 87 species, 68k reads]]]]
-]
-
-<img src="images/porifera.png" alt="PCRbias" width="800" >
-
-
-
----
-
-background-image:   url(images/cordata_all.png)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/echinodermata.png)
 background-size: contain
+background-position: bottom
+class: nord-dark
+name: results
+
+##.pull-left[.fancy[.title[Echinoderms ]]]
+.pull-right[
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[78 OTUs, 43 species, 117k reads]]]]
+]
+]
+
+
+---
+
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/Cnidarians.png)
+background-size: contain
+background-position: bottom
+class: nord-dark
+name: results
+
+##.pull-left[.fancy[.title[Cnidarians ]]]
+.pull-right[
+.content-box-purple[.huge[.nord1[.bold[.center[166 OTUs, 86 species, 83k reads]]]]
+]
+]
+
+
+
+---
+
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images_AZTI/porifera.png)
+background-size: contain
+background-position: bottom
+class: nord-dark
+name: results
+
+##.pull-left[.fancy[.title[Porifera (no host) ]]]
+.pull-right[
+.content-box-purple[.huge[.nord1[.bold[.center[189 OTUs, 87 species, 68k reads]]]]
+]
+]
+
+
+
+
+---
+
+background-image:   url(images_AZTI/cordata_all.png)
+background-size: contain
+background-position: bottom
 class: nord-light
 name: results
 
-##.center[.fancy[.title[Chordata ]]]
-
+##.pull-left[.fancy[.title[Chordata ]]]
+.pull-right[
+.content-box-purple[.huge[.nord1[.bold[.center[160 OTUs, 77 species, 710k reads]]]]
+]
+]
 ---
 
-background-image:   url(images/sponge_ground.png)
+background-image:   url(images_AZTI/sponge_ground.png)
 background-size: cover
 class: nord-light
 name: Conclusions
@@ -845,11 +864,11 @@ name: Conclusions
 
 ]
 .content-box-nord-light[
-<img src="images/amimefunciona.png" alt="PCRbias" width="800" >
+<img src="images_AZTI/amimefunciona.png" alt="PCRbias" width="800" >
 ]
 ---
 
-background-image:   url(images/sponge_ground.png)
+background-image:   url(images_AZTI/sponge_ground.png)
 background-size: cover
 class: nord-light
 name: Conclusions
@@ -862,20 +881,23 @@ name: Conclusions
 .huge[.nord1[.bold[.center[ _Phakelia_ much better at this]]]]
 
 ]
+
+--
+
 .center[
 .content-box-yellow[
 .huge[.nord1[.bold[.center[Depth related?]]]]
 ]
 .content-box-nord-light[
 
-<img src="images/sera_la_profundidad.png" alt="PCRbias" width="800" >
+<img src="images_AZTI/sera_la_profundidad.png" alt="PCRbias" width="800" >
 ]
 
 ]
 
 ---
 
-background-image:   url(images/sponge_ground.png)
+background-image:   url(images_AZTI/sponge_ground.png)
 background-size: cover
 class: nord-light
 name: Conclusions
@@ -893,13 +915,13 @@ name: Conclusions
 .huge[.nord1[.bold[.center[Microbiome of _Geodia_ interfering?]]]]
 ]
 .content-box-nord-light[
-<img src="images/sera_el_bioma.png" alt="PCRbias" width="800" >
+<img src="images_AZTI/sera_el_bioma.png" alt="PCRbias" width="800" >
 ]
 ]
 
 ---
 
-background-image:   url(images/sponge_ground.png)
+background-image:   url(images_AZTI/sponge_ground.png)
 background-size: cover
 class: nord-light
 name: Conclusions
@@ -916,11 +938,11 @@ name: Conclusions
 .content-box-yellow[
 .huge[.nord1[.bold[.center[Primer Affinity?]]]]
 ]
-
+]
 
 ---
 
-background-image:   url(images/Thanks.png)
+background-image:   url(images_AZTI/Thanks.png)
 background-size: contain
 background-position: bottom
 class: nord-light
@@ -929,7 +951,7 @@ name: results
 #.center[.fancy[.title[Funding]]]
 
 ---
-background-image:   url(images/sponge_ground_transparent.png)
+background-image:   url(images_AZTI/sponge_ground_transparent.png)
 background-size: cover
 background-position: bottom
 class: nord-light
