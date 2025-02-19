@@ -51,6 +51,8 @@ library(tidyverse)
 library(here)
  library(kableExtra)
 library(DT)
+htmltools::tags$script(src = "https://cdn.plot.ly/plotly-latest.min.js")
+library(plotly)
 ```
 
 ```{css echo=FALSE}
@@ -245,8 +247,6 @@ class: nord-light
 
 
 ```{r, echo=FALSE, message=FALSE}
-library(plotly)
-
 # Generate x and y sequences
 x_vals <- seq(-5, 5, length.out = 50)  
 y_vals <- seq(0, 5, length.out = 50)   
