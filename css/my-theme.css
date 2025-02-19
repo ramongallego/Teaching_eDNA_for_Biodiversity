@@ -139,6 +139,11 @@ th, td { padding: 5px; }
 /******************
  * Coloured content boxes
  ****************/
+ .nested-box {
+  position: relative;
+  left: 30px;
+}
+ 
 .content-box { 
     box-sizing: content-box;
     background-color: #e2e2e2;
@@ -157,14 +162,19 @@ th, td { padding: 5px; }
 .content-box-army,
 .content-box-green,
 .content-box-blue,
+.content-box-nord-light,
 .content-box-red,
+.content-box-nord1,
 .content-box-yellow {
   box-sizing: content-box;
   border-radius: 5px;
   margin: 0 0 5px;
   overflow: hidden;
   padding: 0px 20px 0px 10px;
-  width: 100%;
+  max-width: 90%; /* Set a maximum width to allow wrapping */
+  word-wrap: break-word; /* Ensures long words wrap */
+  white-space: normal; 
+  width: max-content;
 }
 .content-box-blue { background-color: #F0F8FF; }
 .content-box-gray { background-color: #e2e2e2; }
@@ -173,8 +183,10 @@ th, td { padding: 5px; }
 .content-box-green { background-color: #d9edc2; }
 .content-box-purple { background-color: #e2e2f9; }
 .content-box-red { background-color: #ffcccc; }
+.content-box-nord1 {background-color: #2e3440; color: #d8dee9; }
 .content-box-yellow { background-color: #fef5c4; }
 .content-box-white { background-color: #FFFFFF; color: #0c1a3d;}
+.content-box-nord-light { background-color: #E5E9F0; }
 .content-box-blue .remark-inline-code,
 .content-box-white .remark-inline-code,
 .content-box-gray .remark-inline-code,
