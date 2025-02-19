@@ -233,7 +233,13 @@ background-image: url(images_AZTI/Shedding.png)
 ---
 name: Is the diversity a function of volume
 
-
+<iframe 
+  width="800" height="450"
+  src="https://www.youtube.com/embed/neuSRbexOic?start=73&end=93&mute=1"
+  frameborder="0" 
+  allow="autoplay; encrypted-media" 
+  allowfullscreen>
+</iframe>
 ---
 
 name: eDNA comes from here and now
@@ -245,44 +251,7 @@ class: nord-light
 
 ]
 
-
-```{r, echo=FALSE, message=FALSE}
-# Generate x and y sequences
-x_vals <- seq(-5, 5, length.out = 50)  
-y_vals <- seq(0, 5, length.out = 50)   
-
-
-gamma <- 0.5  # Controls minimum travel time for DNA from far away
-
-z_matrix <- outer(x_vals, y_vals, function(x, y) {
-  # Ensure DNA does not appear before travel time is met
-  ifelse(y >= gamma * abs(x), exp(- (x^2 + (y - gamma * abs(x))^2)), 0)
-})
-
-# Transpose to align correctly with plotly
-DNA_amount <- t(z_matrix)
-
-# Create interactive plot
-nice_plot <- function(matrix){
-plot_ly(x = ~x_vals, y = ~y_vals, z = matrix) %>%
-  add_surface(colorscale = list(
-      c(0, 0.01, 1),  # Set low values to white, rest to Viridis
-      c("#FFFFFF","#FFFFFF", "Viridis")  # White for 0, then Viridis scale
-    ),
-    colorbar = list(title = "DNA Amount")) %>%
-  layout(
-    title = "DNA Detection Over Time and Space",
-    scene = list(
-      xaxis = list(title = "Distance"),
-      yaxis = list(title = "Time Before Sampling"),
-      zaxis = list(title = "DNA Amount")
-    )
-  )
-}
-nice_plot(matrix = DNA_amount)
-
-
-```
+<iframe src="images_AZTI/plotly_dna.html" width="100%" height="500px"></iframe>
 
 
 ---
@@ -294,17 +263,7 @@ name: It could be softer
 
 ]
 
-
-```{r, echo=FALSE}
-z_matrix_soft1 <- outer(x_vals, y_vals, function(x, y) {
-  ifelse(y >= gamma * abs(x), 
-         exp(-((x^2 + (y - gamma * abs(x))) / 4)), 
-         0)  # Prevents DNA from appearing instantly at far distances
-})
-z_matrix_soft1 <- t(z_matrix_soft1)
-
-nice_plot(matrix = z_matrix_soft1)
-```
+<iframe src="images_AZTI/plotly_sponge.html" width="100%" height="500px"></iframe>
 
 
 ---
@@ -317,2230 +276,676 @@ class: nord-light, center, middle
 ```{r,echo=F, out.width='90%',out.height='90%', fig.align='center'}
 knitr::include_graphics("images_AZTI/Sponge-grounds-1.jpg")
 ```
-.column3[.footnote[.content-box-nord1[image credit: .nord12[Ocean Fisheries Canada DFO] ]]] 
+.footnote[.content-box-nord1[image credit: .nord12[Ocean Fisheries Canada DFO] ]]
 
 ---
 
+name: The Deep Sea Benthos
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/deep_sea.jpg)
+background-position: top
 background-size: cover
-class: nord-dark
-background-image:  url(images/eDNA_concept.png)
----
-layout: true
-background-size: cover
-class: nord-dark
-background-image:  url(images/single_species.jpg)
----
-name: modos de obtenerla
-.content-box-purple[
-.nord1[
-## Single-species assays
-
-]]
----
-name: modos de obtenerla
 class: nord-light
-### .fancy[*environmental DNA*]
 
+## .nord4[The Deep Sea Benthos]
 
-.content-box-purple[
-.nord1[
-## Single-species assays
 
-  -   ### *qPCR*
-  -   ### *ddPCR*
-  -   ### *CRISPR-Cas9*
-]]
-
-
----
-name: tipos de informacion
-class: nord-dark
-### .fancy[*environmental DNA*]
-
-.content-box-purple[
-.center[##.nord1[Cuantificación ]]
-</br>
-<img src="images/pone.0122763.g003.png" alt="sst" width="500" />
-
-
-]
----
-name: tipos de informacion
-class: nord-dark
-background-image:  url(images/ddpcr_vs_qpcr.webp)
-background-size: contain
-
-.content-box-purple[
-.center[##.nord1[Cuantificación ]]]
-
----
-background-size: cover
-class: nord-dark
-background-image:  url(images/eDNA_concept.png)
----
-layout: true
-background-size: cover
-class: nord-dark
-background-image:  url(images/peces.jpg)
----
-.content-box-purple[
-.nord1[
-## Multiple species assays
-
-]]
----
-
-
-name: tipos de informacion
-class: nord-dark
-### .fancy[*environmental DNA*]
-
-.content-box-yellow[
-.center[##.nord1[Composición] ]]
-
-.content-box-purple[
-
-```{r dataTABLE, echo = F, warning=FALSE ,message=FALSE}
-
-convert.names<- function(x){paste0("Sample", 1:length(x))}
-read_csv(here("Data", "ASV_table_all_together.csv")) %>%  
-  left_join(read_csv(here("Data", "Annotated.hashes.csv"))) %>% 
-  unite(family, genus, species, sep = "|", col = "taxa") %>% 
-  filter(taxa !="NA|NA|NA") %>% 
- 
-  group_by(taxa) %>% tally %>% arrange(desc(n)) %>% slice(1:10) %>% 
-  pull(taxa) -> keepers 
-  read_csv(here("Data", "ASV_table_all_together.csv")) %>%  
-  left_join(read_csv(here("Data", "Annotated.hashes.csv"))) %>% 
-   unite(family, genus, species, sep = "|", col = "taxa", remove = F) %>%
-    mutate(label = case_when(is.na(species) ~  paste0(genus, " sp."),
-                                                   TRUE            ~ species)) %>% 
-  
-    filter(Miseq_run ==1,  taxa %in% keepers) %>% 
-    mutate(sample = fct_relabel(sample, convert.names)) %>% 
-    arrange(sample) %>% 
-    pivot_wider(id_cols = label, names_from = sample, values_from = nReads, values_fill = list (nReads = 0), values_fn = list(nReads= sum)) %>% 
-    rename (Taxa = label) -> data
-  
-  data %>% 
-    select(1:7) -> nice.table 
-  
-  nice.table %>% 
-    kable() %>%
-    kable_styling(full_width = T,
-                  bootstrap_options = "hover") %>%
-       column_spec(1, italic  = T) %>%
-       column_spec(2:6, width = '1in') %>%
- scroll_box( height = "600px")
-```
-
-]
-
----
-name: modos de obtenerla
-class: nord-dark
-### .fancy[*environmental DNA*]
-
-.content-box-purple[
-.nord1[
-
-## Multi-species assays
-
-  - ###*metabarcoding*
-]]
-
---
-.content-box-purple[
-.nord1[
-
-
-  - ###*metagenomics*
-]]
-
-
----
-
-name: How to sample
-class: nord-dark, center, middle
-layout: false
-
-## .nord4[¿Cómo muestrear eDNA?]
-
-
-
-
----
-
-name: Soil
-class: nord-light
-layout: true
-background-size: cover
-
-background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0)),url("images/eDNA_concept.png") 
-
-## .center[.nord1[Métodos de muestreo]]
-
-
----
-
-name: Soil
-
-## .nord1[.bold[  Suelo ]]
-
-
-```{r,echo=F, out.width='90%',out.height='90%', fig.align='center'}
-knitr::include_graphics("images/Tiara_TNC.jpg")
-```
-
-
-
----
-
-## .nord1[.bold[  Suelo ]]
-
-
-```{r,echo=F, out.width='90%',out.height='90%', fig.align='center'}
-knitr::include_graphics("images/Tiara_UCLA.jpg")
-```
-
-
-
----
-
-name: Freshwater
-
-## .nord1[.bold[  Ríos ]]
-
-
-```{r,echo=F, out.width='90%',out.height='90%', fig.align='center'}
-knitr::include_graphics("images/Freshwater.jpeg")
-```
-
-
-
----
-
-name: Freshwater
-
-## .nord1[.bold[  Aguas costeras ]]
-
-
-```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
-knitr::include_graphics("images/procB2.png")
-
-
-knitr::include_graphics("images/eDNA_16x9.jpg")
-```
----
-
-name: Freshwater
-
-## .nord1[.bold[  Aguas abiertas ]]
-
-
-```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
-knitr::include_graphics("images/ProcB_hake.png")
-knitr::include_graphics("images/CTD.jpg")
-
-```
-
-
-
----
-
-name: Freshwater
-
-## .nord1[.bold[  ¡Aire! ]]
-
-
-```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
-knitr::include_graphics("images/eDNA_air.jpg")
-knitr::include_graphics("images/air.eDNA.png")
-```
-
-
----
-
-name: Esponjas
-
-## .nord1[.bold[  ¡Animales! ]]
-
-
-```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
-knitr::include_graphics("images/Sponges.png")
-
-```
-
-
----
-
-name: Miel
-
-.center[ # Animales!]
-
-```{r,echo=F, out.width='80%',out.height='80%', fig.align='center'}
-knitr::include_graphics("images/honey.png")
-
-```
-
-
----
-name: Intro to qPCR assays
-class: inverse, center, middle
-layout: false
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
-
-# .nord4[Quantitative assays: qPCR]
-
----
-name: qPCR_template
-class: nord-light, typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
-background-size: cover
-layout: true
-
-### .center.nord9.bold[Quantitative assays: qPCR]
-
----
-name: qPCR_1
-
-.content-box-purple[
-.nord1[
-
-## ¿Qué es?
-
-  -   ### * $$Fluorescence  \sim [DNA]$$* 
-  
-
-  ]]
-  
----
-name: qPCR_Fluor
-background-image:  url(images/qpcr_curves-1.jpg)
-background-size: 90% 90%
-background-position: 50% 90%
----
-name: qPCR_2
-
-.content-box-purple[
-.nord1[
-
-## ¿Qué es?
-
-.huge[
-
-$$Fluorescencia  \sim [DNA]$$
-
-
-$$Fluorescencia_{ st} -> [DNA]_{st}$$ 
- 
-    
-$$Fluorescencia _{ muestra} -> [DNA]_{muestra}$$ 
-  ]
-]]
----
-name: qPCR_Fluor
-background-image:  url(images/standards.qpcr.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: qPCR_Fluor
-background-image:  url(images/Standardandlinear.PNG)
-background-size: 90% 90%
-background-position: 50% 90%
-
-  
----
-name: qPCR_2
-
-.content-box-purple[
-.nord1[
-
-## ¿Qué es?
-
-$$Fluorescencia  \sim [DNA]$$
-
-
-$$Fluorescencia_{ st} -> [DNA]_{st}$$ 
-
-
-  -   #### *Un proceso muy utilizado, pero con procesos aleatorios y con variación*
-]]
-
----
-name: qPCR_Fluor
-background-image:  url(images/Long_qPCR_Process.PNG)
-background-size: 90% 90%
-background-position: 50% 90%
-
-
----
-name: design
-
-.content-box-purple[
-.nord1[
-
-### ¿Cómo diseñar un experimento qPCR?
-
-]]
-
-
----
-name: qPCrdesign
-background-image:  url(images/qPCR_design.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: qPCrdesign
-background-image:  url(images/qPCR_design_with_probe.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: qPCrdesign
-background-image:  url(images/qPCR_design_with_2probes.png)
-background-size: 90% 90%
-background-position: 50% 90%
----
-
-
-name: qPCR_1
-
-</br>
-.content-box-purple[
-.nord1[
-
-##  ¿Cuándo usarlo?
-
-  -   ### *Cuando añade precisión*
-
-  -   ### *Cuando reduce costes*
-
-  -   ### *Cuando la biología de la especie hace*
-      ### *muy difícil otros métodos*
-
-  -   ### *Cuando añade información*
-
-]]
----
-
-
-name: qPCR_4
-
-</br>
-.content-box-purple[
-.nord1[
-
-##  ¿Cómo usarlo?
-
-  -   ### *Curva estándar y estimación puntual* 
-
-  -   ### *Occupancy modelling*
-
-  -   ### *Integrar todos los procesos y *
-      ### *Estimar parámetros con Bayesian models*
-
-]]
----
-name: Cmaenas1
-background-image:  url(images/GreenCRAB_pic.png)
-background-size: 50% 50%
-background-position: right
-
-</br>
-.huge[ El caso del Cangrejo verde _Carcinus maenas_]
-.pull-left[
-.nord1[
-
-
-  -   ### Gran potencial como invasora
-
-  -   ### Amenaza para pesquerías 
-  
-  -   ### Establecida en partes de la costa Oeste de EEUU
-
-]]
----
-name: Cmaenas2
-background-image:  url(images/invasive-crab-range-map-and-key.png)
-background-size: contain
-
-.huge[ El caso del Cangrejo verde _Carcinus maenas_]
----
-name: Cmaenas3
-background-image:  url(images/invasion_front.png)
-background-size: 60% 
-background-position: bottom
-
-.huge[ El caso del Cangrejo verde _Carcinus maenas_]
-
----
-name: Cmaenas3
-background-image:  url(images/model_performance.png)
-background-size: 90% 
-
-
-.huge[ El caso del Cangrejo verde _Carcinus maenas_]
----
-name: Cmaenas4
-background-image:  url(images/eDNA_benefit.png)
-background-size: 90% 
-
-
-.huge[ El caso del Cangrejo verde _Carcinus maenas_]
----
-
-name: Intro to metabarcoding
-class: inverse, center, middle
-layout: false
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
-
-
-
-# .nord4[Estudios cualitativos: metabarcoding]
-
----
-
-
-name: What for
-class: nord-dark, center, middle
-layout: false
-
-
-## .nord4[**eDNA and marine ecology**]
-
-
-
----
-
-name: Template
-layout: true
-class: inverse, center, middle
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
-background-size: cover
-
----
-name: Gaining popularity
-.center[ ## eDNA is gaining popularity]
-
-<img src="images/eDNA_popularity.jpg" alt="pop" width="700" />
-
----
-
-name: Types of publications I
-
-     ### It works!                    
-
-
-
-<img src="images/It_works.1.png" alt="pop" width="600" />
-</br>
-<img src="images/It_works.2.png" alt="pop" width="600" />
-
----
-
-name: Types of publications II
- 
-### Different views
-
-
-<img src="images/Different_things_1.png" alt="pop" width="550" />
-
-<img src="images/Different_things_2.png" alt="pop" width="550" />
-
----
-
-name: Types of publications III
-
-### Ecological research
-
-
-
-<img src="images/Ecological_inference_1.png" alt="pop" width="600" />
-</br>
-<img src="images/Ecological_inference_2.png" alt="pop" width="600" />
-
-
-
-
-
----
-name: metabarcoding template
-class: nord-light, typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
-background-size: cover
-layout: true
-
-### .center.nord9.bold[Identity assays: metabarcoding]
-
-
----
-name: metabarcoding_1
-
-.content-box-purple[
-.nord1[
-
-## ¿Qué es?
-
-  -   ### Secuenciación masiva y en paralelo
-  
-  
-
-  ]]
-  
----
-name: parallel seq
-background-image:  url(images/Seqbysyn2.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: parallel seq
-background-image:  url(images/Seqbysyn.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: metabarcoding_2
-
-.content-box-purple[
-.nord1[
-
-## ¿Qué es?
-
-  -    *Secuenciación masiva y en paralelo*
-  
-  - ###  De un fragmento homólogo
-  
-    - ### Universalidad
-    - ### Especificidad
-    - ### Tamaño
-  
-  
-
-  ]]
----
-name: primer_design1
-background-image:  url(images/aligned.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: primerloc
-background-image:  url(images/primerloc.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: primer_candidates
-background-image:  url(images/thermus_16s_2ndry.jpeg)
-background-size: contain
-background-position: 50% 90%
-
----
-name: primer_candidates
-background-image:  url(images/COI.png)
-background-size: contain
-background-position: 50% 50%
----
-name: right sized
-background-image:  url(images/amplified.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: useful
-background-image:  url(images/identify.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: metabarcoding_3
-
-.content-box-purple[
-.nord1[
-.center[
-##  ¿Cómo diseñar un experimento
-##  de metabarcoding?
-]
-
-  
-  
-
-  ]]
-
----
-name: qPCR_Fluor
-background-image:  url(images/Long_qPCR_Process.PNG)
-background-size: 90% 90%
-background-position: 50% 90%
----
-name: metabarcoding_3
-
-.content-box-purple[
-.nord1[
-
-.center[
-##  ¿Cómo diseñar un experimento
-##  de metabarcoding?
-]
-
-  -   ### Variación en el ambiente
-  
-  
-
-  ]]
-
-
----
-
-
-name: qPCR_Fluor
-background-image:  url(images/Biol.rep.png)
-background-size: 90% 90%
-background-position: 50% 90%
-
----
-name: metabarcoding_3
-
-.content-box-purple[
-.nord1[
-
-.center[
-##  ¿Cómo diseñar un experimento
-##  de metabarcoding?
-]
-
-  -   ### Variación en el ambiente
-  
-  -  ### Variación en la PCR
-  
-  
-
-  ]]
-
-
----
-name: metabarcode
-background-image:  url(images/visual.anova.png)
-background-size: 80% 90%
-background-position: 50% 90%
-
----
-name: metabarcoding_3
-
-.content-box-purple[
-.nord1[
-
-.center[
-##  ¿Cúando usar metabarcoding?
-
-  
-]
-
- - ### Información sobre una comunidad
-  
-  - Cambios en relación al cambio ambiental
-  
-  - Monitoreo continuo
-  
-  - Censo  de especies presentes
-  
-  
-
-  ]] 
----  
-
-
----
-name: metabarcoding_3
-
-.content-box-purple[
-.nord1[
-
-##  ¿Cómo usar metabarcoding?
-
-  
-  
-
-  ]]
-  
----
-
-name: Intro to OA
-class: inverse, center, middle
-layout: false
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
-
-
-
-# .nord4[eDNA for Ocean Acidification and warming]  
-  
----
-name: template_OA
-class: nord-light, typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
-background-size: cover
-layout: true
-
-### .center.nord9.bold[Ocean acidification and Warming]
-
----
-</br>
-
-
-.center[<img src="images/sst.models.1.png" alt="sst" width="500" />]
-
-
----
-</br>
-</br>
-.center[<img src="images/pH_Global_ave_E.png" alt="pH" width="800" />]
----
-class: nord-dark
-## .center[.fancy[Afecta a muchas especies ]
 </br>
 
 .pull-left[
-<img src="images/oyster pg 2.jpg" alt="ostra" width="360" />
-]
-
-
-.pull-right[
-<img src="images/Limacina.png" alt="limacina" width="360" />]
-]
-
-
-
-???
-With global warming and increased pCO2 levels, there is little doubt that future marine communities will have to face a warmer, more acidic ocean
----
-class: nord-dark
-name: A lot of info on many spp
-
- <img src="images/paper_snip.OA.Oph.png" alt="oph" height="100" />
-
---
-
-<img src="images/paper_snip.OA.Lima.png" alt="PCRbias"  />
-
---
-
-<img src="images/paper_snip.OA.many.png" alt="PCRbias" height="100" />
-
---
-
-<img src="images/paper_snip.OA.Meta.png" alt="PCRbias" height="120" />
-
-???
-
-Those effects are not happenning in a vacuum, but likely with Temp
-And in different directions
----
-class: nord-dark
-Name: Ecosystem-wide: not so much
-
-<img src="images/paper_snip.OA.Comm1.png" alt="PCRbias" height=120  />
-
-
-<img src="images/paper_snip.OA.Comm2.png" alt="PCRbias" height="120" />
-
-.pull-left[
-<img src="images/paper_snip.OA.Comm3.png" alt="PCRbias" width=250/>
-]
----
-name: WHy Hood Canal
-class: middle, nord-dark
-###.center[.fancy[.title[Why the Puget Sound?]]]
-
-Naturally occuring High *p*CO<sub>2</sub>  levels offer a view of not far-fetched conditions
-<img src="images/paper_snip.OA.why.png" alt="PCRbias" />
-
----
-class: nord-dark
-name: Research plan
-
-##.center[.fancy[.title[Diseño experimental]]]
-
-.pull-left[
-
-```{r, message = F, echo = F, out.width= '90%'}
-
-
-
-leaflet(data = read_csv(here("Data","site.info.csv"))) %>%
-  addTiles() %>%
-  setView(lat = 47.5, lng = -122.5, zoom = 7) %>%
-  addMarkers(label = ~Site,
-             labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
-  permanent = FALSE, className = "", direction = "auto",
-  offset = c(1, 1), opacity = 1, textsize = "20px",
-  textOnly = FALSE, style = NULL,
-  sticky = TRUE)
-  )
-```
-]
-
---
-
-.pull-right[
-.content-box-yellow[
-.nord9[
-- Seasonal and temporal scale
-
-- Add Biological replication
-
-- Add technical replication
-]]
-.center[
-<img src="images/ridges.env.vars.png" alt="PCRbias" />
-]
-
-
-]
-
----
-class: nord-dark
-name: Process1
-
-background-image:  url(images/eDNA_16x9.jpg)
-background-size: contain
-background-position: 50% 50%
-
-
----
-class: nord-dark
-name: Process2
-background-image:  url(images/Ana.jpg)
-background-size: contain
-background-position: 50% 50%
-
-
-
----
-
-class: nord-dark
-name: Filter 2
-background-image:  url(images/Filtering_in_the_car.jpg)
-background-size: contain
-background-position: 50% 50%
-
-
-
-
----
-
-class: nord-dark
-name: PCR and seq
-
-
 .content-box-purple[
 
- * .huge[.nord1[.bold[ocho estaciones]]]
-
-]
-
----
-class: nord-dark
-
-</br>
-
-```{r, message = F, echo = F, out.width= '90%'}
-
-
-
-leaflet(data = read_csv(here("Data","site.info.csv"))) %>%
-  addTiles() %>%
-  setView(lat = 48, lng = -122.5, zoom = 8) %>%
-  addMarkers(label = ~Site,
-             labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL,
-  permanent = FALSE, className = "", direction = "auto",
-  offset = c(1, 1), opacity = 1, textsize = "20px",
-  textOnly = FALSE, style = NULL,
-  sticky = TRUE)
-  )
-```
-
----
-class: nord-dark
-name: PCR and seq
-
-.content-box-purple[
-
- * .huge[.nord1[.bold[ocho estaciones]]]
-
-]
-
-.content-box-purple[
-
- * .huge[.nord1[.bold[muestreadas cada mes durante 1.5 años]]]
-
-]
-
---
-.content-box-purple[
-
- * .huge[.nord1[.bold[Cada sitio*mes : 3 biol.reps]]]
-
-]
-
----
-
-background-image:  url(images/Biol.rep.png)
-background-size: contain
-background-position: 50% 50%
-
-
-
-
----
-.content-box-purple[
-
- * .huge[.nord1[.bold[ocho estaciones]]]
-
-]
-
-.content-box-purple[
-
- * .huge[.nord1[.bold[muestreadas cada mes durante 1.5 años]]]
+ * .huge[.nord1[.bold[60% of the Earth surface]]]
 
 ]
 
 
-.content-box-purple[
 
- * .huge[.nord1[.bold[Cada sitio*mes : 3 biol.reps]]]
+ .content-box-purple[
 
-]
---
-.content-box-purple[
-
- * .huge[.nord1[.bold[cada muestra 3 tech reps]]]
-
-]
---
-
-.content-box-purple[
-
- * .huge[.nord1[.bold[Amplificadas COI]]]
-
-]
----
-
-
-class: nord-light
-name: Pipelines
-
-</br> 
-.center.nord9.bold[Processing of sequence data]
-</br> 
-.pull-left.oc-bg-black.opacity-40.nord-light.bold[
-
-* ####  .bold[A demultiplexing and clustering pipeline]
-
-.center[<img src="images/demultiplexer.png" alt="pipeline" width="350" />]
-
-.center[[github.com/ramongallego](https://github.com/ramongallego?tab=repositories) 
-<img src="images/GitHub-Mark-64px.png" alt="pipeline" />]
- 
- * A locus-specific classification tree with curated sequences 
- 
-
+ * .huge[.nord1[.bold[Great Gaps in Biodiversity knowledge]]]
 
 ]
 
 
-.pull-right.oc-bg-black.opacity-10.nord-light.bold[
- * QC and decontamination steps
- 
+  .content-box-purple[
 
- .center[<img src="images/visual.anova.png" alt="pipeline" width="350" />]
- 
- 
+ * .huge[.nord1[.bold[Urgency to know to face two challenges:]]]
 
- 
-* High confidence in presence and identity 
- 
- 
- 
+]
+
  ]
+--
 
+.pull-right[
 
----
+.content-box-purple[
 
-.content-box-blue[
-```{r dataTABLE1, echo = F, warning=FALSE ,message=FALSE, out.height='70%', out.width='70%'}
-convert.names<- function(x){paste0("Sample", 1:length(x))}
-read_csv(here("Data", "ASV_table_all_together.csv")) %>%  
-  left_join(read_csv(here("Data", "Annotated.hashes.csv"))) %>% 
-  unite(family, genus, species, sep = "|", col = "taxa") %>% 
-  filter(taxa !="NA|NA|NA") %>% 
+ * .huge[.nord1[.bold[ Increasing human pressure ]]]]
  
-  group_by(taxa) %>% tally %>% arrange(desc(n)) %>% slice(1:10) %>% 
-  pull(taxa) -> keepers 
-  read_csv(here("Data", "ASV_table_all_together.csv")) %>%  
-  left_join(read_csv(here("Data", "Annotated.hashes.csv"))) %>% 
-   unite(family, genus, species, sep = "|", col = "taxa", remove = F) %>%
-    mutate(label = case_when(is.na(species) ~  paste0(genus, " sp."),
-                                                   TRUE            ~ species)) %>% 
-  
-    filter(Miseq_run ==1,  taxa %in% keepers) %>% 
-    mutate(sample = fct_relabel(sample, convert.names)) %>% 
-    arrange(sample) %>% 
-    pivot_wider(id_cols = label, names_from = sample, values_from = nReads, values_fill = list (nReads = 0), values_fn = list(nReads= sum)) %>% 
-    rename (Taxa = label) %>%
-    select(1:7)  %>%
-    kable() %>%
-    kable_styling(full_width = T) %>%
-       column_spec(1, italic  = T) %>%
-       column_spec(2:6, width = '1in') -> nice.table 
-
-   
-
-
-```
-]
----
-
-
-.content-box-blue[
-```{r, echo = F, warning=FALSE ,message=FALSE, out.height='70%', out.width='70%'}
-nice.table %>% 
-  column_spec(2, width = '1in', background = "yellow") %>%
-  row_spec(1,background = "yellow")
-```
+.content-box-purple[ * .huge[.nord1[.bold[Global Warming]]]
 
 ]
 
+]
 
 ---
-
-
-name: Intro to cuant
-class: inverse, center, middle
-layout: false
-
-# .nord4[eDNA metabarcoding and quantification]
-
----
-
-class: nord-dark,  typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/eDNA_concept.png)
+name: Type of Benthic habitats
+background-image:  url(images/deep_sea.jpg)
+background-position: top
 background-size: cover
-layout: true
-### .center[eDNA metabarcoding and quantification]
+class: nord-light
 
----
-
-class: nord-dark, middle, center
-name: PCR paper front
-
-
-
-<img src="images/UnderstandingPCR.png" alt="PCRbias" width="720" />
-
-???
-
-How to interpret the number of occurrences of a sequence in a sample?  
-
----
-class: nord-dark, typo, typo-selection
-
-
-.left-column[
-
-
- ### .nord4.bold[Differential Primer Affinity]
-
- ### .nord4.bold[Strong effect on] .nord13.bold[diversity]
-]
+## .nord4[The Deep Sea Benthos]
 
 --
 
-.right-column[ 
- 
-```{r,echo=F, fig.align='right'}
-knitr::include_graphics("images/PCR_div.png")
-
-```
-
-
-
-]
+### .nord4[More than mud]
 
 ---
-
-class: nord-dark
-
-
-
-
-
-## .center[ We can get .bold[quantitative] information from metabarcoding]
-
-
-.center[
-<img src="images/Understanding1.png" alt="PCRbias" width="540" />
-]
-
----
-
-name: template_OA
-class: nord-light, typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+name: Type of Benthic habitats
+background-image:  url(images/othercosystems.png)
+background-position: top
 background-size: cover
-layout: true
+class: nord-light
 
-### .center.nord9.bold[Ocean acidification and Warming]
+## .nord4[The Deep Sea Benthos]
+
+
+
+### .nord4[More than mud]
 
 ---
-name: Shiny app
+name: Sponge Grounds
+background-image:  url(images/SpGround_full.png)
+background-position: center
+background-size: contain
 class: nord-dark
 
 
-### .center[.nord12[Pregunta 1]: ¿Podemos detectar las fluctuaciones en presencia y abundancia de las especies de interés? ]
 
+---
+name: Sponge Grounds
+background-image:  url(images/sponge_ground.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Broad distribution]]]
+
+]
+---
+name: Sponge Ground distribution
+background-image:  url(images/Slide10.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+
+---
+name: Sponge Grounds
+background-image:  url(images/sponge_ground_transparent.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+
+
+
+--
+
+.content-box-purple[
+
+ * .nord1[Broad distribution]
+ 
+ * .huge[.nord1[.bold[Enriched Habitat]]]
+
+]
+
+--
 </br>
 
+.center[
+<img src="images/carnivoras.png" alt="PCRbias" width="800" >
+]
 
-<video width="640" height="480" controls>
-<source src="images/Shiny.mov" type="video/mp4">
+---
+name: Sponge Grounds
+background-image:  url(images/sponge_ground.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+
+
+.content-box-purple[
+
+ * .nord1[Broad distribution]
+ 
+ * .nord1[Enriched Habitat]
+ 
+ * .huge[.nord1[.bold[Threatened]]]
+
+]
+
+---
+name: How to investigate
+background-image:  url(images/Slide11.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+</br>
+
+.content-box-yellow[
+.huge[.nord1[.bold[How to research the diversity they hold]]]
+
+]
+
+---
+name: Can we use eDNA
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+# .nord4[eDNA]
+
+--
+
+.pull-left[
+.content-box-yellow[
+* .huge[.nord1[.bold[.center[Easier way to capture DNA]]]]
+
+* .huge[.nord1[.bold[.center[Will get DNA from potentially all taxa]]]]
+]
+]
+
+--
+.pull-right[
+.content-box-purple[
+* .huge[.nord1[.bold[.center[Relatively low volumes]]]]
+
+* .huge[.nord1[.bold[.center[Here and now]]]]
+]
+]
+
+---
+name: Can we use nsDNA
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+# .nord4[eDNA]
+
+
+---
+name: Use the sponge
+
+class: nord-dark
+
+<video width=1200 height=800 controls>
+
+<source src="images/transition1.mp4" type="video/mp4">
 </video>
 
-
 ---
+name: Can we use nsDNA
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_icon.png)
+background-position: 10%
+background-size: 300px 300px
 class: nord-dark
-name: using both PA and eDNAindex
-layout: true
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
----
-
-### .center[.nord12[Pregunta 2]: ¿Hay distintas comunidades asociadas con <br> Temperatura y pH?]
-
----
-class: nord-light
-### .nord12[Pregunta 2]: Community changes
-
-.center.huge[Similitud entre muestras en base a su composicion]
-
----
-class: nord-light
-layout: false
-### .nord12[Pregunta 2]: Community changes
-
-.center.huge[Similitud entre muestras en base a su composicion]
-
-```{r, echo = F, warning=FALSE ,message=FALSE, out.height='70%', out.width='70%'}
-t(data[,2:11]) %>%
-  vegan::vegdist(upper = F, diag = T) %>%
-  round(digits = 3) %>%
-  as.matrix()-> dist.table
-dist.table[upper.tri(dist.table)] <- ""
-dist.table %>% 
-  as.data.frame() %>% 
-  kable() %>%
-    kable_paper(full_width = T) %>%
-  kable_styling(bootstrap_options = "striped") %>%
-       column_spec(1, italic  = T) %>%
-       column_spec(2:6, width = '1in') %>%
-  column_spec(2, width = '1in', background = "yellow")
-```
-
----
-
-### .nord12[Pregunta 2]: Community changes
-.center[
-<img src="images/Figure2.2020-05-05_1.png" alt="PCRbias" width="560" >
-]
----
-### .nord12[Pregunta 2]: Community changes
-.center[
-<img src="images/Figure2.2020-05-05_2.png" alt="PCRbias" width="600" >
-]
----
-### .nord12[Pregunta 2]: Community changes
-.center[
-<img src="images/Figure2.2020-05-05_3.png" alt="PCRbias" width="600" >
-]
----
-
-class: nord-dark
-name: layout2
-layout: true
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
-
----
-
-### .nord12[Pregunta 3]: ¿Qué pinta tiene el futuro Puget Sound para las especies de interés?
-
-</br>
-##.fancy[Modelos de presencia de cada taxon:]
-</br>
-* .huge.bold[Usamos una regresión logística (presencia/ausencia)]
-</br>
-
-* .huge.bold[Ajustado independiente en cada .nord13[área y estación]]
-</br>
-* .huge.bold[y con temperatura y pH como variables explicativas]
-</br>
----
-
-name: Projections to 2095
-### .nord12.bold[Q3] - Estimando las condiciones en el Puget Sound (RCP8.5)
 
 
-.left-column[
-
-*  .bold[Usando la estimación de Khangaonkar et al, 2019]
-
-*  .bold[La predicción muestra algunos valores .nord13[ extremos] ]
-
-* .bold[La mayoría de los valores .nord13[se ven en el escenario actual]]
-
-]
-
-.right-column[
-<img src="images/Future_scenario.png" alt="PCRbias">]
-
-
-
-???
-
-Taking advantage from recently published models for the inner sea
----
-
-
-
-
-
-
-## Cada especie responde de un modo distinto
-
-<img src="images/Most.varied.taxa.png" alt="PCRbias" >
-
-
----
-
-
-## Cambios de diversidad en varios grupos
-
-<img src="images/Dinophyceaerastertitle.png" alt="PCRbias" width="850">
-
-
-
-
-
----
-name: Intro to mitoge
-
-
-
-layout:false
-class: nord-light,  middle, typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
-### .huge[.nord5[.center[ .bold[Building mitochondrial references ]]]]
-### .nord5[.center[ .bold[for species identification ]]]
-
-
----
-
-layout: true
-class: nord-light,  typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
-###  .center.nord9.bold[*Mitogenomas: go big or go home*]
-
-
----
-### .huge[.nord5[.center[ .bold[Building mitochondrial reference databases ]]]]
-.huge[.nord5[.center[.huge[*A team effort*]]]]
-
-.pull-left[
 .content-box-yellow[
-
-- Led by *Ana Ramón-Laca*
-
-- Made possible by support from PIs *Krista Nichols* at NOAA and *Ryan Kelly* at UW
-
-- No point on having a guest room
-
-]
-
-
-]
+.center[##.nord1[.center[nsDNA ]]]]
+</br>
+</br>
 
 .pull-right[
 
-<img src="images/home_lab.jpeg" alt="homelab" width="400" >
+.content-box-purple[
+
+* .huge[.nord1[.bold[.center[DNA extraction from sponge tissue]]]]
+
+
+* .huge[.nord1[.bold[.center[Contains DNA from the sponge and everything it eats 
+]]]]
+
+
+* .huge[.nord1[.bold[.center[Represents 100s or 1000s of L of seawater 
+]]]]
+
 ]
 
+]
 
 ---
-name: reasons
-
-
-### .huge[.nord5[.center[ .bold[*Motivation*]]]]
-
-.pull-left[
-
-</br>
-</br>
+name: It works on Fish
+background-image: url(images/Slide12.png)
+background-position: top
+background-size: contain
+class: nord-dark
 
 .content-box-yellow[
+.center[##.nord1[.center[nsDNA ]]]]
 
 
-- Obtaining full mitogenomes affordabl-ish
-
-- PCR-free method
-
-- Without requiring to pool 100s of specimens
-
-- Obtaining whole-length fragments
-
-]
-]
-
---
-
-.pull-right[
-
+</br>
+</br>
 </br>
 </br>
 
 .content-box-purple[
 
-* .bold[WE DON'T HAVE THE BARCODES]
+.huge[.nord1[.bold[.center[Using Fish-specific primers ]]]]
 ]
+.center[
+<img src="images/WroksonFish.png" alt="PCRbias" width="800" >
 ]
-
 ---
-name: Myctophids
-background-image: url(images/All.coveragev2.png)
+
+name: Can it work community-wide
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-position: left
 background-size: contain
-
-
-# .bold[Myctophids]
-
----
-
-name: Approaches
-
-
-### .huge[.nord5[.center[ .bold[*Mitochondrial enrichment*]]]]
-
-.pull-left[
-.content-box-blue[
-
-
-- Mitochondrial enrichment at different levels:
-   - Tissue with higher mitochondrial content
-]
-
-
-]
-
-.pull-right[
-
-.content-box-blue[
-
-<img src="images/LIVER.png" alt="homelab" width="400" >
-
-]
-]
-
----
-
-.huge[.nord5[.center[.huge[*Mitochondrial enrichment*]]]]
-
-.pull-left[
-.content-box-blue[
-
-
-- Mitochondrial enrichment at different levels:
-   - Tissue with higher mitochondrial content
-   - DNA Isolation techniques
-   
-]
-
-
-]
-
-.pull-right[
-
-.content-box-blue[
-
-<img src="images/mito_isolation.png" alt="homelab" width="400" >
-
-]
-]
-
----
-
-.huge[.nord5[.center[.huge[*Mitochondrial enrichment*]]]]
-
-.pull-left[
-.content-box-blue[
-
-
-- Mitochondrial enrichment at different levels:
-   - Tissue with higher mitochondrial content
-   - DNA Isolation techniques
-   - Enrichment:
-      - Exonuclease targetting linear DNA
-      - De-phosphorilation and cutting with CRISPR-CAS9
-   
-]
-
-
-]
-
-.pull-right[
-
-.content-box-blue[
-
-<img src="images/Cas9mitenrich protocol.png" alt="homelab" width="400" >
-
-]
-]
-
----
-.huge[.nord5[.center[.huge[*Mitochondrial enrichment*]]]]
-
-.pull-left[
-.content-box-blue[
-
-
-- Mitochondrial enrichment at different levels:
-   - Tissue with higher mitochondrial content
-   - DNA Isolation techniques
-- Enrichment:
-      - Exonuclease targetting linear DNA
-      - De-phosphorilation and cutting with CRISPR-CAS9
-- Sequencing enrichment:
-  - Adaptive sampling with reference mitogenomes
-   
-]
-
-
-]
-
-
-.pull-right[
-
-.content-box-blue[
-
-<img src="images/adaptive_sampling.jpeg" alt="homelab" width="400" >
-
-]
-]
----
-layout: true
-class: nord-light,  typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
-background-size: cover
-## .nord5[.center[*General Workflow*]]
-
----
-
-
-.left-column[
+class: nord-dark
+.content-box-yellow[
+  .center[##.nord1[.center[nsDNA]]]]
 </br>
-.content-box-blue[
 
-  * Run on a FlowCell 9.4
-  * Run for ~ 8 hrs
-  * Basecalling using SUP
-  * Map to reference with minimap2
+.content-box-purple[
 
-]]
-
-.right-column[
-<img src="images/COLAB.png" alt="homelab" >
+.huge[.nord1[.bold[.center[Can it work  whole communities? ]]]]
 ]
 
-
-
+<img src="images/metazoan.png" alt="PCRbias" width="800" >
 ---
-layout: true
-class: nord-light,  typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+name: Our Paper
 background-size: cover
+class: nord-dark
+background-image: url(images/Slide13.png)
 
 ---
 
-name: results1
-
-
-
-
-## .nord5[.center[*Great Enrichment and sequencing depth*]]
-
-
-<img src="images/Fig_ontarget.png">
-
-
----
-
-## .nord5[.center[*Great Coverage all across mitogenome*]]
-
-.pull-left[
-.content-box-yellow[
-
- With *Exonuclease*, Coverage is really uniform
-]
-]
-.pull-right[
-.content-box-yellow[
- With *CRISPR-CAS9*, coverage varies around cutting regions]
-]
-
-
-<img src="images/Fig2.png" alt="homelab" >
-
----
-background-image: url(images/Depletion.png)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-position: left
 background-size: contain
+class: nord-dark
 
-## .nord1[.center[*Exonuclease*]]
 
+
+</br>
+</br>
+
+.content-box-blue[
+```{r dataTABLE12, echo = F, warning=FALSE ,message=FALSE, out.height='70%', out.width='70%'}
+
+dataset <- read_csv(here("data_AZTI","final_metadata.csv"))
+
+dataset |> 
+  group_by(Species, Biogeographic_region) |> 
+  summarise (nsamples = as.character(n())) |> 
+
+  pivot_wider(names_from = Biogeographic_region, values_from = nsamples ,values_fill = "-") -> tableready
+
+tableready |> 
+    kable() %>%
+    kable_styling(full_width = F) %>%
+       column_spec(1, italic  = T) |> 
+  column_spec(2:5, width = "10em") |> 
+  scroll_box(width = "600px")
+
+
+
+```
+]
 ---
-background-image: url(images/nCATS.png)
+background-image: url(images/mapa1.png)
+background-position: center
 background-size: contain
+class: nord-dark
 
-## .nord1[.center[*CRISPR-CAS9*]]
+---
+background-image: url(images/mapa2.png)
+background-position: center
+background-size: contain
+class: nord-dark
+
+---
+background-image: url(images/mapa3.png)
+background-position: center
+background-size: contain
+class: nord-dark
+
+<!-- --- -->
+
+<!-- class: nord-dark -->
+<!-- name: Research plan -->
+
+<!-- ##.center[.fancy[.title[Experimental design]]] -->
+<!-- ```{r, message = F, echo = F, out.width= '90%'} -->
 
 
+
+<!-- leaflet(data = read_csv(here("data","final_metadata.csv"))) %>%  -->
+<!--   addTiles() |> -->
+<!--   # addProviderTiles(providers$CartoDB) %>% -->
+<!--   setView(lat = 60, lng = -3.5, zoom = 5) %>%  -->
+<!--   addMarkers(label = ~Species,  -->
+<!--              labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL, -->
+<!--                                          permanent = FALSE, className = "", direction = "auto", -->
+<!--                                          offset = c(1, 1), opacity = 1, textsize = "20px", -->
+<!--                                          textOnly = FALSE, style = NULL, sticky = TRUE, ), -->
+<!--              popup = ~as.character(Depth) -->
+<!--   ) -->
+
+<!-- ``` -->
 
 ---
 
-.content-box-yellow[
-- .huge[.nord1[*All methods heavily dependent on extraction Quality and fragment length*]]]
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: Research plan
+##.center[.fancy[.title[Experimental design]]]
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Amplifying COI with Leray primers]]]]
+]
+
+--
+
+</br>
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Sequencing 97 samples in a MiSeq]]]]
+]
+
+--
+</br>
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Denoising with DADA2]]]]
+]
+
+--
+</br>
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Second clustering with swarm]]]]
+]
+
+--
+</br>
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[BLAST and LCA for taxonomical assignment]]]]
+]
+--
+</br>
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Further curation by taxonomic experts]]]]
+]
+
+---
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: results
+
+##.center[.fancy[.title[Results]]]
 
 
 .content-box-purple[
-</br>
 
-.content-box-yellow[
-
-- With *CRISPR-CAS9*, coverage varies around cutting regions
-
-
-```{r, results='asis', echo =F}
-tabl <- "
-|     | CAS9      | gDNA depletion|
-              |-----|:---------:|:-------------:|
-              |  Min| 1,117X    |       647X	  |
-              |  Max| 14,299X   |        	875X  |
-              |  Ave| 8,971X    |  805X         |
-              |  Mean seq-length| 4000bp|5700bp |
-              |  Total Reads| 78k | 623k        |
-              |  On Target| 36k   | 2309        |"
-cat(tabl)
-```
-
-
-
-
+.huge[.nord1[.bold[.center[14.26M raw reads from 97 samples]]]]
 ]
 
-
-
-]]
-
----
-background-image: url(images/mitogenomes.one.per.spp.annotated.above.and.below.png)
-background-size: contain
-
-## Five Species sequenced
-
----
-
-.content-box-yellow[
-## .bold[Myctophids show some genetic rearrangements]
-]
+--
 </br>
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[After QC, ~ 9M reads from 11,198 ASVs ]]]]
+]
+
 --
 
-![](images/first_traslocation_fades.gif)
+</br>
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Assigned taxonomy: 7.6M reads, 2155 ASVs  ]]]]
+]
+--
+.content-box-nord-light[
+<img src="images/host_dna.png" alt="PCRbias" width="800" >
+]
+
+
+
 ---
-
-name: Intro to OA_eDNA
-class: inverse, center, middle
-layout: false
-
-# .nord4[Efectos de eventos oceanograficos en el eDNA ]
-
-
----
-
-name: template_Hake
-class: nord-light, typo-selection
-background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
 background-size: cover
-layout: true
+class: nord-dark
+name: results
 
-### .center.nord9.bold[Upwelling and eDNA]
+##.center[.fancy[.title[nsDNA Results ]]]
 
+.content-box-purple[
 
----
-
-
-
-name: OA_eDNA_template
-class: nord-light
-
-
-### .fancy[ *Coastal Upwelling*]
-
-.left-column[
-.content-box-yellow[
-- Prevailing winds displace surface waters
-
-- Deep water comes to surface
-- Brings up nutrient rich, low oxygen water]
+.huge[.nord1[.bold[.center[**Only** 1.8M reads from 590 species]]]]
 ]
 
-.right-column[
-```{r,echo=F, out.width='80%', fig.align='center'}
-knitr::include_graphics("images/coast_upwelling.png")
+--
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Leray primers target Metazoa, most reads and species belong to: Chordata, Cnidaria, Echinodermata and Porifera   ]]]]
+]
+
+--
+.content-box-purple[
+```{r, message = F, echo = F, out.width= '90%'}
+
+read_csv(here("data_AZTI", "TalkCISA2023_summary.csv")) -> summary_CISA
+
+colnames(summary_CISA) <- gsub("\\...*", "", colnames(summary_CISA))
+kbl(summary_CISA, align = "c") %>%
+  kable_classic(full_width = F, html_font = "Cambria") %>%
+  add_header_above(c("","All together " =  5 , "Phakellia ventilabrum " = 3 ,"Geodia hentscheli" = 3,  "Geodia barretti" = 3, "Geodia parva" = 3), italic = T, bold = T) |> 
+  scroll_box(width = "800px")
 ```
-
 ]
 ---
-layout: false
-name: Hake survey 
-class: nord-dark, center, middle
 
-# *Hake survey*
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: results
+
+##.center[.fancy[.title[Echinoderms ]]]
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[78 ASVs, 43 species, 117k reads]]]]
+]
+
+<img src="images/echinodermata.png" alt="PCRbias" width="800" >
+
+---
+
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: results
+
+##.center[.fancy[.title[Cnidarians ]]]
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[166 ASVs, 86 species, 83k reads]]]]
+]
+
+<img src="images/Cnidarians.png" alt="PCRbias" width="800" >
+
+---
+
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: results
+
+##.center[.fancy[.title[Porifera (no host) ]]]
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[189 ASVs, 87 species, 68k reads]]]]
+]
+
+<img src="images/porifera.png" alt="PCRbias" width="800" >
+
+
+
+---
+
+background-image:   url(images/cordata_all.png)
+background-size: contain
+class: nord-light
+name: results
+
+##.center[.fancy[.title[Chordata ]]]
+
+---
+
+background-image:   url(images/sponge_ground.png)
+background-size: cover
+class: nord-light
+name: Conclusions
+
+##.center[.fancy[.title[.nord4[A few thoughts ]]]]
 
 --
 
-### Integrated ecosystem acoustic and trawl survey
-
-
----
-name: Hake
-class: nord-light
-background-image: url(images/900x600-pacific-whiting-noaa.jpeg)
-background-position: right
-background-size: 50% 50%
-
-
-# .huge.center[*Hake*]
- .center[_Merluccius productus_]
 </br>
-.pull-left[ 
+.content-box-purple[
 
- - *semi-pelagic fish*
+.huge[.nord1[.bold[.center[A good way to describe diversity]]]]
 
-  - bottom during the day, up the water column during the day
+]
+.content-box-nord-light[
+<img src="images/amimefunciona.png" alt="PCRbias" width="800" >
+]
+---
 
-- *Largest fishery on the West Coast by volume*
+background-image:   url(images/sponge_ground.png)
+background-size: cover
+class: nord-light
+name: Conclusions
 
-  -  440,942 t in 2017
+##.center[.fancy[.title[.nord4[A few thoughts ]]]]
+
+</br>
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[ _Phakelia_ much better at this]]]]
+
+]
+.center[
+.content-box-yellow[
+.huge[.nord1[.bold[.center[Depth related?]]]]
+]
+.content-box-nord-light[
+
+<img src="images/sera_la_profundidad.png" alt="PCRbias" width="800" >
+]
 
 ]
 
-
-
-
-
-
-
-
-
 ---
 
-name: Hake survey 1
+background-image:   url(images/sponge_ground.png)
+background-size: cover
 class: nord-light
-background-image: url(images/station.plot.png)
-background-position: 0% 0%
-background-size: 30% 100%
+name: Conclusions
 
-# .right[*Hake survey*]
+##.center[.fancy[.title[.nord4[A few thoughts ]]]]
 
+</br>
+.content-box-purple[
 
-
-.pull-right[
-.center-right[
-- Run every two years
-
-- Covers onshore/offshore transects
-
-- Estimates Hake abundance, age classes, maturity
-
-- Uses acoustic signal  + trawl
-
-- In 2019 started an eDNA program
-
-- Sampling spans ~ 2 months
-]]
----
-name: Acoustivs
-class: nord-light
-background-image: url(images/station.plot.png)
-background-position: 0% 0%
-background-size: 30% 100%
-
-## .right[*Acoustics Component*]
-
-
-.pull-right[
-
-- Distinct backscatter pattern
-
-- Fish ID corroborated with trawls
-
-- Stock biomass
-
-- Age-class & maturity information
-
-```{r,echo=F,  out.width = '100%',fig.align='center'}
-knitr::include_graphics("images/Hake_scatter.jpg")
-```
-
+.huge[.nord1[.bold[.center[ _Phakelia_ much better at this]]]]
 
 ]
----
-name: eDNA sampling
-class: nord-light
-background-image: url(images/station.plot.png)
-background-position: 0% 0%
-background-size: 25% 100%
-
-# .right[*eDNA Component*]
-
-.leftmost-column[]
-.center-column[
-
-- 1930 eDNA samples 
-
-- From 36 longitudinal transects
-
-- ~ 6 stops per transect
-
-- ~ 5 depths per stop
+.center[
+.content-box-yellow[
+.huge[.nord1[.bold[.center[Microbiome of _Geodia_ interfering?]]]]
+]
+.content-box-nord-light[
+<img src="images/sera_el_bioma.png" alt="PCRbias" width="800" >
+]
 ]
 
-.rightmost-column[
-- 2 Niskins bottles per depth (2.5L per Niskin = 1 eDNA sample)
+---
 
-- \>350 samples from Flow-through system
+background-image:   url(images/sponge_ground.png)
+background-size: cover
+class: nord-light
+name: Conclusions
 
-- All working from sunset to sunrise
+##.center[.fancy[.title[.nord4[A few thoughts ]]]]
+
+</br>
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[ _Phakelia_ much better at this]]]]
 
 ]
-```{r,echo=F,  out.width = '70%',fig.align='right'}
-knitr::include_graphics("images/filter_crew2.png")
-```
-
----
-name: paper out
-
-class:nord-light
-
-
-## *eDNA can be used for stock assessment*
-
-```{r,echo=F,  out.width = '100%',fig.align='center'}
-knitr::include_graphics("images/ProcB_hake.png")
-```
+.center[
+.content-box-yellow[
+.huge[.nord1[.bold[.center[Primer Affinity?]]]]
+]
 
 
 ---
-name: qPCR results1
-class: nord-light
 
-
-
-## *eDNA variance is similar to that of Acoustics*
-
-```{r,echo=F,  out.width = '70%',fig.align='center'}
-knitr::include_graphics("images/ProcB_fig2c.png")
-```
-
-
----
-name: qPCR results2
-class: nord-light
-
-
-
-## *eDNA offers comparable results to those of Acoustics*
-
-```{r,echo=F,  out.width = '90%',fig.align='center'}
-knitr::include_graphics("images/ProcB_fig3a.png")
-```
-
-
----
-name: eDNA sampling
-class: nord-light
-background-image: url(images/depth.profile.png)
-background-position: 50% 80%
+background-image:   url(images/Thanks.png)
 background-size: contain
-## *Where do we sample?*
-
-
-- Near the surface
-- Mid water 
-- Up to 500m depth
-
-- So in some stations surface-midwater-near bottom
-- in others quite far from there
-
-
-
-
----
-name: Where is the eDNA coming
-class: nord-dark, center, middle
-
-
-# .huge[*But where is this eDNA coming from?*]
-
-
----
-class: inverse, middle, center
+background-position: bottom
 class: nord-light
+name: results
 
-## Where is eDNA coming from
-
- Two interconnected questions:
-.pull-left[
-- .huge[*Does upwelling bring eDNA from deeper water?*]
-
-- .huge[*Does an established Thermocline function as a barrier for eDNA flow?* ]
-]
-
-.pull-right[
-```{r,echo=F,  out.width = '80%',fig.align='center'}
-knitr::include_graphics("images/coast_upwelling.png")
-```
-]
-
-
-
-
-
-```{r,echo=F,  out.width = '90%',fig.align='center'}
-knitr::include_graphics("images/CTD.plot.png")
-```
+#.center[.fancy[.title[Funding]]]
 
 ---
-
-name: Experimental design
-class: nord-dark, center, middle
-
-# .huge[*Experimental design*]
-
----
-name: Experimental design 1
+background-image:   url(images/sponge_ground_transparent.png)
+background-size: cover
+background-position: bottom
 class: nord-light
-layout: true
+name: results
 
-# Experimental design
-
----
-name: Exp design2
-
-
-name: Exp design3
-
-- *Choosing Transects with / without established Thermocline*
-
-
-```{r,echo=F,  out.width = '65%', out.height="75%" , fig.align='center'}
-knitr::include_graphics("images/plots.for.choosing.png")
-```
-
----
-
-name: Exp design4
-
-- *Choosing Transects with / without established Thermocline*
-
-
-```{r,echo=F,  out.width = '60%', out.height="50%" , fig.align='center'}
-knitr::include_graphics("images/choosen2.png")
-```
----
-
-- Choosing Transects with / without established Thermocline
-
-- *Metabarcoding of eDNA targetting Fishes with 16S*
-</br>
-.push-right[
-</br>
-- Potentitally amplifying cartilaginous and bony fishes
-- Target fragment ~ 350 bp 
-- Sequencing on an Illumina MiSeq
-
-]
-
----
-
-name: Exp design4.5
-
-- Choosing Transects with / without established Thermocline
-- Metabarcoding of eDNA targetting Fishes with 16S
-- *Decontamination, denoising and taxonomical assignment*
-    - cutadapt -> DADA2 -> Decontamination script -> insect 
-
-
----
-name: Exp design5
-
-- Choosing Transects with / without established Thermocline
-- Metabarcoding of eDNA targetting Fishes with 16S
-- Decontamination, denoising and taxonomical assignment
-- *Statistical framework*
- 
+#.center[.fancy[.title[.nord4[Thanks!]]]]
+.content-box-yellow[
+.huge[.nord1[.bold[
+ Ana Riesgo
  </br>
-
-   - _Community analysis_:
-
-$$\bar{Comm}\sim Transect + Depth + Upwelling$$
---
-
-   - _Individual species analysis_:
  
-$$\bar{X}_i \sim Transect + Depth + Upwelling$$ 
-
-
-
----
-
-name: Results
-layout: false
-class: nord-dark, middle
-
-# .huge[*Results*]
-
----
-
-name: Results
-layout: true
-class: nord-light
-
-# Results
-
----
-### The numbers
-
-- We sequenced 115 biological samples, 215 technical replicates
-
---
-- After QC and taxonomical assignment: 16M reads from 138 taxa
-
---
-- Identified 4 species of sharks, 4 Rays, 1 Chimaera
-- 84 species of bony fishes, including 16 _Sebastes_ spp.
-
----
-
-```{r, echo = F, message = F, warning=FALSE}
-
-
-
-By.taxa.dataset <-  read_csv(here("Data", "by.taxa.dataset.metadata.csv")) %>% mutate (Transect = as.character(Transect))
-metadata  <- read_csv(here("Data", "Final_metadata.csv"))
-
-#### Join it together through eDNA sample
-
-By.taxa.dataset %>% 
-  filter (!str_detect(taxa, "Cichlidae")) %>%
-  select(eDNA.sample, rep, taxa, nReads) %>% 
-  left_join(metadata) -> Joined.dataset
-
-By.taxa.dataset %>% 
-  filter (!str_detect(taxa, "Cichlidae")) %>% 
-  group_by(taxa) %>% 
-  summarise (`#Sequences` = sum(nReads),
-             `#samples found` = n_distinct(eDNA.sample)) %>%
-  arrange((taxa)) %>% 
-  separate(taxa, into = c("Family", NA, "Species"), sep = "%")  %>% 
-# DT::datatable(class = "compact", rownames = F, 
-#              # extensions = "Buttons",
-#              options = list(dom = 'fpt',
-#                             pagelenght = 8)) %>% 
-kable(align = "c", format = "html") %>%
-kable_styling(full_width = F) %>%
-column_spec(1, bold = T) %>%
-collapse_rows(columns = 1, valign = "top")
-```
-
-
----
-
-## Species by species exploration
-
-.left-column[
-- Based on each species life-history, we can trace changes in *relative abundance* and *prevalence*
+ Belen Arias
+ </br>
+ Stefano Mariani and team
+ </br>
+ Crew and sampling team
+ 
+]]]
 ]
-
-.right-column[  
-```{r,echo=F,  out.width='90%', fig.align='center'}
-knitr::include_graphics("images/Clupea.png")
-```
-]
----
-
-## Species by species exploration
-
-.left-column[
-  - Deep water species are close to the bottom, but also show up near surface
-]
-
-.right-column[  
-```{r,echo=F,  out.width = '90%',  fig.align='center'}
-knitr::include_graphics("images/Raja.png")
-```
-  
-]
-
----
-
-.left-column[
-## Alpha diversity
-
-  - Not clear patterns
-]
-
-.right-column[
-```{r alpha, echo = F, warning=F, message=F}
-Joined.dataset %>% 
-  group_by(eDNA.sample, Transect, Station, depth,position, groups) %>% 
-  summarise(n.taxa = n_distinct(taxa)) %>% 
-  ggplot(aes(y = n.taxa, x = position, fill = groups)) +
-  geom_boxplot()
-```
-]
-
----
-
-### Community Composition Analysis
-
-  - *The building block is a calculation of sample dissimilarity*
-  
-  - No use of raw number of reads -> usually a transformation
-  
-      - Balance between importance of rare vs dominant species
-      
-  - Different algorithms from community ecology
-   
-      - Ditto plus different algorithms track different changes in community composition
-
----
-### Community Composition Analysis
-```{r,echo=F,  out.width = '90%',  fig.align='center'}
-knitr::include_graphics("images/MDS.plot.png")
-```
-
----
-
-### Community Composition Analysis
-
-  - PERMANOVA: Using the Formula 
-$$Bray-Curtis\sim Transect + Depth + Upwelling$$
-
-
-
-```{r, echo = F, warning=F,message=F}
-read_csv(here("Output", "permanova.csv")) %>%
-  datatable(rownames = F,
-            class = "display",
-            options = list(info= F, filter =F, paging = F, ordering = F)) %>% 
-  formatRound(3:5, digits =2)
-```
-
-
-  - PERMANOVA, and BC use .content-box-yellow[one value] to capture dissimilarity between two samples
-  - The CAP analyisis tries to *find* discrimination, even when it could be minimal. 
----
-
-## Community Analysis - Another way
-
-  - Our hypothesis can better be tested using a Dirichelet Regression:
-  
-  so our Community in the original
-  
-$$\bar{Comm}\sim Transect + Depth + Upwelling$$ 
-
-is not constrained to one value per sample pair, but a matrix of proportions
-
-```{r, echo=F, message=FALSE}
-tibble(Sample = c("S1", "S2", "...", "Sn"),
-       Spp1   = c(50, 4000, 0, 0),
-       Spp2   = c(300, 250, 0, 400),
-       Spp3  = c(0,0, 0,0),
-       Sppn   = c(5000, 300, 0,350)) %>% 
-  rename(`Spp...` = 4) -> abundance.tibble
-
-abundance.tibble %>% mutate(Spp... = "-") %>% 
-
-
-datatable(rownames = F,
-            class = "display",
-            options = list(info= F, filter =F, paging = F, ordering = F, 
-                           columnDefs = list(list(className = 'dt-center', targets = 0:4))))
-```
----
-
-## Community Analysis - Another way
-
-  - Our hypothesis can better be tested using a Dirichlet Regression:
-  
-  so our Community in the original
-  
-$$\bar{Comm}\sim Transect + Depth + Upwelling$$ 
-
-is not constrained to one value per sample pair, but a matrix of proportions
-
-```{r, echo =  F, message=F}
-rowSums(abundance.tibble[,2:5]) -> rwosums
-
-abundance.tibble %>%
-  mutate(across(.cols = starts_with("Spp"),~.x/rwosums)) %>% 
-  mutate(across(.cols = starts_with("Spp"),~case_when(.x == NaN~0,TRUE~.x))) %>% 
-  mutate(Spp... = "-") -> temp
-
-temp[3,c(2,3,5)]<- 0
-
-
-datatable(temp,rownames = F,
-            class = "display",
-            options = list(info= F, filter =F, paging = F, ordering = F, 
-                           columnDefs = list(list(className = 'dt-center', targets = 0:4)))) %>% 
-  DT::formatRound(columns = c(2,3,5))
-```
-
----
-
-## Community Analysis - Another way
-
-  - Dirichilet does not bode well with many zeroes
-  - Combining taxa into functional categories
-```{r, echo = F, message=FALSE}
-read_csv(here("Data", "unique.sp_collapse.csv")) %>% 
-  rename (Group = 13) %>% 
-  group_by(Group) %>% 
-  summarise('Number of taxa' = n(),
-             'Number of families' = n_distinct(family)) %>% 
-  filter(!is.na(Group)) %>% 
-  slice(1:8) %>% 
-  datatable(rownames = F,
-            class = "display",
-            options = list(info= F, filter =F, paging = F, ordering = F, 
-                           columnDefs = list(list(className = 'dt-center', targets = 0:2))))
-
-```
-  
---
-
-.huge[*A work in progress*]
