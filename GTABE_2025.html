@@ -1,0 +1,3946 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>ADN ambiental (eDNA)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ramón Gallego" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link href="libs/htmltools-fill/fill.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery-3.6.0.min.js"></script>
+    <link href="libs/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet/leaflet.js"></script>
+    <link href="libs/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="libs/proj4/proj4.min.js"></script>
+    <script src="libs/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding/leaflet.js"></script>
+    <link rel="stylesheet" href="css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="css/sfah.css" type="text/css" />
+    <link rel="stylesheet" href="css/fonts.css" type="text/css" />
+    <link rel="stylesheet" href="css/nord.css" type="text/css" />
+    <link rel="stylesheet" href="css/nord-light.css" type="text/css" />
+    <link rel="stylesheet" href="css/nord-dark.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-nord.css" type="text/css" />
+    <link rel="stylesheet" href="css/typo.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+name:bio
+class: nord-dark, center
+
+
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 90%),rgba(46, 52, 64, 50%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+
+background-size: cover
+
+
+# .huge[*ADN ambiental (eDNA)*]
+
+## *y sus aplicaciones en estudios de Biodiversidad*
+
+## *(y más alla)*
+
+&lt;style type="text/css"&gt;
+.small { font-size: 70% }
+.huge  { font-size: 150% }
+&lt;/style&gt;
+
+
+
+.footnote[.huge[
+
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+**Ramón Gallego Simón**
+]]
+
+
+
+&lt;style type="text/css"&gt;
+.highlight-last-item &gt; ul &gt; li, 
+.highlight-last-item &gt; ol &gt; li {
+  opacity: 0.5;
+}
+.highlight-last-item &gt; ul &gt; li:last-of-type,
+.highlight-last-item &gt; ol &gt; li:last-of-type {
+  opacity: 1;
+}
+
+.bold-last-item &gt; ul &gt; li:last-of-type,
+.bold-last-item &gt; ol &gt; li:last-of-type {
+  font-weight: bold;
+}
+&lt;/style&gt;
+
+---
+name: Intro 
+class: nord-light
+layout: true
+## .center[Introductions]
+
+---
+
+### .fancy[Ramón Gallego]
+&lt;/br&gt;
+.pull-left[
+&lt;img src="images/PNW.jpg" width="2549" /&gt;
+]
+
+.pull-right[
+&lt;img src="images/RGS.JPG" width="3648" /&gt;
+]
+
+---
+layout: false
+class: middle, nord-dark
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 60%),rgba(46, 52, 64, 60%),rgba(46, 52, 64, 60%),rgba(46, 52, 64, 20%)),  url("images/Madridmequema.jpg") 
+background-position: center
+background-size: cover
+
+
+## .center[Ramón Gallego Simón]
+
+.leftmost-column[
+
+&lt;img src="images/Cabo_De_Gata.jpg" width="600" height="25%" /&gt;
+*BSc and MSc in Madrid, Spain*
+
+&lt;img src="images/UAM.white.png" width="2665" height="25%" /&gt;
+
+
+]
+
+--
+
+.center-column[
+.center[
+&lt;img src="images/Auckland.jpg" width="1333" height="25%" /&gt;
+
+*PhD in Auckland, Aotearoa New Zealand*
+
+&lt;img src="images/uoa-logo-2015-reverse.png" width="641" height="25%" style="background-color: #9ecff7; padding:5px; display: inline-block;.Nord-dark-damp-img" /&gt;
+]
+]
+--
+.rightmost-column[
+
+&lt;img src="images/PNW.jpg" width="2549" /&gt;
+*To a Postdoc in Seattle, WA*
+
+&lt;img src="images/UW_trans.png" width="995" style="background-color: #9ecff7; padding:5px; display: inline-block;" /&gt;&lt;img src="images/NOAA-fisheries-logo.jpg" width="1333" style="background-color: #9ecff7; padding:5px; display: inline-block;" /&gt;
+
+]
+
+---
+layout:true 
+background-size: cover
+class: nord-dark
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 90%),rgba(46, 52, 64, 50%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+---
+
+.content-box-yellow[
+.center[##.nord1[.center[eDNA ]]]]
+&lt;/br&gt;
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[¿Qué es? ¿Para qué podemos usarlo?]]]
+
+]
+
+--
+.content-box-purple[
+
+ * .huge[.nord1[.bold[eDNA como medida cuantitativa]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Cambios ambientales, en las comunidades y eDNA]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Análisis de dieta]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[nsDNA]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Detección de especies de interés]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Mitogenomas como barcodes]]]
+
+]
+
+---
+
+.content-box-yellow[
+.center[##.nord1[.center[Ancient DNA ]]]]
+&lt;/br&gt;
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Movimientos migratorios]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Evolución / Conectividad]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Patógenos a lo largo de la historia]]]
+
+]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Sediment cores y paleoecologia]]]
+
+]
+
+
+---
+
+name: Intro to qPCR assays
+class: inverse, center, middle
+layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+
+## .nord4[¿Qué es el eDNA?]
+
+
+---
+
+name: Intros
+class: nord-light, center, middle
+
+### .fancy[*environmental DNA*]
+
+
+.huge[ *DNA that can be extracted from environmental samples (such as soil, water or air), without first isolating any target organisms*, Taberlet et al. 2012]
+
+---
+background-size: cover
+class: nord-dark
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 90%),rgba(46, 52, 64, 50%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+layout: true
+---
+
+name: How to sample
+class: nord-dark, center, middle
+
+
+## .nord4[¿Cómo muestrear eDNA?]
+
+
+
+
+---
+
+name: Soil
+class: nord-light
+layout: true
+background-size: cover
+
+background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0)),url("images/eDNA_concept.png") 
+
+## .center[.nord1[Métodos de muestreo]]
+
+
+---
+
+name: Soil
+
+## .nord1[.bold[  Suelo ]]
+
+
+&lt;img src="images/Tiara_TNC.jpg" width="90%" height="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+## .nord1[.bold[  Suelo ]]
+
+
+&lt;img src="images/Tiara_UCLA.jpg" width="90%" height="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+name: Freshwater
+
+## .nord1[.bold[  Ríos ]]
+
+
+&lt;img src="images/Freshwater.jpeg" width="90%" height="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+name: Freshwater
+
+## .nord1[.bold[  Aguas costeras ]]
+
+
+&lt;img src="images/procB2.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;&lt;img src="images/eDNA_16x9.jpg" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+---
+
+name: Freshwater
+
+## .nord1[.bold[  Aguas abiertas ]]
+
+
+&lt;img src="images/ProcB_hake.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;&lt;img src="images/CTD.jpg" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+name: Freshwater
+
+## .nord1[.bold[  ¡Aire! ]]
+
+
+&lt;img src="images/eDNA_air.jpg" width="80%" height="80%" style="display: block; margin: auto;" /&gt;&lt;img src="images/air.eDNA.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+name: Esponjas
+
+## .nord1[.bold[  ¡Animales! ]]
+
+
+&lt;img src="images/Sponges.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+name: Miel
+
+.center[ # Animales!]
+
+&lt;img src="images/honey.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+---
+background-size: cover
+class: nord-dark
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 90%),rgba(46, 52, 64, 50%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+layout: true
+---
+
+
+
+name: Intro to qPCR assays
+class: inverse, center, middle
+layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+
+## .nord4[¿Qué podemos pedirle al eDNA?]
+
+
+
+
+
+---
+layout: true
+background-size: cover
+class: nord-dark
+background-image:  url(images/single_species.jpg)
+---
+name: modos de obtenerla
+.content-box-purple[
+.nord1[
+## Single-species assays
+
+]]
+---
+name: modos de obtenerla
+class: nord-light
+### .fancy[*environmental DNA*]
+
+
+.content-box-purple[
+.nord1[
+## Single-species assays
+
+  -   ### *qPCR*
+  -   ### *ddPCR*
+  -   ### *CRISPR-Cas9*
+]]
+
+
+---
+name: tipos de informacion
+class: nord-dark
+### .fancy[*environmental DNA*]
+
+.content-box-purple[
+.center[##.nord1[Cuantificación ]]
+&lt;/br&gt;
+&lt;img src="images/pone.0122763.g003.png" alt="sst" width="500" /&gt;
+
+
+]
+---
+name: tipos de informacion
+class: nord-dark
+background-image:  url(images/ddpcr_vs_qpcr.webp)
+background-size: contain
+
+.content-box-purple[
+.center[##.nord1[Cuantificación ]]]
+
+---
+background-size: cover
+class: nord-dark
+background-image:  url(images/eDNA_concept.png)
+---
+layout: true
+background-size: cover
+class: nord-dark
+background-image:  url(images/peces.jpg)
+---
+.content-box-purple[
+.nord1[
+## Multiple species assays
+
+]]
+---
+
+
+name: tipos de informacion
+class: nord-dark
+### .fancy[*environmental DNA*]
+
+.content-box-yellow[
+.center[##.nord1[Composición] ]]
+
+.content-box-purple[
+
+&lt;div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:600px; "&gt;&lt;table class="table table-hover" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"&gt; Taxa &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; Sample1 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; Sample2 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; Sample3 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; Sample4 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; Sample5 &lt;/th&gt;
+   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"&gt; Sample6 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Phaeocystis antarctica &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 1929 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 138 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 11386 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2590 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Rhizosolenia setigera &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Micromonas pusilla &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 264 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 233 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 216 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Bathycoccus prasinos &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 1362 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 203 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 433 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Cylindrotheca closterium &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Balanus sp. &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Thalassiosira nordenskioeldii &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Ditylum brightwellii &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Minutocellus polymorphus &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Chaetoceros socialis &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;
+
+]
+
+---
+name: modos de obtenerla
+class: nord-dark
+### .fancy[*environmental DNA*]
+
+.content-box-purple[
+.nord1[
+
+## Multi-species assays
+
+  - ###*metabarcoding*
+]]
+
+--
+.content-box-purple[
+.nord1[
+
+
+  - ###*metagenomics*
+]]
+
+
+
+---
+name: Intro to qPCR assays
+class: inverse, center, middle
+layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+
+# .nord4[Quantitative assays: qPCR]
+
+---
+name: qPCR_template
+class: nord-light, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-size: cover
+layout: true
+
+### .center.nord9.bold[Quantitative assays: qPCR]
+
+---
+name: qPCR_1
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+  -   ### * `$$Fluorescence  \sim [DNA]$$`* 
+  
+
+  ]]
+---
+name: qPCR_concept
+background-image:  url(images/qpcr_principle.png)
+background-size: 90% 90%
+background-position: 50% 90%
+  
+---
+name: qPCR_Fluor
+background-image:  url(images/qpcr_curves-1.jpg)
+background-size: 90% 90%
+background-position: 50% 90%
+---
+name: qPCR_2
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+.huge[
+
+`$$Fluorescencia  \sim [DNA]$$`
+
+
+`$$Fluorescencia_{ st} -&gt; [DNA]_{st}$$` 
+ 
+    
+`$$Fluorescencia _{ muestra} -&gt; [DNA]_{muestra}$$` 
+  ]
+]]
+---
+name: qPCR_Fluor
+background-image:  url(images/standards.qpcr.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: qPCR_Fluor
+background-image:  url(images/Standardandlinear.PNG)
+background-size: 90% 90%
+background-position: 50% 90%
+
+  
+---
+name: qPCR_2
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+`$$Fluorescencia  \sim [DNA]$$`
+
+
+`$$Fluorescencia_{ st} -&gt; [DNA]_{st}$$` 
+
+
+  -   #### *Un proceso muy utilizado, pero con procesos aleatorios y con variación*
+]]
+
+---
+name: qPCR_Fluor
+background-image:  url(images/Long_qPCR_Process.PNG)
+background-size: 90% 90%
+background-position: 50% 90%
+
+
+---
+name: design
+
+.content-box-purple[
+.nord1[
+
+### ¿Cómo diseñar un experimento qPCR?
+
+]]
+
+--
+.content-box-purple[
+.nord1[
+
+### Dos elementos a tener en cuenta:
+- Especificidad (cubre el error de tipo I )
+
+El experimento detecta sólo la especie objetivo y no especies próximas
+
+
+]]
+
+---
+name: qPCrdesign
+background-image:  url(images/qPCR_design.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: qPCrdesign
+background-image:  url(images/qPCR_design_with_probe.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: qPCrdesign
+background-image:  url(images/qPCR_design_with_2probes.png)
+background-size: 90% 90%
+background-position: 50% 90%
+---
+
+.content-box-purple[
+.nord1[
+
+### ¿Cómo diseñar un experimento qPCR?
+
+]]
+
+--
+.content-box-purple[
+.nord1[
+### Dos elementos a tener en cuenta:
+- Especificidad (cubre el error de tipo I )
+- Sensibilidad (cubre el error de tipo II):
+
+El experimento detecta todas las variantes de la especie objetivo
+
+]]
+
+---
+
+name: qPCrdesign
+background-image:  url(images/Haplotype_diversity.jpg)
+background-size: 70% 70%
+background-position: 50% 90%
+---
+name: Sardines
+background-image:  url(images/Sardines.png)
+background-size: contain
+background-position: center
+---
+name: Sardines_hapl
+background-image:  url(images/Sardine_haplotypes.png)
+background-size: contain
+background-position: center
+---
+name: qPCR_1
+
+&lt;/br&gt;
+.content-box-purple[
+.nord1[
+
+##  ¿Cuándo usarlo?
+
+  -   ### *Cuando añade precisión*
+
+  -   ### *Cuando reduce costes*
+
+  -   ### *Cuando la biología de la especie hace*
+      ### *muy difícil otros métodos*
+
+  -   ### *Cuando añade información*
+
+]]
+---
+
+
+name: qPCR_4
+
+&lt;/br&gt;
+.content-box-purple[
+.nord1[
+
+##  ¿Cómo usarlo?
+
+  -   ### *Curva estándar y estimación puntual* 
+
+  -   ### *Occupancy modelling*
+
+  -   ### *Integrar todos los procesos y *
+      ### *Estimar parámetros con Bayesian models*
+
+]]
+---
+name: Cmaenas1
+background-image:  url(images/GreenCRAB_pic.png)
+background-size: 50% 50%
+background-position: right
+
+&lt;/br&gt;
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
+.pull-left[
+.nord1[
+
+
+  -   ### Gran potencial como invasora
+
+  -   ### Amenaza para pesquerías 
+  
+  -   ### Establecida en partes de la costa Oeste de EEUU
+
+]]
+---
+name: Cmaenas2
+background-image:  url(images/invasive-crab-range-map-and-key.png)
+background-size: contain
+
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
+---
+name: Cmaenas3
+background-image:  url(images/invasion_front.png)
+background-size: 60% 
+background-position: bottom
+
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
+
+---
+name: Cmaenas3
+background-image:  url(images/model_performance.png)
+background-size: 90% 
+
+
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
+---
+name: Cmaenas4
+background-image:  url(images/eDNA_benefit.png)
+background-size: 90% 
+
+
+.huge[ El caso del Cangrejo verde _Carcinus maenas_]
+
+---
+layout: false
+name: Hake survey 
+class: nord-dark, center, middle
+
+# *Hake survey*
+
+--
+
+### Integrated ecosystem acoustic and trawl survey
+
+
+---
+name: Hake
+class: nord-light
+background-image: url(images/900x600-pacific-whiting-noaa.jpeg)
+background-position: right
+background-size: 50% 50%
+
+
+# .huge.center[*Hake*]
+ .center[_Merluccius productus_]
+&lt;/br&gt;
+.pull-left[ 
+
+ - *semi-pelagic fish*
+
+  - bottom during the day, up the water column during the night
+
+- *Largest fishery on the West Coast by volume*
+
+  -  440,942 t in 2017
+
+]
+
+
+
+
+
+
+
+
+
+---
+
+name: Hake survey 1
+class: nord-light
+background-image: url(images/station.plot.png)
+background-position: 0% 0%
+background-size: 30% 100%
+
+# .right[*Hake survey*]
+
+
+
+.pull-right[
+.center-right[
+- Run every two years
+
+- Covers onshore/offshore transects
+
+- Estimates Hake abundance, age classes, maturity
+
+- Uses acoustic signal  + trawl
+
+- In 2019 started an eDNA program
+
+- Sampling spans ~ 2 months
+]]
+---
+name: Acoustivs
+class: nord-light
+background-image: url(images/station.plot.png)
+background-position: 0% 0%
+background-size: 30% 100%
+
+## .right[*Acoustics Component*]
+
+
+.pull-right[
+
+- Distinct backscatter pattern
+
+- Fish ID corroborated with trawls
+
+- Stock biomass
+
+- Age-class &amp; maturity information
+
+&lt;img src="images/Hake_scatter.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+---
+name: eDNA sampling
+class: nord-light
+background-image: url(images/station.plot.png)
+background-position: 0% 0%
+background-size: 25% 100%
+
+# .right[*eDNA Component*]
+
+.leftmost-column[]
+.center-column[
+
+- 1930 eDNA samples 
+
+- From 36 longitudinal transects
+
+- ~ 6 stops per transect
+
+- ~ 5 depths per stop
+]
+
+.rightmost-column[
+- 2 Niskins bottles per depth (2.5L per Niskin = 1 eDNA sample)
+
+- \&gt;350 samples from Flow-through system
+
+- All working from sunset to sunrise
+
+]
+&lt;img src="images/filter_crew2.png" width="70%" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+---
+name: paper out
+
+class:nord-light
+
+
+## *eDNA can be used for stock assessment*
+
+&lt;img src="images/ProcB_hake.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+name: qPCR results1
+class: nord-light
+
+
+
+## *eDNA variance is similar to that of Acoustics*
+
+&lt;img src="images/ProcB_fig2c.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+name: qPCR results2
+class: nord-light
+
+
+
+## *eDNA offers comparable results to those of Acoustics*
+
+&lt;img src="images/ProcB_fig3a.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+name: Intro to metabarcoding
+class: inverse, center, middle
+layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+
+
+
+# .nord4[Estudios cualitativos: metabarcoding]
+
+---
+
+
+name: What for
+class: nord-dark, center, middle
+layout: false
+
+
+## .nord4[**eDNA and marine ecology**]
+
+
+
+---
+
+name: Template
+layout: true
+class: inverse, center, middle
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-size: cover
+
+---
+name: Gaining popularity
+.center[ ## eDNA is gaining popularity]
+
+&lt;img src="images/eDNA_popularity.jpg" alt="pop" width="700" /&gt;
+
+---
+
+name: Types of publications I
+
+     ### It works!                    
+
+
+
+&lt;img src="images/It_works.1.png" alt="pop" width="600" /&gt;
+&lt;/br&gt;
+&lt;img src="images/It_works.2.png" alt="pop" width="600" /&gt;
+
+---
+
+name: Types of publications II
+ 
+### Different views
+
+
+&lt;img src="images/Different_things_1.png" alt="pop" width="550" /&gt;
+
+&lt;img src="images/Different_things_2.png" alt="pop" width="550" /&gt;
+
+---
+
+name: Types of publications III
+
+### Ecological research
+
+
+
+&lt;img src="images/Ecological_inference_1.png" alt="pop" width="600" /&gt;
+&lt;/br&gt;
+&lt;img src="images/Ecological_inference_2.png" alt="pop" width="600" /&gt;
+
+
+
+
+
+---
+name: metabarcoding template
+class: nord-light, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-size: cover
+layout: true
+
+### .center.nord9.bold[Identity assays: metabarcoding]
+
+
+---
+name: metabarcoding_1
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+  -   ### Secuenciación masiva y en paralelo
+  
+  
+
+  ]]
+  
+---
+name: parallel seq
+background-image:  url(images/Seqbysyn2.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: parallel seq
+background-image:  url(images/Seqbysyn.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: metabarcoding_2
+
+.content-box-purple[
+.nord1[
+
+## ¿Qué es?
+
+  -    *Secuenciación masiva y en paralelo*
+  
+  - ###  De un fragmento homólogo
+  
+    - ### Universalidad
+    - ### Especificidad
+    - ### Tamaño
+  
+  
+
+  ]]
+---
+name: primer_design1
+background-image:  url(images/aligned.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: primerloc
+background-image:  url(images/primerloc.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: primer_candidates
+background-image:  url(images/thermus_16s_2ndry.jpeg)
+background-size: contain
+background-position: 50% 90%
+
+---
+name: primer_candidates
+background-image:  url(images/COI.png)
+background-size: contain
+background-position: 50% 50%
+---
+name: right sized
+background-image:  url(images/amplified.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: useful
+background-image:  url(images/identify.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+.center[
+##  ¿Cómo diseñar un experimento
+##  de metabarcoding?
+]
+
+  
+  
+
+  ]]
+
+---
+name: qPCR_Fluor
+background-image:  url(images/Long_qPCR_Process.PNG)
+background-size: 90% 90%
+background-position: 50% 90%
+---
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+
+.center[
+##  ¿Cómo diseñar un experimento
+##  de metabarcoding?
+]
+
+  -   ### Variación en el ambiente
+  
+  
+
+  ]]
+
+
+---
+
+
+name: qPCR_Fluor
+background-image:  url(images/Biol.rep.png)
+background-size: 90% 90%
+background-position: 50% 90%
+
+---
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+
+.center[
+##  ¿Cómo diseñar un experimento
+##  de metabarcoding?
+]
+
+  -   ### Variación en el ambiente
+  
+  -  ### Variación en la PCR
+  
+  
+
+  ]]
+
+
+---
+name: metabarcode
+background-image:  url(images/visual.anova.png)
+background-size: 80% 90%
+background-position: 50% 90%
+
+---
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+
+.center[
+##  ¿Cúando usar metabarcoding?
+
+  
+]
+
+ - ### Información sobre una comunidad
+  
+  - Cambios en relación al cambio ambiental
+  
+  - Monitoreo continuo
+  
+  - Censo  de especies presentes
+  
+  
+
+  ]] 
+---  
+
+
+name: metabarcoding_3
+
+.content-box-purple[
+.nord1[
+
+##  ¿Cómo usar metabarcoding?
+
+  
+  
+
+  ]]
+  
+---
+
+name: Intro to OA
+class: inverse, center, middle
+layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+
+
+
+# .nord4[eDNA for Ocean Acidification and warming]  
+  
+---
+name: template_OA
+class: nord-light, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-size: cover
+layout: true
+
+### .center.nord9.bold[Ocean acidification and Warming]
+
+---
+&lt;/br&gt;
+
+
+.center[&lt;img src="images/sst.models.1.png" alt="sst" width="500" /&gt;]
+
+
+---
+&lt;/br&gt;
+&lt;/br&gt;
+.center[&lt;img src="images/pH_Global_ave_E.png" alt="pH" width="800" /&gt;]
+---
+class: nord-dark
+## .center[.fancy[Afecta a muchas especies ]
+&lt;/br&gt;
+
+.pull-left[
+&lt;img src="images/oyster pg 2.jpg" alt="ostra" width="360" /&gt;
+]
+
+
+.pull-right[
+&lt;img src="images/Limacina.png" alt="limacina" width="360" /&gt;]
+]
+
+
+
+???
+With global warming and increased pCO2 levels, there is little doubt that future marine communities will have to face a warmer, more acidic ocean
+---
+class: nord-dark
+name: A lot of info on many spp
+
+ &lt;img src="images/paper_snip.OA.Oph.png" alt="oph" height="100" /&gt;
+
+--
+
+&lt;img src="images/paper_snip.OA.Lima.png" alt="PCRbias"  /&gt;
+
+--
+
+&lt;img src="images/paper_snip.OA.many.png" alt="PCRbias" height="100" /&gt;
+
+--
+
+&lt;img src="images/paper_snip.OA.Meta.png" alt="PCRbias" height="120" /&gt;
+
+???
+
+Those effects are not happenning in a vacuum, but likely with Temp
+And in different directions
+---
+class: nord-dark
+Name: Ecosystem-wide: not so much
+
+&lt;img src="images/paper_snip.OA.Comm1.png" alt="PCRbias" height=120  /&gt;
+
+
+&lt;img src="images/paper_snip.OA.Comm2.png" alt="PCRbias" height="120" /&gt;
+
+.pull-left[
+&lt;img src="images/paper_snip.OA.Comm3.png" alt="PCRbias" width=250/&gt;
+]
+---
+name: WHy Hood Canal
+class: middle, nord-dark
+###.center[.fancy[.title[Why the Puget Sound?]]]
+
+Naturally occuring High *p*CO&lt;sub&gt;2&lt;/sub&gt;  levels offer a view of not far-fetched conditions
+&lt;img src="images/paper_snip.OA.why.png" alt="PCRbias" /&gt;
+
+---
+class: nord-dark
+name: Research plan
+
+##.center[.fancy[.title[Diseño experimental]]]
+
+.pull-left[
+
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-62fdaaedd6b8c74d0e6d" style="width:90%;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-62fdaaedd6b8c74d0e6d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[48.449827,48.545085,48.5145,47.462959,47.35981,47.856772,47.608961,47.378431],[-122.963231,-123.012028,-123.151,-123.103774,-123.155597,-122.607721,-122.984734,-122.97483],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["CP","FH","LK","LL","PO","SA","TR","TW"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[1,1],"textsize":"20px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[47.5,-122.5],7,[]],"limits":{"lat":[47.35981,48.545085],"lng":[-123.155597,-122.607721]}},"evals":[],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right[
+.content-box-yellow[
+.nord9[
+- Seasonal and temporal scale
+
+- Add Biological replication
+
+- Add technical replication
+]]
+.center[
+&lt;img src="images/ridges.env.vars.png" alt="PCRbias" /&gt;
+]
+
+
+]
+
+---
+class: nord-dark
+name: Process1
+
+background-image:  url(images/eDNA_16x9.jpg)
+background-size: contain
+background-position: 50% 50%
+
+
+---
+class: nord-dark
+name: Process2
+background-image:  url(images/Ana.jpg)
+background-size: contain
+background-position: 50% 50%
+
+
+
+---
+
+class: nord-dark
+name: Filter 2
+background-image:  url(images/Filtering_in_the_car.jpg)
+background-size: contain
+background-position: 50% 50%
+
+
+
+
+---
+
+class: nord-dark
+name: PCR and seq
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[ocho estaciones]]]
+
+]
+
+---
+class: nord-dark
+
+&lt;/br&gt;
+
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-8cfc1c0f45c37e5e88a8" style="width:90%;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-8cfc1c0f45c37e5e88a8">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[48.449827,48.545085,48.5145,47.462959,47.35981,47.856772,47.608961,47.378431],[-122.963231,-123.012028,-123.151,-123.103774,-123.155597,-122.607721,-122.984734,-122.97483],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["CP","FH","LK","LL","PO","SA","TR","TW"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[1,1],"textsize":"20px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[48,-122.5],8,[]],"limits":{"lat":[47.35981,48.545085],"lng":[-123.155597,-122.607721]}},"evals":[],"jsHooks":[]}</script>
+
+---
+class: nord-dark
+name: PCR and seq
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[ocho estaciones]]]
+
+]
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[muestreadas cada mes durante 1.5 años]]]
+
+]
+
+--
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Cada sitio*mes : 3 biol.reps]]]
+
+]
+
+---
+
+background-image:  url(images/Biol.rep.png)
+background-size: contain
+background-position: 50% 50%
+
+
+
+
+---
+.content-box-purple[
+
+ * .huge[.nord1[.bold[ocho estaciones]]]
+
+]
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[muestreadas cada mes durante 1.5 años]]]
+
+]
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Cada sitio*mes : 3 biol.reps]]]
+
+]
+--
+.content-box-purple[
+
+ * .huge[.nord1[.bold[cada muestra 3 tech reps]]]
+
+]
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Amplificadas COI]]]
+
+]
+---
+
+
+class: nord-light
+name: Pipelines
+
+&lt;/br&gt; 
+.center.nord9.bold[Processing of sequence data]
+&lt;/br&gt; 
+.pull-left.oc-bg-black.opacity-40.nord-light.bold[
+
+* ####  .bold[A demultiplexing and clustering pipeline]
+
+.center[&lt;img src="images/demultiplexer.png" alt="pipeline" width="350" /&gt;]
+
+.center[[github.com/ramongallego](https://github.com/ramongallego?tab=repositories) 
+&lt;img src="images/GitHub-Mark-64px.png" alt="pipeline" /&gt;]
+ 
+ * A locus-specific classification tree with curated sequences 
+ 
+
+
+]
+
+
+.pull-right.oc-bg-black.opacity-10.nord-light.bold[
+ * QC and decontamination steps
+ 
+
+ .center[&lt;img src="images/visual.anova.png" alt="pipeline" width="350" /&gt;]
+ 
+ 
+
+ 
+* High confidence in presence and identity 
+ 
+ 
+ 
+ ]
+
+
+---
+
+.content-box-blue[
+
+]
+---
+
+
+.content-box-blue[
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Taxa &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sample1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sample2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sample3 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sample4 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sample5 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sample6 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;background-color: yellow !important;"&gt; Phaeocystis antarctica &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;background-color: yellow !important;"&gt; 1929 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; background-color: yellow !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; background-color: yellow !important;"&gt; 138 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; background-color: yellow !important;"&gt; 11386 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; background-color: yellow !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: yellow !important;"&gt; 2590 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Rhizosolenia setigera &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Micromonas pusilla &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;"&gt; 264 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 233 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 216 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Bathycoccus prasinos &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 1362 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 203 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 433 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Cylindrotheca closterium &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Balanus sp. &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Thalassiosira nordenskioeldii &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Ditylum brightwellii &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Minutocellus polymorphus &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Chaetoceros socialis &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+
+---
+
+
+name: Intro to cuant
+class: inverse, center, middle
+layout: false
+
+# .nord4[eDNA metabarcoding and quantification]
+
+---
+
+class: nord-dark,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/eDNA_concept.png)
+background-size: cover
+layout: true
+### .center[eDNA metabarcoding and quantification]
+
+---
+
+class: nord-dark, middle, center
+name: PCR paper front
+
+
+
+&lt;img src="images/UnderstandingPCR.png" alt="PCRbias" width="720" /&gt;
+
+???
+
+How to interpret the number of occurrences of a sequence in a sample?  
+
+---
+class: nord-dark, typo, typo-selection
+
+
+.left-column[
+
+
+ ### .nord4.bold[Differential Primer Affinity]
+
+ ### .nord4.bold[Strong effect on] .nord13.bold[diversity]
+]
+
+--
+
+.right-column[ 
+ 
+&lt;img src="images/PCR_div.png" width="1996" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+
+
+]
+
+---
+
+class: nord-dark
+
+
+
+
+
+## .center[ We can get .bold[quantitative] information from metabarcoding]
+
+
+.center[
+&lt;img src="images/Understanding1.png" alt="PCRbias" width="540" /&gt;
+]
+
+---
+
+name: template_OA
+class: nord-light, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+background-size: cover
+layout: true
+
+### .center.nord9.bold[Ocean acidification and Warming]
+
+---
+name: Shiny app
+class: nord-dark
+
+
+### .center[.nord12[Pregunta 1]: ¿Podemos detectar las fluctuaciones en presencia y abundancia de las especies de interés? ]
+
+&lt;/br&gt;
+
+
+&lt;video width="640" height="480" controls&gt;
+&lt;source src="images/Shiny.mov" type="video/mp4"&gt;
+&lt;/video&gt;
+
+
+---
+class: nord-dark
+name: using both PA and eDNAindex
+layout: true
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+---
+
+### .center[.nord12[Pregunta 2]: ¿Hay distintas comunidades asociadas con &lt;br&gt; Temperatura y pH?]
+
+---
+class: nord-light
+### .nord12[Pregunta 2]: Community changes
+
+.center.huge[Similitud entre muestras en base a su composicion]
+
+---
+class: nord-light
+layout: false
+### .nord12[Pregunta 2]: Community changes
+
+.center.huge[Similitud entre muestras en base a su composicion]
+
+&lt;table class=" lightable-paper table table-striped" style='color: black; font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; color: black; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;  &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample1 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample2 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample3 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample4 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample5 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample6 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample7 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample8 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample9 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Sample10 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample1 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample2 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0.989 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample3 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0.884 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample4 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0.69 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.969 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.977 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample5 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample6 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0.211 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.812 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.918 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.6 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample7 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0.912 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.602 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.67 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.951 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.748 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample8 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0.858 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.177 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.936 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.739 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.668 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample9 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0.44 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.716 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.943 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.511 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.239 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.817 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.733 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Sample10 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; width: 1in; background-color: yellow !important;"&gt; 0.966 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.937 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 0.967 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 1in; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.927 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.951 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.882 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0.948 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+### .nord12[Pregunta 2]: Community changes
+.center[
+&lt;img src="images/Figure2.2020-05-05_1.png" alt="PCRbias" width="560" &gt;
+]
+---
+### .nord12[Pregunta 2]: Community changes
+.center[
+&lt;img src="images/Figure2.2020-05-05_2.png" alt="PCRbias" width="600" &gt;
+]
+---
+### .nord12[Pregunta 2]: Community changes
+.center[
+&lt;img src="images/Figure2.2020-05-05_3.png" alt="PCRbias" width="600" &gt;
+]
+---
+
+class: nord-dark
+name: layout2
+layout: true
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+
+---
+
+### .nord12[Pregunta 3]: ¿Qué pinta tiene el futuro Puget Sound para las especies de interés?
+
+&lt;/br&gt;
+##.fancy[Modelos de presencia de cada taxon:]
+&lt;/br&gt;
+* .huge.bold[Usamos una regresión logística (presencia/ausencia)]
+&lt;/br&gt;
+
+* .huge.bold[Ajustado independiente en cada .nord13[área y estación]]
+&lt;/br&gt;
+* .huge.bold[y con temperatura y pH como variables explicativas]
+&lt;/br&gt;
+---
+
+name: Projections to 2095
+### .nord12.bold[Q3] - Estimando las condiciones en el Puget Sound (RCP8.5)
+
+
+.left-column[
+
+*  .bold[Usando la estimación de Khangaonkar et al, 2019]
+
+*  .bold[La predicción muestra algunos valores .nord13[ extremos] ]
+
+* .bold[La mayoría de los valores .nord13[se ven en el escenario actual]]
+
+]
+
+.right-column[
+&lt;img src="images/Future_scenario.png" alt="PCRbias"&gt;]
+
+
+
+???
+
+Taking advantage from recently published models for the inner sea
+---
+
+
+
+
+
+
+## Cada especie responde de un modo distinto
+
+&lt;img src="images/Most.varied.taxa.png" alt="PCRbias" &gt;
+
+
+---
+
+
+## Cambios de diversidad en varios grupos
+
+&lt;img src="images/Dinophyceaerastertitle.png" alt="PCRbias" width="850"&gt;
+
+
+
+
+
+---
+
+name: Intro to puffin
+class: inverse, center, middle
+layout: false
+
+# .nord4[Diet composition in the Tufted Puffin]
+
+---
+
+layout: true
+class: nord-light,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/Puffin_Eating.jpeg)
+background-size: cover
+###  .center.nord9.bold[*Diet composition in the Tufted Puffin*]
+---
+
+## .huge[.nord5[.center[.huge[*Bonus track*]]]]
+
+.center[
+.content-box-blue[
+
+.huge[.nord1[*Diet composition in the Tufted Puffin*]]  
+]
+]
+
+.left-column[
+.content-box-yellow[
+
+- Using longer reads
+- Adaptive sampling vs blocker
+- Useful when non-target &gt;&gt;&gt; target
+]
+]
+
+.right-column[
+&lt;img src="images/Puffin_Eating.jpeg" alt="puffin" width="800" &gt;
+
+.footnote[ .nord5[.bold[Credit: @USFWSAlaska ]]]
+]
+
+---
+
+--- 
+
+## .nord5[.center[*Why should we care*]]
+
+.center[
+.content-box-blue[
+
+.huge[.nord1[*Target DNA outweighted by host DNA*]]  
+]]
+
+
+.left-column[
+.content-box-yellow[
+
+- Microbiome
+- Infection
+- Taxomical proximity
+- Mitochondrial vs bacteria
+]
+
+--
+
+]
+
+.right-column[
+
+.content-box-white[&lt;img src="images/blocker_puffin.png" alt="puffin" width="800" &gt;]
+
+
+]
+
+
+---
+
+## .nord5[.center[*Standard operation*]]
+
+.pull-left[
+.content-box-yellow[
+  - Using fecal and soil samples from nests (and zoo)
+  - Short fragment targets:
+      - Vertebrates
+      - Invertebrates
+      - Crustaceans
+  - PCR with a Puffin specific blocker
+  - Sequence on Illumina
+]
+
+]
+
+--
+
+.pull-right[
+.content-box-yellow[
+
+- Pooling information from three overlapping primers
+- Effect of Puffin blocker on other similar species
+  
+]
+]
+
+---
+
+layout: false
+class: nord-light,  typo-selection
+background-image: url(images/Zoo_samples.png)
+background-size: contain
+
+
+
+
+---
+
+
+
+background-image: url(images/Field_samples.png)
+background-size: contain
+
+
+---
+
+
+layout: true
+class: nord-light,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/Puffin_Eating.jpeg)
+background-size: cover
+###  .center.nord9.bold[*Diet composition in the Tufted Puffin*]
+---
+
+### .nord5[.center[*Nanopore Approach*]]
+
+.pull-left[
+.content-box-yellow[
+  - Using fecal samples the zoo
+  - PCR 12S - 16S ~ 2000 bp
+  - Sequence on Nanopore
+  - Blocking Puffin sequences 
+  - Adaptive Sampling on a Mk1b + MinIT
+]
+&lt;img src="images/mk1c_twitter.jpg" alt="adaptive"  &gt;
+]
+
+.pull-right[
+
+&lt;img src="images/home_lab.jpeg" alt="adaptive"  &gt;
+
+]
+---
+
+### .nord5[.center[*Nanopore Approach*]]
+
+.pull-left[
+.content-box-yellow[
+  - Using fecal samples from the zoo
+  - PCR 12S - 16S ~ 2000 bp
+  - Sequence on Nanopore
+  - Blocking Puffin sequences 
+  - Adaptive Sampling on a Mk1b + MinIT
+]
+
+]
+
+
+
+.pull-right[
+
+&lt;img src="images/adaptive_sampling.jpg" alt="adaptive"  &gt;
+
+.content-box-purple[
+
+- Run for ~ 4 hours
+- Flowcell 10
+- \&gt; 150k reads
+- Run `decona` with Medaka + Racon
+]
+]
+
+---
+
+### .nord5[.center[*Preliminary results*]]
+.left-column[
+.content-box-yellow[
+
+Zoo Puffn's diet a healthy mixture of:
+- Capelin
+- squid
+- krill
+- herring
+- Silverside
+
+]
+
+]
+
+--
+
+.right-column[
+
+.content-box-purple[
+
+.huge[`decona` found 4 contigs that we could match to:]
+- 97.67% `pident` with *Mallotus villosus* (Capelin) (~2k bp)
+- 99.90% `pident` with *Menidia menidia* (Atlantic Silverside)(~ 2k bp)
+- 96% `pident` with *Fratercula arctica* (Atlantic Puffin) (~1.3k bp)
+- 96% `pident` with *Pinguinus impennis* (Great Auk, extinct) (~1.3k bp)
+]
+
+]
+---
+
+## .nord5[.center[*Preliminary results*]]
+
+.left-column[
+.content-box-yellow[
+
+Zoo Puffn's diet a healthy mixture of:
+- Capelin
+- squid
+- krill
+- herring
+- Silverside
+
+]
+
+]
+
+
+
+.right-column[
+
+.content-box-purple[
+
+.huge[`decona` found 4 contigs that we could match to:]
+- 97.67% `pident` with *Mallotus villosus* (Capelin) (~2k bp)
+- 99.90% `pident` with *Menidia menidia* (Atlantic Silverside)(~ 2k bp)
+ .content-box-red[ 
+ 
+- 96% `pident` with *Fratercula arctica* (Atlantic Puffin) (~1.3k bp)
+- 96% `pident` with *Pinguinus impennis* (Great Auk, extinct) (~1.3k bp)
+
+]]
+
+]
+
+---
+
+.content-box-purple[
+.huge[**Both *short* sequences are...**]
+
+&lt;img src="images/Puffin.png" alt="alignment"  &gt;
+
+.huge[** Forward and Reverse from the same sequence**]
+]
+---
+
+
+name: Intro to nsDNA
+class: inverse, center, middle
+layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+
+# .nord4[muestreadores naturales de eDNA]
+
+---
+name: The Deep Sea Benthos
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/deep_sea.jpg)
+background-position: top
+background-size: cover
+class: nord-light
+
+## .nord4[The Deep Sea Benthos]
+
+
+&lt;/br&gt;
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[60% of the Earth surface]]]
+
+]
+
+
+
+ .content-box-purple[
+
+ * .huge[.nord1[.bold[Great Gaps in Biodiversity knowledge]]]
+
+]
+
+
+  .content-box-purple[
+
+ * .huge[.nord1[.bold[Urgency to know to face two challenges:]]]
+
+]
+
+ 
+--
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[ Increasing human pressure ]]]]
+ 
+.content-box-purple[ * .huge[.nord1[.bold[Global Warming]]]
+
+]
+
+
+
+---
+name: Type of Benthic habitats
+background-image:  url(images/deep_sea.jpg)
+background-position: top
+background-size: cover
+class: nord-light
+
+## .nord4[The Deep Sea Benthos]
+
+--
+
+### .nord4[More than mud]
+
+---
+name: Type of Benthic habitats
+background-image:  url(images/othercosystems.png)
+background-position: top
+background-size: cover
+class: nord-light
+
+## .nord4[The Deep Sea Benthos]
+
+
+
+### .nord4[More than mud]
+
+---
+name: Sponge Grounds
+background-image:  url(images/SpGround_full.png)
+background-position: center
+background-size: contain
+class: nord-dark
+
+
+
+---
+name: Sponge Grounds
+background-image:  url(images/sponge_ground.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+
+--
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Broad distribution]]]
+
+]
+---
+name: Sponge Ground distribution
+background-image:  url(images/Slide10.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+
+---
+name: Sponge Grounds
+background-image:  url(images/sponge_ground_transparent.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+
+
+
+--
+
+.content-box-purple[
+
+ * .nord1[Broad distribution]
+ 
+ * .huge[.nord1[.bold[Enriched Habitat]]]
+
+]
+
+--
+&lt;/br&gt;
+
+.center[
+&lt;img src="images/carnivoras.png" alt="PCRbias" width="800" &gt;
+]
+
+---
+name: Sponge Grounds
+background-image:  url(images/sponge_ground.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+
+
+.content-box-purple[
+
+ * .nord1[Broad distribution]
+ 
+ * .nord1[Enriched Habitat]
+ 
+ * .huge[.nord1[.bold[Threatened]]]
+
+]
+
+---
+name: How to investigate
+background-image:  url(images/Slide11.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+## .nord4[Sponge Grounds]
+&lt;/br&gt;
+
+.content-box-yellow[
+.huge[.nord1[.bold[How to research the diversity they hold]]]
+
+]
+
+---
+name: Can we use eDNA
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+# .nord4[eDNA]
+
+--
+
+.pull-left[
+.content-box-yellow[
+* .huge[.nord1[.bold[.center[Easier way to capture DNA]]]]
+
+* .huge[.nord1[.bold[.center[Will get DNA from potentially all taxa]]]]
+]
+]
+
+--
+.pull-right[
+.content-box-purple[
+* .huge[.nord1[.bold[.center[Relatively low volumes]]]]
+
+* .huge[.nord1[.bold[.center[Here and now]]]]
+]
+]
+
+---
+name: Can we use nsDNA
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+background-position: bottom
+background-size: contain
+class: nord-dark
+
+# .nord4[eDNA]
+
+
+---
+name: Use the sponge
+
+class: nord-dark
+
+&lt;video width=1200 height=800 controls&gt;
+
+&lt;source src="images/transition1.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+
+---
+name: Can we use nsDNA
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_icon.png)
+background-position: 10%
+background-size: 300px 300px
+class: nord-dark
+
+
+.content-box-yellow[
+.center[##.nord1[.center[nsDNA ]]]]
+&lt;/br&gt;
+&lt;/br&gt;
+
+.pull-right[
+
+.content-box-purple[
+
+* .huge[.nord1[.bold[.center[DNA extraction from sponge tissue]]]]
+
+
+* .huge[.nord1[.bold[.center[Contains DNA from the sponge and everything it eats 
+]]]]
+
+
+* .huge[.nord1[.bold[.center[Represents 100s or 1000s of L of seawater 
+]]]]
+
+]
+
+]
+
+---
+name: It works on Fish
+background-image: url(images/Slide12.png)
+background-position: top
+background-size: contain
+class: nord-dark
+
+.content-box-yellow[
+.center[##.nord1[.center[nsDNA ]]]]
+
+
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+&lt;/br&gt;
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Using Fish-specific primers ]]]]
+]
+.center[
+&lt;img src="images/WroksonFish.png" alt="PCRbias" width="800" &gt;
+]
+---
+
+name: Can it work community-wide
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-position: left
+background-size: contain
+class: nord-dark
+.content-box-yellow[
+  .center[##.nord1[.center[nsDNA]]]]
+&lt;/br&gt;
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Can it work  whole communities? ]]]]
+]
+
+&lt;img src="images/metazoan.png" alt="PCRbias" width="800" &gt;
+---
+name: Our Paper
+background-size: cover
+class: nord-dark
+background-image: url(images/Slide13.png)
+
+---
+
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-position: left
+background-size: contain
+class: nord-dark
+
+
+
+&lt;/br&gt;
+&lt;/br&gt;
+
+.content-box-blue[
+&lt;div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:600px; "&gt;&lt;table class="table" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Species &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Arctic &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; NE Atlantic &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; North Atlantic Boreal &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Open NW Atlantic &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Geodia barretti &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Geodia hentscheli &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; - &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Geodia parva &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; - &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; - &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-style: italic;"&gt; Phakellia ventilabrum &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; - &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; - &lt;/td&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; - &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;
+]
+---
+background-image: url(images/mapa1.png)
+background-position: center
+background-size: contain
+class: nord-dark
+
+---
+background-image: url(images/mapa2.png)
+background-position: center
+background-size: contain
+class: nord-dark
+
+---
+background-image: url(images/mapa3.png)
+background-position: center
+background-size: contain
+class: nord-dark
+
+&lt;!-- --- --&gt;
+
+&lt;!-- class: nord-dark --&gt;
+&lt;!-- name: Research plan --&gt;
+
+&lt;!-- ##.center[.fancy[.title[Experimental design]]] --&gt;
+&lt;!-- ```{r, message = F, echo = F, out.width= '90%'} --&gt;
+
+
+
+&lt;!-- leaflet(data = read_csv(here("data","final_metadata.csv"))) %&gt;%  --&gt;
+&lt;!--   addTiles() |&gt; --&gt;
+&lt;!--   # addProviderTiles(providers$CartoDB) %&gt;% --&gt;
+&lt;!--   setView(lat = 60, lng = -3.5, zoom = 5) %&gt;%  --&gt;
+&lt;!--   addMarkers(label = ~Species,  --&gt;
+&lt;!--              labelOptions = labelOptions(interactive = FALSE, clickable = NULL, noHide = NULL, --&gt;
+&lt;!--                                          permanent = FALSE, className = "", direction = "auto", --&gt;
+&lt;!--                                          offset = c(1, 1), opacity = 1, textsize = "20px", --&gt;
+&lt;!--                                          textOnly = FALSE, style = NULL, sticky = TRUE, ), --&gt;
+&lt;!--              popup = ~as.character(Depth) --&gt;
+&lt;!--   ) --&gt;
+
+&lt;!-- ``` --&gt;
+
+---
+
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: Research plan
+##.center[.fancy[.title[Experimental design]]]
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Amplifying COI with Leray primers]]]]
+]
+
+--
+
+&lt;/br&gt;
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Sequencing 97 samples in a MiSeq]]]]
+]
+
+--
+&lt;/br&gt;
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Denoising with DADA2]]]]
+]
+
+--
+&lt;/br&gt;
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Second clustering with swarm]]]]
+]
+
+--
+&lt;/br&gt;
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[BLAST and LCA for taxonomical assignment]]]]
+]
+--
+&lt;/br&gt;
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Further curation by taxonomic experts]]]]
+]
+
+---
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: results
+
+##.center[.fancy[.title[Results]]]
+
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[14.26M raw reads from 97 samples]]]]
+]
+
+--
+&lt;/br&gt;
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[After QC, ~ 9M reads from 11,198 ASVs ]]]]
+]
+
+--
+
+&lt;/br&gt;
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Assigned taxonomy: 7.6M reads, 2155 ASVs  ]]]]
+]
+--
+.content-box-nord-light[
+&lt;img src="images/host_dna.png" alt="PCRbias" width="800" &gt;
+]
+
+
+
+---
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: results
+
+##.center[.fancy[.title[nsDNA Results ]]]
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[**Only** 1.8M reads from 590 species]]]]
+]
+
+--
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[Leray primers target Metazoa, most reads and species belong to: Chordata, Cnidaria, Echinodermata and Porifera   ]]]]
+]
+
+--
+.content-box-purple[
+&lt;div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:800px; "&gt;&lt;table class=" lightable-classic" style="color: black; font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; font-style: italic; " colspan="5"&gt;&lt;div style="border-bottom: 1px solid #111111; margin-bottom: -1px; "&gt;All together &lt;/div&gt;&lt;/th&gt;
+&lt;th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; font-style: italic; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #111111; margin-bottom: -1px; "&gt;Phakellia ventilabrum &lt;/div&gt;&lt;/th&gt;
+&lt;th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; font-style: italic; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #111111; margin-bottom: -1px; "&gt;Geodia hentscheli&lt;/div&gt;&lt;/th&gt;
+&lt;th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; font-style: italic; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #111111; margin-bottom: -1px; "&gt;Geodia barretti&lt;/div&gt;&lt;/th&gt;
+&lt;th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; font-style: italic; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #111111; margin-bottom: -1px; "&gt;Geodia parva&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; phylum &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nASVs &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nspp &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; per &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nr &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; per &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nOTUs &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nspp &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nr &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nOTUs &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nspp &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nr &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nOTUs &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nspp &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nr &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nOTUs &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nspp &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; nr &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Chordata &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 77 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 18.97 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 710238 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 68.83 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 123 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 61 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 694836 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3981 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 51 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11398 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Cnidaria &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 166 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 86 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.18 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 83751 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8.12 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 121 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 65 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 73797 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 532 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9255 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 167 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Echinodermata &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 78 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 43 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.59 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 117432 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11.38 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 61 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 116577 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 415 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 333 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 107 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Porifera &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 189 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 87 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.43 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 68805 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6.67 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 116 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 55966 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 48 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2525 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 39 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8912 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1402 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;
+]
+---
+
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: results
+
+##.center[.fancy[.title[Echinoderms ]]]
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[78 ASVs, 43 species, 117k reads]]]]
+]
+
+&lt;img src="images/echinodermata.png" alt="PCRbias" width="800" &gt;
+
+---
+
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: results
+
+##.center[.fancy[.title[Cnidarians ]]]
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[166 ASVs, 86 species, 83k reads]]]]
+]
+
+&lt;img src="images/Cnidarians.png" alt="PCRbias" width="800" &gt;
+
+---
+
+background-image:  linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 20%),rgba(46, 52, 64, 10%)), url(images/sponge_ground_transparent.png)
+background-size: cover
+class: nord-dark
+name: results
+
+##.center[.fancy[.title[Porifera (no host) ]]]
+
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[189 ASVs, 87 species, 68k reads]]]]
+]
+
+&lt;img src="images/porifera.png" alt="PCRbias" width="800" &gt;
+
+
+
+---
+
+background-image:   url(images/cordata_all.png)
+background-size: contain
+class: nord-light
+name: results
+
+##.center[.fancy[.title[Chordata ]]]
+
+---
+
+background-image:   url(images/sponge_ground.png)
+background-size: cover
+class: nord-light
+name: Conclusions
+
+##.center[.fancy[.title[.nord4[A few thoughts ]]]]
+
+--
+
+&lt;/br&gt;
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[A good way to describe diversity]]]]
+
+]
+.content-box-nord-light[
+&lt;img src="images/amimefunciona.png" alt="PCRbias" width="800" &gt;
+]
+---
+
+background-image:   url(images/sponge_ground.png)
+background-size: cover
+class: nord-light
+name: Conclusions
+
+##.center[.fancy[.title[.nord4[A few thoughts ]]]]
+
+&lt;/br&gt;
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[ _Phakelia_ much better at this]]]]
+
+]
+.center[
+.content-box-yellow[
+.huge[.nord1[.bold[.center[Depth related?]]]]
+]
+.content-box-nord-light[
+
+&lt;img src="images/sera_la_profundidad.png" alt="PCRbias" width="800" &gt;
+]
+
+]
+
+---
+
+background-image:   url(images/sponge_ground.png)
+background-size: cover
+class: nord-light
+name: Conclusions
+
+##.center[.fancy[.title[.nord4[A few thoughts ]]]]
+
+&lt;/br&gt;
+.content-box-purple[
+
+.huge[.nord1[.bold[.center[ _Phakelia_ much better at this]]]]
+
+]
+.center[
+.content-box-yellow[
+.huge[.nord1[.bold[.center[Microbiome of _Geodia_ interfering?]]]]
+]
+.content-box-nord-light[
+&lt;img src="images/sera_el_bioma.png" alt="PCRbias" width="800" &gt;
+]
+]
+
+
+
+
+---
+name: Intro to deteccion
+class: inverse, center, middle
+layout: false
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/OA_fondo.JPG)
+
+# .nord4[Detección de especies de interés]
+
+---
+
+layout: true
+class: nord-light,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+
+###  .center.nord9.bold[*Detección de especies con eDNA*]
+
+---
+name: species 
+
+.content-box-purple[
+.nord1[
+
+## Casos posibles
+
+  -   ### Detección de especies objetivo
+  
+  
+
+  ]]
+--
+.content-box-purple[
+.nord1[
+
+.huge[ - Diseñar primers que amplifiquen y distingan]
+
+
+]]
+
+--
+.content-box-purple[
+.nord1[
+
+.huge[ - Secuenciar]
+
+
+]]
+---
+name: metabarcode
+background-image:  url(images/detecting_fish1.png)
+background-size: contain
+background-position: 50% 50%
+
+---
+name: metabarcode
+background-image:  url(images/detecting_fish2.png)
+background-size: contain
+background-position: 50% 50%
+
+---
+name: metabarcode
+background-image:  url(images/detecting_fish3.png)
+background-size: contain
+background-position: 50% 50%
+
+---
+name: species 
+
+.content-box-purple[
+.nord1[
+
+## Casos posibles
+
+  -   ### Detección de especies objetivo
+  
+  
+
+  ]]
+--
+.content-box-purple[
+.nord1[
+
+.huge[ - Diseñar qPCR assay]
+
+
+]]
+
+--
+.content-box-purple[
+.nord1[
+
+.huge[ - Interpretar]
+
+
+]]
+
+---
+name: metabarcode
+background-image:  url(images/greencrab.png)
+background-size: contain
+background-position: 50% 50%
+
+---
+name: species 
+
+.content-box-purple[
+.nord1[
+
+## Ambiciones
+
+  -   ### Secuencia ahora, pregunta luego
+  
+  
+
+  ]]
+---
+name: Intro to mitoge
+
+
+
+layout:false
+class: nord-light,  middle, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+### .huge[.nord5[.center[ .bold[Building mitochondrial references ]]]]
+### .nord5[.center[ .bold[for species identification ]]]
+
+
+---
+
+layout: true
+class: nord-light,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+###  .center.nord9.bold[*Mitogenomas: go big or go home*]
+
+
+---
+### .huge[.nord5[.center[ .bold[Building mitochondrial reference databases ]]]]
+.huge[.nord5[.center[.huge[*A team effort*]]]]
+
+.pull-left[
+.content-box-yellow[
+
+- Led by *Ana Ramón-Laca*
+
+- Made possible by support from PIs *Krista Nichols* at NOAA and *Ryan Kelly* at UW
+
+- No point on having a guest room
+
+]
+
+
+]
+
+.pull-right[
+
+&lt;img src="images/home_lab.jpeg" alt="homelab" width="400" &gt;
+]
+
+
+---
+name: reasons
+
+
+### .huge[.nord5[.center[ .bold[*Motivation*]]]]
+
+.pull-left[
+
+&lt;/br&gt;
+&lt;/br&gt;
+
+.content-box-yellow[
+
+
+- Obtaining full mitogenomes affordabl-ish
+
+- PCR-free method
+
+- Without requiring to pool 100s of specimens
+
+- Obtaining whole-length fragments
+
+]
+]
+
+--
+
+.pull-right[
+
+&lt;/br&gt;
+&lt;/br&gt;
+
+.content-box-purple[
+
+* .bold[WE DON'T HAVE THE BARCODES]
+]
+]
+
+---
+name: Myctophids
+background-image: url(images/All.coveragev2.png)
+background-size: contain
+
+
+# .bold[Myctophids]
+
+---
+
+name: Approaches
+
+
+### .huge[.nord5[.center[ .bold[*Mitochondrial enrichment*]]]]
+
+.pull-left[
+.content-box-blue[
+
+
+- Mitochondrial enrichment at different levels:
+   - Tissue with higher mitochondrial content
+]
+
+
+]
+
+.pull-right[
+
+.content-box-blue[
+
+&lt;img src="images/LIVER.png" alt="homelab" width="400" &gt;
+
+]
+]
+
+---
+
+.huge[.nord5[.center[.huge[*Mitochondrial enrichment*]]]]
+
+.pull-left[
+.content-box-blue[
+
+
+- Mitochondrial enrichment at different levels:
+   - Tissue with higher mitochondrial content
+   - DNA Isolation techniques
+   
+]
+
+
+]
+
+.pull-right[
+
+.content-box-blue[
+
+&lt;img src="images/mito_isolation.png" alt="homelab" width="400" &gt;
+
+]
+]
+
+---
+
+.huge[.nord5[.center[.huge[*Mitochondrial enrichment*]]]]
+
+.pull-left[
+.content-box-blue[
+
+
+- Mitochondrial enrichment at different levels:
+   - Tissue with higher mitochondrial content
+   - DNA Isolation techniques
+   - Enrichment:
+      - Exonuclease targetting linear DNA
+      - De-phosphorilation and cutting with CRISPR-CAS9
+   
+]
+
+
+]
+
+.pull-right[
+
+.content-box-blue[
+
+&lt;img src="images/Cas9mitenrich protocol.png" alt="homelab" width="400" &gt;
+
+]
+]
+
+---
+.huge[.nord5[.center[.huge[*Mitochondrial enrichment*]]]]
+
+.pull-left[
+.content-box-blue[
+
+
+- Mitochondrial enrichment at different levels:
+   - Tissue with higher mitochondrial content
+   - DNA Isolation techniques
+- Enrichment:
+      - Exonuclease targetting linear DNA
+      - De-phosphorilation and cutting with CRISPR-CAS9
+- Sequencing enrichment:
+  - Adaptive sampling with reference mitogenomes
+   
+]
+
+
+]
+
+
+.pull-right[
+
+.content-box-blue[
+
+&lt;img src="images/adaptive_sampling.jpeg" alt="homelab" width="400" &gt;
+
+]
+]
+---
+layout: true
+class: nord-light,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+## .nord5[.center[*General Workflow*]]
+
+---
+
+
+.left-column[
+&lt;/br&gt;
+.content-box-blue[
+
+  * Run on a FlowCell 9.4
+  * Run for ~ 8 hrs
+  * Basecalling using SUP
+  * Map to reference with minimap2
+
+]]
+
+.right-column[
+&lt;img src="images/COLAB.png" alt="homelab" &gt;
+]
+
+
+
+---
+layout: true
+class: nord-light,  typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+
+---
+
+name: results1
+
+
+
+
+## .nord5[.center[*Great Enrichment and sequencing depth*]]
+
+
+&lt;img src="images/Fig_ontarget.png"&gt;
+
+
+---
+
+## .nord5[.center[*Great Coverage all across mitogenome*]]
+
+.pull-left[
+.content-box-yellow[
+
+ With *Exonuclease*, Coverage is really uniform
+]
+]
+.pull-right[
+.content-box-yellow[
+ With *CRISPR-CAS9*, coverage varies around cutting regions]
+]
+
+
+&lt;img src="images/Fig2.png" alt="homelab" &gt;
+
+---
+background-image: url(images/Depletion.png)
+background-size: contain
+
+## .nord1[.center[*Exonuclease*]]
+
+---
+background-image: url(images/nCATS.png)
+background-size: contain
+
+## .nord1[.center[*CRISPR-CAS9*]]
+
+
+
+---
+
+.content-box-yellow[
+- .huge[.nord1[*All methods heavily dependent on extraction Quality and fragment length*]]]
+
+
+.content-box-purple[
+&lt;/br&gt;
+
+.content-box-yellow[
+
+- With *CRISPR-CAS9*, coverage varies around cutting regions
+
+
+
+|     | CAS9      | gDNA depletion|
+              |-----|:---------:|:-------------:|
+              |  Min| 1,117X    |       647X	  |
+              |  Max| 14,299X   |        	875X  |
+              |  Ave| 8,971X    |  805X         |
+              |  Mean seq-length| 4000bp|5700bp |
+              |  Total Reads| 78k | 623k        |
+              |  On Target| 36k   | 2309        |
+
+
+
+
+]
+
+
+
+]]
+
+---
+background-image: url(images/mitogenomes.one.per.spp.annotated.above.and.below.png)
+background-size: contain
+
+## Five Species sequenced
+
+---
+
+.content-box-yellow[
+## .bold[Myctophids show some genetic rearrangements]
+]
+&lt;/br&gt;
+--
+
+![](images/first_traslocation_fades.gif)
+---
+
+name: Intro to aDNA
+class: inverse, center, middle
+layout: false
+background-image: url(images/moa-bones-news.jpg)
+background-size: cover
+# .nord6[aDNA ]
+## .nord5[una ventana al pasado]
+
+---
+name: aDNA_template
+class: nord-dark, typo-selection
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)), url(images/moa-bones-news.jpg)
+background-size: cover
+layout: true
+
+### .center.nord9.bold[ancientDNA]
+
+---
+
+.content-box-yellow[
+.center[##.nord1[.center[Menú del día ]]]]
+&lt;/br&gt;
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Movimientos migratorios]]]
+
+]
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Evolución / Conectividad]]]
+
+]
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Patógenos a lo largo de la historia]]]
+
+]
+
+
+
+.content-box-purple[
+
+ * .huge[.nord1[.bold[Sediment cores y paleoecologia]]]
+
+]
+
+
+---
+class: center, middle
+
+
+
+
+.huge[.nord6[  *Ultrashort and degraded DNA fragments that are preserved in subfossil material, including hard tissues, such as bones, teeth and shells, and soft tissues, such as mummified skin and hair, as well as sediments.*, Orlando et al. 2021]]
+
+---
+name: aDNA - caracteristicas
+
+
+
+.content-box-yellow[
+.center[##.nord1[Características ]]]
+
+  * .bold[.huge[Fragmentación del ADN]]
+
+  * .bold[.huge[Substitución de bases]]
+---
+background-image: url(images/aDNA_damages.png)
+background-size: contain
+
+---
+
+
+
+.content-box-yellow[
+.center[##.nord1[Características ]]]
+
+* .bold[.huge[Fragmentación del ADN]]
+
+* .bold[.huge[Substitución de bases]]
+
+
+.bold[.huge[Ambas aumentan con el tiempo y en función del medio]]
+
+--
+
+.bold[.huge[Son una barrera para la interpretación de los resultados]]
+
+--
+
+.bold[.huge[Pero ayudan a distinguir aDNA del resto de DNA en la muestra]]
+
+
+
+---
+name: Where is it
+
+
+.content-box-yellow[
+.center[##.nord1[¿Dónde encontrarlo? ]]]
+
+ - .bold[.huge[Especímenes en museos]]
+
+--
+
+ - .bold[.huge[Animales en permafrost]]
+ 
+--
+ 
+ - .bold[.huge[Yacimientos arquelógicos]]
+ 
+--
+
+ - .bold[.huge[Sediment cores]]
+ 
+--
+
+ - .bold[.huge[Placa dental, conchas]]
+
+---
+name: Evolution
+
+.content-box-yellow[
+.center[##.nord1[¿Cómo son los fragmentos? ¿Edad?]]]
+
+.huge[Empezó con fragmentos de &lt; 300 bp]
+
+De un animal en un museo desde hace 150 años
+
+--
+
+.huge[Genomas completos de hace más de 0.5M años]
+
+--
+
+.huge[Identificación de parásitos, flora microbiana, patógenos]
+
+
+---
+
+name: What to study
+
+.content-box-yellow[
+.center[##.nord1[¿Cúando usarlo?]]]
+
+- .huge[Evolutionary questions: Neandertal - Sapiens]
+
+--
+
+- .huge[Ecological questions:]
+
+      - Response to Climate Change
+
+      - Previous Genetic Diversity
+
+--
+
+- .huge[Antropology ]
+
+--
+
+
+---
+
+name: How to study
+
+.content-box-yellow[
+.center[##.nord1[¿Cómo usarlo?]]]
+
+ .huge[Extracción de aDNA: Medidas para no contaminar]
+
+--
+
+-   .bold[Presión de aire positiva]
+
+-   .bold[UV]
+
+-   .bold[Separación física del resto del proceso ]
+
+      - ACAD en Australia - un edificio independiente
+
+      - Puede bastar con habitación independiente con ventilación propia
+
+--
+
+.huge[.bold[Extracción implica destrucción del espécimen ]]
+
+---
+name: How to study
+
+.content-box-yellow[
+.center[##.nord1[¿Cómo usarlo?]]]
+
+- .huge[Secuenciación aDNA]
+
+--
+-   .bold[Remediacion de las C -&gt; U] - método .bold[USER] 
+
+--
+-   .bold[Ligación de adaptadores y sequenciación] - muy caro
+
+--
+-   .bold[Captura de sequencias con miles de sondas] - varios métodos, específicas 
+
+   - .bold[hyRad, myBATES]
+
+--
+-   .bold[Amplificación de fragmentos cortos] - recuperación de comunidades
+
+???
+
+ Método USER es opcional, y sólo funciona si no hay metilación: se puede estiamr la metilación premortem
+
+Secuenciar sin selección es muy pooco efectivo, porque hay más ADN moderno que no antigua
+
+Sondas: seleccionar es sesgar. Se puede comprar sondas comerciales para especies modelo, o generarlas con secuencias obtenidas en especies presentes y cercanas 
+
+Tomás Marques Bonet - 
+Carles Lalezuela
+
+---
+name: secuenciacion slide
+---
+background-image: linear-gradient(150deg, rgba(0, 0, 0, 100%), rgba(0, 0, 0, 50%), rgba(0, 0, 0, 20%)),url(images/OA_fondo.JPG)
+background-size: cover
+class: middle, nord-dark
+layout: false
+
+# .huge[**Thanks!**]
+
+
+
+
+.footnote[Slides available at .nord8.bold[https://ramongallego.github.io/Teaching_eDNA_for_Biodiversity/GTABE_2024.html]
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).]
+
+---
+name: Jobs to do
+
+class: nord-dark, center
+
+
+background-image: linear-gradient(150deg,rgba(46, 52, 64, 10%),rgba(46, 52, 64, 90%),rgba(46, 52, 64, 50%),rgba(46, 52, 64, 10%)), url(images/eDNA_concept.png)
+
+background-size: cover
+
+.content-box-yellow[
+.center[##.nord1[.center[Jobs to do]]]]
+&lt;/br&gt;
+
+.pull-left[
+.content-box-green[
+
+ #### .huge[.nord1[.bold[Field Biologist]]]
+
+]]
+
+.pull-right[
+
+.content-box-green[
+
+* #### .nord1[.bold[ Detail planning ]]
+
+* #### .nord1[.bold[ Experimental design ]]
+
+* #### .nord1[.bold[ Contamination awareness ]]
+]
+]
+&lt;/br&gt;
+
+--
+
+.pull-left[
+.content-box-green[
+
+ #### .huge[.nord1[.bold[Wet-lab Biologist]]]
+
+]]
+
+.pull-right[
+
+.content-box-green[
+
+* #### .nord1[.bold[ Technology understanding ]]
+
+* #### .nord1[.bold[ Automation ]]
+
+* #### .nord1[.bold[ Contamination awareness ]]
+]
+]
+
+--
+
+.pull-left[
+.content-box-green[
+
+ #### .huge[.nord1[.bold[Bioinformatics]]]
+
+]]
+
+.pull-right[
+
+.content-box-green[
+
+* #### .nord1[.bold[ Entender el proceso ]]
+
+* #### .nord1[.bold[ Reproducibilidad ]]
+
+* #### .nord1[.bold[ Contamination awareness ]]
+]
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
