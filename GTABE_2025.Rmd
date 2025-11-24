@@ -3408,9 +3408,14 @@ layout: false
 
 
 
-.footnote[Slides available at .nord8.bold[https://ramongallego.github.io/Teaching_eDNA_for_Biodiversity/GTABE_2024.html]
+.footnote[Slides available at 
+```{r, echo = F, out.width='50%'}
+knitr::include_graphics("images/Qr2025.png")
+```
 
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).]
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+]
 
 ---
 name: Jobs to do
