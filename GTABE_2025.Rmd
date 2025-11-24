@@ -1403,12 +1403,7 @@ background-size: contain
 background-position: 50% 50%
 
 
----
-class: nord-dark
-name: Process2
-background-image:  url(images/Ana.jpg)
-background-size: contain
-background-position: 50% 50%
+
 
 
 
@@ -1416,7 +1411,7 @@ background-position: 50% 50%
 
 class: nord-dark
 name: Filter 2
-background-image:  url(images/Filtering_in_the_car.jpg)
+background-image:  url(images/Mon_filtrando.jpg)
 background-size: contain
 background-position: 50% 50%
 
