@@ -32,7 +32,7 @@ background-size: cover
 
 ```{css, echo=F}
 .small { font-size: 70% }
-.huge  { font-size: 150% }
+.huge  { font-size: 120% }
 ```
 
 
