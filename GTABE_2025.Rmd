@@ -36,7 +36,7 @@ background-size: cover
 ```
 
 
-
+.pull-left[
 .footnote[.huge[
 
 </br>
@@ -44,6 +44,14 @@ background-size: cover
 </br>
 **Ramón Gallego Simón**
 ]]
+]
+.pull-right[
+.footnote[
+```{r, echo = F, out.width='50%'}
+knitr::include_graphics("images/Qr2025.png")
+```
+]
+]
 
 ```{r setup, include=FALSE, message=F, echo=FALSE}
 options(htmltools.dir.version = FALSE)
