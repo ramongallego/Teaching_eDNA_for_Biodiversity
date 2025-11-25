@@ -2568,7 +2568,9 @@ name: results
 --
 .content-box-purple[
 
-.huge[.nord1[.bold[.center[Leray primers target Metazoa, most reads and species belong to: Chordata, Cnidaria, Echinodermata and Porifera   ]]]]
+.huge[.nord1[.bold[.center[Leray primers target Metazoa, most reads and species belong to:
+
+Chordata, Cnidaria, Echinodermata and Porifera   ]]]]
 ]
 
 --
@@ -3408,15 +3410,22 @@ layout: false
 
 
 
-.footnote[Slides available at 
-```{r, echo = F, out.width='50%'}
+.footnote[
+
+Slides available at .nord8.bold[https://ramongallego.github.io/Teaching_eDNA_for_Biodiversity/GTABE_2025.html]
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+
+
+
+```{r, echo = F, out.width='20%'}
 knitr::include_graphics("images/Qr2025.png")
 ```
 
 
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
-]
 
+]
 ---
 name: Jobs to do
 
